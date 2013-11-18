@@ -5,10 +5,13 @@
 \documentclass[14pt]{beamer}
 
 \usepackage[utf8]{inputenc}
+\usepackage{listings}
 
 \usetheme{Copenhagen}
 \useoutertheme{infolines}
 \setbeamercovered{dynamic}
+
+\lstset{basicstyle=\ttfamily,language=python}
 
 \title{Cuarenta características de Python\\ que quizás no conoces}
 \author{Víctor Terrón}
@@ -89,6 +92,133 @@
     \centering
     \includegraphics[height=6cm]{pics/a-clockwork-orange.jpg}
   \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{1. Intercambiar dos variables}
+
+  \begin{center}
+    Normalmente, en otros lenguajes de programación, tenemos que usar
+    una \structure{variable temporal} para almacenar uno de los dos
+    valores.
+  \end{center}
+
+  \small
+  \begin{exampleblock}{Por ejemplo, en C}
+    \begin{lstlisting}[language=C]
+int x, y;
+int tmp;
+tmp = x;
+x = y;
+y = x;
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{1. Intercambiar dos variables}
+  \begin{block}{Python nos permite hacer}
+    \centering \LARGE a, b = b, a
+  \end{block}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> a = 5
+>>> b = 7
+>>> a, b = b, a
+>>> a
+7
+>>> b
+5
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{1. Intercambiar dos variables}
+  \begin{alertblock}{}
+    \centering Desde nuestro punto de vista, ambas asignaciones
+    ocurren simultáneamente. La clave está en que tanto \\
+    \structure{a, b} como \structure{b, a} son \structure{tuplas}.
+  \end{alertblock}
+
+  Las expresiones en Python se evalúan de izquierda a derecha. En una
+  asignación, el lado derecho se evalúa antes que el derecho. Por tanto:
+
+  \begin{itemize}
+    \item El lado derecho de la asignación es evaluado, creando una
+      \structure{tupla de dos elementos} en memoria, cuyos elementos
+      son los objetos designados por los identificadores \structure{b}
+      y \structure{a}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{1. Intercambiar dos variables}
+  \begin{itemize}
+    \item El lado izquierdo es evaluado: Python ve que estamos
+      asignando una tupla de dos elementos a otra tupla de dos
+      elementos, así que \emph{desempaqueta} (\structure{tuple
+        unpack}) la tupla y los asigna uno a uno:
+      \begin{itemize}
+        \item Al primer elemento de la tupla de la izquierda,
+          \structure{a}, le asigna el primer elemento de la tupla que
+          se ha creado en memoria a la derecha, el objeto que antes
+          tenía el identificador \structure{b}. Así, el nuevo
+          \structure{a} es el antiguo \structure{b}.
+        \item Del mismo modo, el nuevo \structure{b} pasa a ser el
+          antiguo \structure{a}.
+      \end{itemize}
+  \end{itemize}
+
+  \small
+  \begin{block}{Explicación detallada en Stack Overflow:}
+    \centering \url{http://stackoverflow.com/a/14836456/184363}
+  \end{block}
+\end{frame}
+
+\begin{frame}{1. Intercambiar dos variables}
+  \begin{center}
+    ¿Cómo se declara una tupla de \structure{un único elemento}?
+  \end{center}
+
+  \begin{block}{}
+    \centering \huge 1,
+  \end{block}
+
+  o, para más claridad,
+
+  \begin{block}{}
+    \centering \huge (1,)
+  \end{block}
+
+  \begin{alertblock}{}
+    \centering Es la \structure{coma}, no el paréntesis, el
+    constructor de la tupla
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{1. Intercambiar dos variables}
+
+  \small
+  \begin{block}{}
+    \centering Los paréntesis por sí mismos no crean una tupla: Python
+    \structure{evalúa la expresión} dentro de los mismos y devuelve el
+    valor resultante:
+  \end{block}
+
+  \small
+  \begin{exampleblock}{Esto sólo suma dos números}
+    \begin{lstlisting}
+>>> 2 + (1)
+3
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}{Esto intenta sumar entero y tupla (y fracasa)} \scriptsize
+    \begin{lstlisting}
+>>> 2 + (1,)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unsupported operand type(s) for +: 'int' and 'tuple'
+    \end{lstlisting}
+  \end{exampleblock}
 \end{frame}
 
 \end{document}
