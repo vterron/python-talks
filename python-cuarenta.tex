@@ -246,5 +246,142 @@ TypeError: unsupported operand type(s) for +: 'int' and 'tuple'
   \end{center}
 \end{frame}
 
+\begin{frame}[fragile]{3. 0.1 + 0.2 != 0.3}
+  \begin{alertblock}{}
+    \centering \Large ¿Por qué 0.1 + 0.2 == 0.3 es \structure{False}?
+  \end{alertblock}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> 0.1 + 0.2 == 0.3
+False
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{center}
+    Porque los números flotantes se representan internamente, en
+    cualquier ordenador, como \structure{fracciones binarias}. Por
+    ejemplo, 1.25 es equivalente a 1/2 + 3/4.
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{3. 0.1 + 0.2 != 0.3}
+  \footnotesize
+  \begin{center}
+    La mayor parte de las fracciones decimales no puede ser
+    representada exactamente con una fracción binaria. Lo máximo que
+    los números flotantes pueden hacer es \structure{aproximar su
+    valor real} --- con bastantes decimales, pero nunca el exacto.
+  \end{center}
+
+  \begin{exampleblock}{}
+    \small
+    \begin{lstlisting}
+>>> print "%.30f" % 0.1
+0.100000000000000005551115123126
+>>> print "%.30f" % 0.2
+0.200000000000000011102230246252
+>>> print "%.30f" % 0.3
+0.299999999999999988897769753748
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \footnotesize
+  \begin{center}
+    Lo mismo ocurre en base decimal con, por ejemplo, el número
+    1/3. Por más decimales con que se represente, 0.333333... no deja
+    de ser una aproximación.
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{3. 0.1 + 0.2 != 0.3}
+  \small
+  \begin{center}
+    Normalmente no somos conscientes de esto porque Python por defecto
+    nos muestra una aproximación del valor real de los números
+    flotantes, redondeándolos a una \structure{representación
+    práctica} para nosotros.
+  \end{center}
+
+  \begin{exampleblock}{}
+    \small
+    \begin{lstlisting}
+>>> print 0.1
+0.1
+>>> print 0.2
+0.2
+>>> print 0.3
+0.3
+>>> 0.1 + 0.2
+0.30000000000000004
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \small
+  \begin{block}{Floating Point Arithmetic: Issues and Limitations}
+    \centering \url{http://docs.python.org/2/tutorial/floatingpoint.html}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{3. 0.1 + 0.2 != 0.3}
+  \begin{alertblock}{}
+    \centering \small Nunca deberíamos comparar números flotantes
+    directamente
+  \end{alertblock}
+
+  \small
+  \begin{center}
+    Una opción, simple, es comprobar si ambos valores son lo
+    "\emph{suficientemente iguales}" usando un valor máximo de error
+    absoluto admisible, normalmente llamado \structure{epsilon}.
+   \end{center}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> epsilon = 1e-10
+>>> abs((0.1 + 0.2) - 0.3) < epsilon
+True
+>>> abs((0.1 + 0.2) - 0.3)
+5.5511151231257827e-17
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{3. 0.1 + 0.2 != 0.3}
+  \large
+  \begin{center}
+    En caso de no conocer el rango de los números con los que vamos a
+    trabajar, tenemos que compararlos en términos de \structure{error
+    relativo} \\ ("\emph{son iguales al 99.999\%}).
+  \end{center}
+
+  \small
+  \begin{block}{Comparing Floating Point Numbers, 2012 Edition}
+    \centering \url{http://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{3. 0.1 + 0.2 != 0.3}
+  \begin{block}{}
+    \centering En Python tenemos el módulo \structure{decimal}
+  \end{block}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> import decimal
+>>> x = decimal.Decimal("0.1")
+>>> y = decimal.Decimal("0.2")
+>>> z = decimal.Decimal("0.3")
+>>> x + y == z
+True
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \small
+  \begin{block}{decimal --- Decimal fixed point and floating point arithmetic}
+    \centering \url{http://docs.python.org/2/library/decimal.html}
+  \end{block}
+\end{frame}
+
 \end{document}
 
