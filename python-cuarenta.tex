@@ -1190,4 +1190,34 @@ False
   \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{15. pow(x, y, z)}
+  \small
+  \begin{block}{}
+    \centering
+    La función \structure{pow()} acepta, opcionalmente, un tercer
+    argumento, \structure{z}. En caso de especificarse, la función
+    devuelve \structure{pow(x, y) \% z}.  No es sólo práctico en
+    algunos escenarios, sino que su implementación es más rápida que
+    calcularlo nosotros en dos pasos.
+  \end{block}
+
+  \footnotesize
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> pow(2, 3)
+8
+>>> pow(2, 3, 6)
+2
+>>> pow(2, 5, 17)
+15
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \small
+  \begin{block}
+    {\centering Built-in Functions: pow()}
+    \centering \url{http://docs.python.org/2/library/functions.html\#pow}
+  \end{block}
+\end{frame}
+
 \end{document}
