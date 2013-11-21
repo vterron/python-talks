@@ -1050,4 +1050,144 @@ False
   \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{14. \large Repeticiones innecesarias en 'if' compuestos}
+  \small
+  \begin{block}{}
+    \centering
+    A veces podemos \structure{simplificar} algunas expresiones
+    lógicas. Por ejemplo, si tenemos una serie de valores y queremos
+    comprobar si nuestra variable es \structure{igual a alguno de
+    ellos}:
+  \end{block}
+
+  \footnotesize
+  \begin{exampleblock}
+    {No escribas esto:}
+    \begin{lstlisting}
+>> x = 4
+>> x == 3 or x == 5 or x == 7:
+False
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {Mejor hacerlo así:}
+    \begin{lstlisting}
+>> x in (3, 5, 7)
+False
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{14. \large Repeticiones innecesarias en 'if' compuestos}
+  \begin{block}{}
+    \centering
+    \structure{any()} devuelve \structure{True} si al menos un
+    elemento del iterable que recibe evalúa a verdadero. También
+    devuelve \structure{False} si el iterable está vacío.
+  \end{block}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> any([False, True, False])
+True
+>>> any([False, False])
+False
+>>> any([])
+False
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{14. \large Repeticiones innecesarias en 'if' compuestos}
+  \footnotesize
+  \begin{exampleblock}
+    {¿Hay algún número par?}
+    \begin{lstlisting}
+>>> numeros = [3, 7, 8, 9]
+>>> any([not x % 2 for x in numeros])
+True
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \normalsize
+  \begin{alertblock}{}
+    \centering
+    Aún mejor: podemos usar un \structure{generador}
+  \end{alertblock}
+
+  \footnotesize
+  \begin{exampleblock}{}
+    \begin{lstlisting}[escapechar=!]
+>>> numeros = [3, 7, 9, 11]
+>>> any!\color{red}{(}!not x % 2 for x in numeros!\color{red}{)}!
+False
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \small
+  \begin{block}
+    {\centering Built-in Functions: any()}
+    \centering \url{http://docs.python.org/2/library/functions.html\#any}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{14. \large Repeticiones innecesarias en 'if' compuestos}
+  \begin{block}{}
+    \centering
+    \structure{all()} devueve True si \structure{todos} los elementos
+    del iterable evalúan a verdadero, o si éste está vacío.
+  \end{block}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> all([False, True, False])
+False
+>>> all([True])
+True
+>>> all([])
+True
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{14. \large Repeticiones innecesarias en 'if' compuestos}
+  \begin{exampleblock}
+    {¿Son pares todos los números?}
+    \begin{lstlisting}
+>>> numeros = [1, 4, 6, 8]
+>>> all(not x % 2 for x in numeros)
+False
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{14. \large Repeticiones innecesarias en 'if' compuestos}
+  \begin{alertblock}{}
+    \centering
+    Infinitamente mejor que la alternativa de, quizás:
+  \end{alertblock}
+
+  \footnotesize
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> numeros = [1, 4, 6, 8]
+>>> son_pares = True
+>>> for x in numeros:
+...     if x % 2:
+...         son_pares = False
+...         break
+...
+>>> son_pares
+False
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \small
+  \begin{block}
+    {\centering Built-in Functions: all()}
+    \centering \url{http://docs.python.org/2/library/functions.html\#all}
+  \end{block}
+\end{frame}
+
 \end{document}
