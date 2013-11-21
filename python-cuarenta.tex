@@ -994,5 +994,60 @@ acordarme
   \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{13. \large Comprensión de conjuntos y diccionarios}
+  \begin{block}{}
+  \centering
+    En Python 2.7.x+ y 3.x+ podemos crear no sólo listas, sino también
+    \structure{conjuntos} y \structure{diccionarios} por comprensión.
+  \end{block}
+
+  \scriptsize
+  \begin{exampleblock}
+    {Un conjunto con los múltiplos de siete <= 100:}
+    \begin{lstlisting}
+>>> {x for x in range(1, 101) if not x % 7}
+set([98, 35, 70, 7, 42, 77, 14, 49, 84, 21, 56, 91, 28, 63])
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {Otra forma de hacerlo:}
+    \begin{lstlisting}
+>>> mult7 = set(x for x in range(1, 101) if not x % 7)
+>>> len(mult7)
+14
+>>> 25 in mult7
+False
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{13. \large Comprensión de conjuntos y diccionarios}
+  \scriptsize
+  \begin{exampleblock}
+    {Un diccionario con el cubo de los números [0, 9]:}
+    \begin{lstlisting}
+>>> cubos = {x : x ** 3 for x in range(10)}
+>>> cubos[2]
+8
+>>> cubos[8]
+512
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {Otra forma de hacerlo:}
+    \begin{lstlisting}
+>>> dict((x, x ** 3) for x in range(5))
+{0: 0, 1: 1, 2: 8, 3: 27, 4: 64}
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \small
+  \begin{block}
+    {\centering PEP 274: Dict Comprehensions [2001]}
+    \centering \url{http://www.python.org/dev/peps/pep-0274/}
+  \end{block}
+\end{frame}
 
 \end{document}
