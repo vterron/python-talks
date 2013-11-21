@@ -1798,4 +1798,91 @@ int nsecs = (counter > 5) ? 5 : 0;
   \end{exampleblock}
 \end{frame}
 
+\begin{frame}[fragile]{22. Funciones lambda, y qué opina GvR}
+  \small
+  \begin{center}
+    Antes hemos usado \structure{funciones lambda} (o anónimas) para
+    definir sobre la marcha funciones sencillas que sólo necesitábamos
+    una vez. Recordemos:
+  \end{center}
+
+  \footnotesize
+  \begin{exampleblock}
+    {Ordenar por la parte compeja:}
+    \begin{lstlisting}
+>>> nums = [7+9j, 4-5j, 3+2j]
+>>> sorted(nums, key=lambda x: x.imag)
+[(4-5j), (3+2j), (7+9j)]
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \small
+  \begin{block}{}
+    \centering
+    Las funciones lambda son muy útiles y cómodas en algunas
+    ocasiones.  Provienen del mundo de la \structure{programación
+    funcional}, al igual que las funciones de orden superior
+    \structure{map()}, \structure{filter()} y \structure{reduce()}.
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{22. Funciones lambda, y qué opina GvR}
+  \begin{alertblock}{}
+    \large
+    \centering
+    Pero a Guido van Rossum no le gustan.
+  \end{alertblock}
+
+  \small
+  \begin{center}
+    Nunca le convencieron y, de hecho, estuvieron a punto de desaparecer en Py3K.
+  \end{center}
+
+  \footnotesize
+  \begin{center}
+    El nombre de lambda puede dar lugar a confusión, ya que su
+    semántica \structure{no es la misma} que en otros lenguajes. La
+    idea de \structure{lambda} era sólo la de servir de herramienta
+    sintática para definir funciones anónimas. El problema es que
+    nadie ha sido capaz todavía de encontrar una forma mejor forma
+    esto, por lo que \structure{lambda} sigue entre nosotros.
+   \end{center}
+
+  \begin{block}
+    {\centering Origins of Python's "Functional" Features:}
+    \centering \url{http://python-history.blogspot.com.es/2009/04/origins-of-pythons-functional-features.html}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{22. Funciones lambda, y qué opina GvR}
+  \small
+  \begin{block}{}
+    \centering
+    Así que \structure{lambda} sigue existiendo, pero lo Pythónico es
+    usar el módulo \structure{operator}.  Más legible, más claro, más
+    explícito.
+  \end{block}
+
+  \footnotesize
+  \begin{exampleblock}
+    {Ordenando de nuevo por la parte compeja...}
+    \begin{lstlisting}
+>>> import operator
+>>> nums = [7+9j, 4-5j, 3+2j]
+>>> sorted(nums, key=operator.attrgetter('imag'))
+[(4-5j), (3+2j), (7+9j)]
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {... y por el segundo elemento de la tupla:}
+    \begin{lstlisting}
+>>> import operator
+>>> puntos = [(2, 3), (5, 1), (3, 4), (8, 2)]
+>>> sorted(puntos, key=operator.itemgetter(1))
+[(5, 1), (8, 2), (2, 3), (3, 4)]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
 \end{document}
