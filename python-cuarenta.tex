@@ -893,4 +893,106 @@ acordarme
   \end{exampleblock}
 \end{frame}
 
+\begin{frame}[fragile]{12. Listas por comprensión vs generadores}
+  \begin{block}{}
+    \small
+    \centering
+    Las listas por comprensión nos permiten construir, \structure{en
+    un único paso}, una lista donde cada elemento es el resultado de
+    aplicar \structure{algunas operaciones} a todos (o algunos de) los
+    miembros de otra secuencia o iterable.
+  \end{block}
+
+  \footnotesize
+  \begin{exampleblock}
+    {Por ejemplo, para calcular el cuadrado de los números [0, 9]:}
+    \begin{lstlisting}
+>>> g = [x ** 2 for x in range(10)]
+[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {Esto es equivalente a:}
+    \begin{lstlisting}
+>>> resultado = []
+>>> for x in range(10):
+...     resultado.append(x ** 2)
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{12. Listas por comprensión vs generadores}
+
+  \begin{alertblock}{}
+    \centering
+    El problema, a veces, es que las listas por comprensión
+    construyen... pues eso, una lista, almacenando \structure{todos
+    los valores en memoria} a la vez.
+  \end{alertblock}
+
+  \footnotesize
+  \begin{exampleblock}
+    {No intentéis esto en casa}
+    \begin{lstlisting}
+>>> [x ** 2 for x in xrange(1000000000000000)]
+# Tu ordenador explota
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{12. Listas por comprensión vs generadores}
+  \small
+  \begin{block}{}
+    \centering
+    Si sólo necesitamos los valores una vez, y de uno en uno, podemos
+    utilizar una \structure{expresión generadora}: son idénticos a las
+    listas por comprensión, pero usando \structure{paréntesis}.
+  \end{block}
+
+  \footnotesize
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> cuadrados = (x ** 2 for x in range(1, 11))
+>>> cuadrados
+<generator object <genexpr> at 0x7f8b82504eb0>
+>>> next(cuadrados)
+1
+>>> next(cuadrados)
+4
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \small
+  \begin{block}
+    {\centering PEP 289: Generator Expressions}
+    \centering \url{http://www.python.org/dev/peps/pep-0289/}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{12. Listas por comprensión vs generadores}
+  \footnotesize
+  \begin{exampleblock}
+    {Equivalente a:}
+    \begin{lstlisting}
+>>> def cuadrados(seq):
+...     for x in seq:
+...         yield x ** 2
+...
+>>> g = cuadrados(range(1, 11))
+>>> next(g)
+1
+>>> next(g)
+4
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \small
+  \begin{block}
+    {\centering Generator Tricks for Systems Programmers (David M. Beazley)}
+    \centering \url{http://www.dabeaz.com/generators/}
+  \end{block}
+\end{frame}
+
+
 \end{document}
