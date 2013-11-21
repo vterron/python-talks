@@ -33,6 +33,7 @@
            {ó}{{\'o}}1
            {ú}{{\'u}}1
            {ñ}{{\~n}}1
+           {¡}{{\textexclamdown}}1
 }
 
 \title{Cuarenta características de Python\\ que quizás no conoces}
@@ -1732,5 +1733,62 @@ int nsecs = (counter > 5) ? 5 : 0;
   \end{figure}
 \end{frame}
 
+\begin{frame}[fragile]{21. La variable \_}
+  \begin{alertblock}{}
+    \small
+    \centering
+    En el modo interactivo (Python shell), la variable \structure{\_}
+    siempre contiene el valor del \structure{último} \emph{statement}
+    ejecutado. Es muy útil si necesitamos \structure{reusar} el último
+    valor que hemos calculado y olvidamos almacenarlo en una variable:
+  \end{alertblock}
+
+  \footnotesize
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> 3 * 4
+12
+>>> _ + 1
+13
+>>> _ ** 2
+169
+>>> range(10)
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> _[-1]
+9
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{21. La variable \_}
+  \begin{block}{}
+    \small
+    \centering
+    En modo no-interactivo (un script en Python cualquiera),
+    \structure{\_} es un nombre más de variable. Por convención, suele
+    usarse como nombre de variable para indicar que es
+    \structure{desechable} (\emph{throwaway variable}), cuando
+    necesitamos una pero \structure{no llegamos a usarla}.
+  \end{block}
+
+  \footnotesize
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> for _ in range(10):
+...     print "¡Hola, mundo!"
+    \end{lstlisting}
+  \end{exampleblock}
+
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> import os.path
+>>> path = "curriculum.tex"
+>>> _, ext = os.path.splitext(path)
+>>> ext
+'.tex'
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
 
 \end{document}
