@@ -8,6 +8,11 @@
 \usepackage{listings}
 \usepackage[T1]{fontenc}
 
+% Reduce space between image and caption; also remove prefix 'Figure:'
+% http://tex.stackexchange.com/a/94018
+% http://tex.stackexchange.com/a/82462
+\usepackage[font=small,skip=1pt,labelformat=empty]{caption}
+
 \usetheme{Copenhagen}
 \useoutertheme{infolines}
 \setbeamercovered{dynamic}
@@ -493,6 +498,53 @@ Ernqnovyvgl pbhagf.
   \begin{block}{\centering this and The Zen of Python}
     \centering
     \url{http://www.wefearchange.org/2010/06/import-this-and-zen-of-python.html}
+  \end{block}
+\end{frame}
+
+\begin{frame}{6. El módulo antigravedad}
+  \Large
+  \begin{block}{}
+    \centering import antigravity
+  \end{block}{}
+
+  \begin{figure}
+    \centering
+    \includegraphics[height=4cm]{pics/xkcd-353.png}
+    \caption{\url{http://xkcd.com/353/}}
+  \end{figure}
+
+  \vspace{-0.75cm}
+
+  \small
+  \begin{alertblock}{}
+    \centering
+    Añadido en Python 3, pero también está disponible en Python 2.7
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{6. El módulo antigravedad}
+  \begin{exampleblock}{\small antigravity.py}
+    \small
+    \begin{lstlisting}
+>>> print inspect.getsource(antigravity)
+import webbrowser
+webbrowser.open("http://xkcd.com/353/")
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{center}
+     \small
+     En Py3K el módulo \structure{antigravity} incluye la función
+     \structure{geohash()}, referencia a otra viñeta de XKCD en la que
+     se describe un algoritmo que genera coodenadas en base a la fecha
+     y tu posición actual: \url{http://xkcd.com/426/}
+  \end{center}
+
+  \small
+  \begin{block}{\centering The History of Python - import antigravity}
+    \centering
+    \scriptsize
+    \url{http://python-history.blogspot.com.es/2010/06/import-antigravity.html}
   \end{block}
 \end{frame}
 
