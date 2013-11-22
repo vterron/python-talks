@@ -2919,4 +2919,62 @@ SyntaxError: keyword can't be an expression
   \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{31. dict.\_\_missing\_\_()}
+  \small
+  \begin{block}{}
+    \centering
+    En las \structure{subclases} de dict que definen
+    \structure{\_\_missing\_\_()}, el acceso a claves que no estén
+    presentes en el diccionario devuelve lo que este método devuelva.
+  \end{block}
+
+  \scriptsize
+  \begin{exampleblock}{}
+    % Escape triple quotes; otherwise string is italicized
+    \begin{lstlisting}[escapechar=!]
+class MyDict(dict):
+    !"""! Diccionario que devuelve -1 si la clave no existe !"""!
+
+    def __missing__(self, key):
+        print "'{0}' no encontrado".format(key)
+        return -1
+
+>>> d = MyDict()
+>>> d[1] = 3
+>>> d[1]
+3
+>>> d[5]
+'5' no encontrado
+-1
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{31. dict.\_\_missing\_\_()}
+  \small
+  \begin{alertblock}{}
+    \centering
+    \_\_missing\_\_() \structure{no puede ser una variable} -- ha de ser un
+    método, que recibirá como argumento la clave que no se ha
+    encontrado.
+  \end{alertblock}
+
+  \scriptsize
+  \begin{exampleblock}
+    {\footnotesize Algo que no va a funcionar:}
+    \begin{lstlisting}[escapechar=!]
+class MyDict(dict):
+    !"""! Diccionario que devuelve -1 si la clave no existe !"""!
+
+    __missing__ = -1
+
+>>> d = MyDict()
+>>> d[7]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'int' object is not callable
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
 \end{document}
