@@ -2376,7 +2376,7 @@ def comprueba_que_esta(x, secuencia):
     {\footnotesize
       Descarga presentación, descomprime, actualiza log}
     \tiny
-    \begin{lstlisting}
+    \begin{lstlisting}[escapechar=!]
 import os
 import urllib
 import zipfile
@@ -2387,13 +2387,13 @@ path = "charla-pycon.zip"
 try:
     urllib.urlretrieve(url, path)
     myzip = zipfile.ZipFile(path)
-    myzip.extractall()  # puede lanzar IOError
+    myzip.extractall()  # puede lanzar !\color{red}{IOError}!
 
-    # Tambien puede lanzar IOError
+    # Tambien puede lanzar !\color{red}{IOError}!
     with open("descargas-log", "at") as fd:
         fd.write("{0}\n".format(path))
 
-except IOError:
+except !\color{red}{IOError}!:
     print "He capturado IOError!"
 
 finally:
@@ -2450,14 +2450,14 @@ finally:
 
   \begin{exampleblock}{}
     \footnotesize
-    \begin{lstlisting}
+    \begin{lstlisting}[escapechar=!]
 try:
     urllib.urlretrieve(url, path)
     myzip = zipfile.ZipFile(path)
     myzip.extractall()
 except IOError:
     print "Error descomprimiendo fichero ZIP"
-else:
+!\color{red}{else:}!
     with open("descargas-log", "at") as fd:
         fd.write("{0}\n".format(path))
 finally:
