@@ -2702,4 +2702,136 @@ True
   \end{block}
 \end{frame}
 
+\begin{frame}
+  {29. \normalsize Implementando \_\_hash\_\_() en nuestras clases}
+  \small
+  \begin{block}{}
+    \centering
+    El método \structure{\_\_hash\_\_()} devuelve un entero que
+    representa el valor hash del objeto. Es lo que se usa en los
+    diccionarios, por ejemplo, para relacionar cada clave con su valor
+    asociado. El único requisito es que los objetos que se consideren
+    \structure{iguales} (==) han de devolver también el
+    \structure{mismo valor hash}.
+  \end{block}
+
+  \begin{alertblock}{}
+    \centering
+    En caso de que no definamos \structure{\_\_hash\_\_()}, nuestras
+    clases devuelven \structure{id()} -- un valor único para cada
+    objeto, ya que es su dirección en memoria.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  {29. \normalsize Implementando \_\_hash\_\_() en nuestras clases}
+  \tiny
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+class Punto(object):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+p1 = Punto(1, 7)
+p2 = Punto(2, 3)
+p3 = Punto(2, 3)
+
+print "id(p1)  : ", id(p1)
+print "hash(p1): ", hash(p1)
+print "hash(p2): ", hash(p2)
+print "hash(p3): ", hash(p3)
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {\scriptsize
+      Esto muestra por pantalla, por ejemplo:}
+    \begin{lstlisting}[escapechar=!]
+id(p1)  :  140730517360144
+hash(p1):  140730517360144
+hash(p2):  140730516993!\color{red}{872}!
+hash(p3):  140730516993!\color{red}{936}!
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  {29. \normalsize Implementando \_\_hash\_\_() en nuestras clases}
+  \footnotesize
+  \begin{block}{}
+    \centering
+    Una forma de calcular el hash de nuestra clase, en los casos que
+    no son demasiado complejos, es devolver el \structure{hash de una
+      tupla que agrupa los atributos de nuestra clase}. Rápido y
+    sencillo:
+  \end{block}
+
+  \scriptsize
+  \begin{exampleblock} {}
+    \begin{lstlisting}
+class Punto(object):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __hash__(self):
+        return hash((self.x, self.y))
+
+p1 = Punto(3, 9)
+p2 = Punto(3, 9)
+
+print "id(p1)  : ", id(p1)
+print "id(p2)  : ", id(p2)
+print "hash(p1): ", hash(p1)
+print "hash(p2): ", hash(p2)
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  {29. \normalsize Implementando \_\_hash\_\_() en nuestras clases}
+  \small
+  \begin{exampleblock}
+    {Ejecutado, esto muestra:}
+    \begin{lstlisting}
+id(p1)  :  140050627503952
+id(p2)  :  140050627504016
+hash(p1):  3713083797000648531
+hash(p2):  3713083797000648531
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \footnotesize
+  \begin{block}
+    {\centering Python: What's a correct and good way to implement \_\_hash\_\_()?}
+    \centering \url{http://stackoverflow.com/q/2909106/184363}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  {29. \normalsize Implementando \_\_hash\_\_() en nuestras clases}
+  \small
+  \begin{alertblock}{}
+    \centering
+    En caso de que dos objetos devuelvan el mismo hash, aún podemos
+    usarlos en diccionarios. Esto es así porque los elementos se
+    indexan no sólo por su valor hash, sino que Python
+    \structure{también comprueba que no son iguales} (==). Es sólo si
+    son iguales en los dos sentidos que los dos objetos no pueden
+    existir en el mismo diccionario.
+  \end{alertblock}
+
+  \footnotesize
+  \begin{block}
+    {\centering Difference between \_\_str\_\_ and \_\_repr\_\_ in Python:}
+    \centering \url{http://stackoverflow.com/q/1436703/184363}
+  \end{block}
+
+  \begin{block}
+    {\centering How hash collisions are resolved in Python dictionaries}
+    \centering \url{http://www.shutupandship.com/2012/02/how-hash-collisions-are-resolved-in.html}
+  \end{block}
+\end{frame}
+
 \end{document}
