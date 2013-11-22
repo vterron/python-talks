@@ -3319,4 +3319,29 @@ for numero in iter(aleatorio, 0):
   \end{exampleblock}
 \end{frame}
 
+\begin{frame}[fragile]{37. Autocompletado en el intérprete}
+  \small
+  \begin{block}{}
+    \centering
+    En nuestro fichero \structure{.pythonrc}, estas líneas bastan para
+    habilitar el \structure{autocompletado}, que se activa al pulsar
+    tabulador, como estamos acostumbrados a hacer en la línea de
+    comandos.
+  \end{block}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+import readline
+import rlcompleter
+readline.parse_and_bind("tab: complete")
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \footnotesize
+  \begin{alertblock}{}
+    \centering
+    ¡La variable de entorno \structure{PYTHONSTARTUP} debe apuntar a este fichero!
+  \end{alertblock}
+\end{frame}
+
 \end{document}
