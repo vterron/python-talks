@@ -3274,4 +3274,49 @@ collections.defaultdict(lambda: range(8))
   \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{36. Pasando funciones a iter()}
+  \begin{block}{}
+    \Large
+    \centering iter(function, sentinel))
+  \end{block}
+
+  \small
+  \begin{alertblock}{}
+    \centering
+    El uso más habitual de \structure{iter()} es pasarle un único
+    argumento --- el objeto sobre el que queremos iterar. Pero también
+    podemos pasarle una \structure{función}, que es ejecutada una y
+    otra vez: en el momento en el que uno de los valores que devuelve
+    sea igual a \structure{sentinel}, nos detenemos.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{36. Pasando funciones a iter()}
+  \small
+  \begin{exampleblock}
+    {Lee un fichero hasta la primera línea vacía:}
+    \begin{lstlisting}
+with open('currículum.tex') as fd:
+    for linea in iter(fd.readline, '\n'):
+        print linea
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{36. Pasando funciones a iter()}
+  \small
+  \begin{exampleblock}
+    {Genera números aleatorios hasta llegar a cero:}
+    \begin{lstlisting}
+import random
+
+def aleatorio():
+    return random.randint(-10, 10)
+
+for numero in iter(aleatorio, 0):
+    print numero
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
 \end{document}
