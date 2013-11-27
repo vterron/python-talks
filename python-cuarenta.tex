@@ -158,55 +158,7 @@
 \input{01.tex}
 \input{02.tex}
 \input{03.tex}
-
-\begin{frame}[fragile]{4. int(True) == 1}
-  \large
-  \begin{alertblock}{}
-    \centering
-    El valor numérico de \structure{True} es 1; el de \structure{False}, 0
-  \end{alertblock}
-
-  \begin{exampleblock}{}
-    \small
-    \begin{lstlisting}
->>> int(True)
-1
->>> int(False)
-0
->>> 37 + True
-38
->>> 7 / False
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-ZeroDivisionError: float division
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]{4. int(True) == 1}
-  \large
-  \begin{block}{}
-    \centering
-    De hecho, la clase \structure{bool} hereda de \structure{int}
-  \end{block}
-
-  \begin{exampleblock}{}
-    \small
-    \begin{lstlisting}
->>> issubclass(bool, int)
-True
->>> isinstance(True, int)
-True
->>> bool.mro()
-[<type 'bool'>, <type 'int'>, <type 'object'>]
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \small
-  \begin{block}{\centering PEP 285: Adding a bool type [2002]}
-    \centering \url{http://www.python.org/dev/peps/pep-0285/}
-  \end{block}
-\end{frame}
+\input{04.tex}
 
 \begin{frame}[fragile]{5. import this}
   \Large
