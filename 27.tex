@@ -1,0 +1,102 @@
+\begin{frame}[fragile]{27. Relanzamiento de excepciones}
+  \small
+  \begin{block}{}
+    \centering
+    \structure{raise} a secas, dentro del bloque de la cláusula
+    \structure{except}, relanza la excepción con la traza (traceback)
+    original intanta. Esto es muy útil si queremos hacer algo más
+    antes de lanzar la excepción.
+  \end{block}
+
+  \begin{exampleblock}{}
+    \scriptsize
+    \begin{lstlisting}[escapechar=!]
+>>> x = 1
+>>> y = 0
+>>> try:
+...     z = x / y
+... except ZeroDivisionError:
+...     print "Imposible dividir. Abortando..."
+...     !\color{blue}{raise}!
+...
+Imposible dividir. Abortando...
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+ZeroDivisionError: integer division or modulo by zero
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{27. Relanzamiento de excepciones}
+  \footnotesize
+  \begin{alertblock}{}
+    \centering
+    Pero, claro, raise relanza la \structure{última} excepción. En
+    caso de que dentro del \structure{except} exista la posibilidad de
+    que se lance una segunda excepción, podemos almacenarla para
+    asegurarnos de que no la perdemos.
+  \end{alertblock}
+
+  \begin{exampleblock}
+    {En Python 3000:}
+    \tiny
+    \begin{lstlisting}[escapechar=!]
+import os
+
+try:
+    path = "resultado.txt"
+    with open(path, "wt") as fd:
+        resultado = 1 / 0
+        fd.write(str(resultado))
+
+except BaseException !\color{blue}{as e}!:
+
+    try:
+        os.unlink(path)
+    except Exception as sub_e:
+        print("Ha ocurrido otro error:")
+        print(sub_e)
+
+    !\color{blue}{raise e}!
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{27. Relanzamiento de excepciones}
+  \footnotesize
+  \begin{exampleblock}
+    {Esto produce:}
+    \begin{lstlisting}[escapechar=!]
+>>> python3.1 relanza-excepcion.py
+Ha ocurrido otro error:
+[Errno 13] Permission denied: '/root/.bashrc'
+Traceback (most recent call last):
+  File "relanza.py", line 18, in <module>
+    raise e
+  File "relanza.py", line 8, in <module>
+    resultado = 1 / 0
+ZeroDivisionError: int division or modulo by zero
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{27. Relanzamiento de excepciones}
+  \small
+  \begin{block}{}
+    \centering
+    En Python 2 también podemos usar la notación except
+    \structure{Exception, e} (sin los paréntesis), pero desde 2.6+ la
+    keyword \structure{as} permite que nuestro código sea mucho menos
+    ambiguo.
+  \end{block}
+
+  \begin{block}
+    {\centering Python try...except comma vs 'as' in except}
+    \centering \url{http://stackoverflow.com/a/2535770/184363}
+  \end{block}
+
+    \begin{block}
+    {\centering PEP 3110: Catching Exceptions in Python 3000:}
+    \centering \url{http://www.python.org/dev/peps/pep-3110/}
+  \end{block}
+\end{frame}
