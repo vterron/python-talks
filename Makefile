@@ -17,4 +17,4 @@ pdf: $(TEX_FILE)
 	$(PDFLATEX) $(PDFLATEX_OPTS) $(TEX_FILE)
 
 clean:
-	rm -fv *.{aux,log,nav,out,snm,toc}
+	rm -fv *.{aux,log,nav,out,snm,toc,vrb}
