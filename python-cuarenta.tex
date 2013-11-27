@@ -163,61 +163,7 @@
 \input{06.tex}
 \input{07.tex}
 \input{08.tex}
-
-\begin{frame}[fragile]{9. printf en Python}
-  \small
-  \begin{block}{}
-    \centering
-    Los objetos str y unicode tienen el \structure{operador \%}, que
-    nos permite usar la sintaxis del antediluviano, presente en todos
-    los lenguajes, \structure{printf()}, para controlar exactamente
-    cómo se muestra una cadena de texto.
-  \end{block}
-
-  \footnotesize
-  \begin{exampleblock}{}
-    \begin{lstlisting}
->>> print math.pi
-3.14159265359
->>> "%.2f" % math.pi
-3.14
->>> "%05.2f" % math.pi
-03.14
->>> potencia = math.e ** 100
->>> "%.2f ^ %.2f = %.4g" % (math.e, 100, potencia)
-'2.72 ^ 100.00 = 2.688e+43'
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]{9. printf en Python}
-  \footnotesize
-  \begin{exampleblock}{}
-    \begin{lstlisting}
->>> "%s por %d es %f" % ("tres", 2, 6.0)
-'tres por 2 es 6.000000'
->>> "%0*d" % (5, 3)
-'00003'
->>> "%+.*f" % (5, math.pi)
-'+3.14159'
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \begin{alertblock}{}
-    \centering
-    \small
-    No obstante, desde Python 2.6 lo recomendable es usar
-    \structure{str.format()}: más sofisticado, flexible, extensible y
-    que puede trabajar con tuplas y diccionarios de forma natural. ¡El
-    operador de \% para el formateo de cadenas se considera
-    \structure{obsoleto}!
-  \end{alertblock}
-
-  \begin{block}
-    {\centering PEP 3101: Advanced String Formatting [2006]}
-    \centering \url{http://www.python.org/dev/peps/pep-3101/}
-  \end{block}
-\end{frame}
+\input{09.tex}
 
 \section{Los diez siguientes}
 
