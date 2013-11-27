@@ -162,59 +162,7 @@
 \input{05.tex}
 \input{06.tex}
 \input{07.tex}
-
-\begin{frame}[fragile]{8. Concatenación eficiente de cadenas}
-  \small
-  \begin{exampleblock}
-    {Tenemos varias cadenas de texto que queremos unir:}
-    \small
-    \begin{lstlisting}
->>> palabras = "uno", "dos", "tres"
->>> resultado = ""
->>> for p in palabras:
->>>     resultado += p
->>> resultado
-'unodostres'
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \begin{block}{}
-    Las cadenas de texto en Python son \structure{inmutables}, por lo
-    que cada vez que asignamos una cadena a una variable \structure{un
-    nuevo objeto} es creado en memoria. En este código estamos
-    calculando, almacenando y desechando cada paso intermedio.
-    Eso es inaceptablemente lento.
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]{8. Concatenación eficiente de cadenas}
-  \begin{alertblock}
-    {\centering \small
-      La forma Pythónica de concatenar cadenas es así:}
-    \centering \Large resultado = "".join(palabras)
-  \end{alertblock}
-
-  \small
-  \begin{center}
-    El método \structure{str.join(iterable)} devuelve una cadena que
-    es la concatenación de las cadenas en \structure{iterable},
-    utilizando como separador entre los elementos la cadena que llama
-    al método.
-  \end{center}
-
-  \begin{exampleblock}{}
-    \begin{lstlisting}
->>> palabras = "uno", "dos", "tres"
->>> "-".join(palabras)
-'uno-dos-tres'
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \small
-  \begin{center}
-    Y lo hace \structure{de una única pasada} --- rápido y eficiente.
-  \end{center}
-\end{frame}
+\input{08.tex}
 
 \begin{frame}[fragile]{9. printf en Python}
   \small
