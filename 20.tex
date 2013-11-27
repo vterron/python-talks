@@ -1,0 +1,128 @@
+\begin{frame}[fragile]
+  {20. \large Incremento != 1 en el operador slice}
+  \begin{block}{}
+    \centering \LARGE x[start:end:step]
+  \end{block}
+
+  \small
+  \begin{center}
+    El tercer índice, opcional, del \structure{operador slice},
+    especifica el tamaño del paso --- cuánto avanzamos cada vez.
+    Por defecto es uno, y por eso:
+  \end{center}
+
+  \begin{exampleblock}
+    {Los tres primeros elementos}
+    \begin{lstlisting}
+>>> x = range(1, 10)
+>>> x[:3]
+[0, 1, 2]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  {20. \large Incremento != 1 en el operador slice}
+  \begin{exampleblock}
+    {Los cuatro últimos}
+    \begin{lstlisting}
+>>> x[-4:]
+[6, 7, 8, 9]
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {Del segundo al quinto}
+    \begin{lstlisting}
+>>> x[1:5]
+[1, 2, 3, 4]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  {20. \large Incremento != 1 en el operador slice}
+  \begin{block}{}
+    \large
+    \centering
+    Podemos usar un paso \structure{distinto de uno}
+  \end{block}
+
+  \small
+  \begin{exampleblock}
+    {Elementos en posiciones pares...}
+    \begin{lstlisting}
+>>> x[::2]
+[1, 3, 5, 7, 9]
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {... e impares}
+    \begin{lstlisting}
+>>> x[1::2]
+[0, 2, 4, 6, 8]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  {20. \large Incremento != 1 en el operador slice}
+  \begin{exampleblock}
+    {Recorrer los primeros nueve elementos, de tres en tres}
+    \begin{lstlisting}
+>>> x[:9:3]
+[0, 3, 6]
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{alertblock}{}
+    \small
+    \centering
+    Hacia adelante, empezamos a contar en \structure{cero}, terminamos
+    en \structure{n-1}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  {20. \large Incremento != 1 en el operador slice}
+  \begin{block}{}
+    \centering
+    Un paso negativo permite recorrer la lista \structure{hacia atrás}
+  \end{block}
+
+  \small
+  \begin{exampleblock}
+    {Invierte la lista}
+    \begin{lstlisting}
+>>> x[::-1]
+[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {Recorre la lista hacia atrás, de dos en dos}
+    \begin{lstlisting}
+>>> x[::-2]
+[9, 7, 5, 3, 1]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]
+  {20. \large Incremento != 1 en el operador slice}
+  \begin{exampleblock}
+    {Del último hasta el tercero, no inclusive, hacia atrás}
+    \begin{lstlisting}
+>>> x[:2:-1]
+[9, 8, 7, 6, 5, 4, 3]
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{alertblock}{}
+    \small
+    \centering
+    Hacia atrás, empezamos a contar en \structure{-1}, terminamos
+    en \structure{-len}
+  \end{alertblock}
+\end{frame}
