@@ -223,51 +223,7 @@
 \input{36.tex}
 \input{37.tex}
 \input{38.tex}
-
-\begin{frame}[fragile]{39. Límite de memoria}
-  \small
-  \begin{block}{}
-    \centering
-    Antes hemos mencionado que crear una lista de tamaño excesivo
-    podría usar \structure{toda la memoria} del ordenador, a veces con
-    trágicas consecuencias. Usando esto podemos impedir que Python use
-    más del 3/4 de la memoria total de nuestro equipo, abortando la
-    ejecución \structure{si sobrepasamos este límite}.
-  \end{block}
-
-  \scriptsize
-  \begin{exampleblock}{}
-    \begin{lstlisting}
-def get_ram_size():
-    with open('/proc/meminfo', 'rt') as fd:
-        regexp = "^MemTotal:\s*(\d+) kB$"
-        match = re.match(regexp, fd.read(), re.MULTILINE)
-        return int(match.group(1)) * 1024 # kB to bytes
-MAX_RAM = get_ram_size() * 0.75
-resource.setrlimit(resource.RLIMIT_AS,
-                   (MAX_RAM, resource.RLIM_INFINITY))
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]{39. Límite de memoria}
-  \footnotesize
-  \begin{exampleblock}
-    {Esto es lo que ocurre entonces si abarcamos demasiado:}
-    \begin{lstlisting}
->>> list(xrange(10e12))
-Traceback (most recent call last):
-  File ``<stdin>'', line 1, in <module>
-MemoryError
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \small
-  \begin{block}
-    {\centering Por si alguien quiere reusar mi fichero .pythonrc}
-    \centering \url{http://github.com/vterron/dotfiles}
-  \end{block}
-\end{frame}
+\input{39.tex}
 
 \begin{frame}[fragile]{40. a, *b, c = range(5)}
   \begin{exampleblock}
