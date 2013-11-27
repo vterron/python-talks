@@ -161,73 +161,7 @@
 \input{04.tex}
 \input{05.tex}
 \input{06.tex}
-
-\begin{frame}{7. Bloques de código}
-  \small
-  \begin{center}
-    En Python los bloques de código se definen mediante el
-    \structure{sangrado}, no utilizando palabras clave, como en
-    Fortran, o llaves, como en C. Ya que hay a quien le desagrada, e
-    incluso odia esta característica, gracias al módulo
-    \structure{\_\_future\_\_} es posible habilitar el uso de las
-    llaves para la delimitación de bloques.
-  \end{center}
-
-  \Large
-  \begin{alertblock}{}
-    \centering
-    from \_\_future\_\_ import braces
-  \end{alertblock}
-
-  \vspace{0.5cm}
-
-  \small
-  \begin{block}{\centering Python White Space Discussion}
-    \centering
-    \url{http://c2.com/cgi/wiki?PythonWhiteSpaceDiscussion}
-  \end{block}
-\end{frame}
-
-\begin{frame}[fragile]{7. Bloques de código}
-  \begin{exampleblock}{}
-    \small
-    \begin{lstlisting}[escapechar=!]
->>> from __future__ import braces
-  File "<stdin>", line 1
-!\color{red}{SyntaxError: not a chance}
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \begin{figure}
-    \centering
-    \includegraphics[height=4.5cm]{pics/trollface.png}
-  \end{figure}
-\end{frame}
-
-\begin{frame}[fragile]{7. Bloques de código}
-  \begin{alertblock}{}
-    \centering
-    Pero, si \structure{de verdad} quieres usarlos, ¡hay una forma!
-  \end{alertblock}
-
-\begin{exampleblock}{}
-    \small
-    \begin{lstlisting}[escapechar=!]
-if foo: !\color{blue}{\#}!{
-    print "It's True"
-!\color{blue}{\#}!}
-else: !\color{blue}{\#}!{
-    print "It's False"
-!\color{blue}{\#}!}
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \small
-  \begin{block}{\centering Is it true that I can't use curly braces in Python?}
-    \centering
-    \url{http://stackoverflow.com/a/1936210/184363}
-  \end{block}
-\end{frame}
+\input{07.tex}
 
 \begin{frame}[fragile]{8. Concatenación eficiente de cadenas}
   \small
