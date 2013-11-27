@@ -175,78 +175,7 @@
 \input{15.tex}
 \input{16.tex}
 \input{17.tex}
-
-\begin{frame}[fragile]{18. Aplanando una lista con sum()}
-  \begin{block}{}
-    \centering \LARGE sum(iterable[, start])
-  \end{block}
-
-  \small
-  \begin{center}
-    \centering
-    La función sum() acepta, opcionalmente, un segundo argumento,
-    \structure{start}, cuyo valor por defecto es cero, al cual se van
-    sumando los elementos de \structure{iterable}.
-  \end{center}
-
-  \footnotesize
-  \begin{exampleblock}{}
-    \begin{lstlisting}
->>> sum([1, 2, 3])
-6
->>> sum([1, 2, 3], 10)
-16
->>> sum(range(1, 10))
-45
->>> sum([100], -1)
-99
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]{18. Aplanando una lista con sum()}
-  \begin{block}{}
-    \centering
-    Podemos usar una lista vacía, [], como \structure{start}, para aplanar
-    una lista de listas. La función sum(), al 'sumarlas', lo que hará será
-    \structure{concatenarlas} una detrás de otra.
-  \end{block}
-
-  \small
-  \begin{exampleblock}{}
-    \begin{lstlisting}
->>> sum([[1, 2], [3], [4, 5], [6, 7, 8]], [])
-[1, 2, 3, 4, 5, 6, 7, 8]
->>> sum([[4, 5], [6, 7]], range(4))
-[0, 1, 2, 3, 4, 5, 6, 7]
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]{18. Aplanando una lista con sum()}
-  \begin{alertblock}{}
-    \centering
-    Es importante que \structure{start} sea una lista. De lo contrario,
-    sum() intentará añadir cada una de las sublistas a un entero, cero.
-    Y eso no se puede hacer.
-  \end{alertblock}
-
-  \scriptsize
-  \begin{exampleblock}{}
-    \begin{lstlisting}
->>> sum([[4, 5], [6, 7]])
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-TypeError: unsupported operand type(s) for +: 'int' and 'list'
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \small
-  \begin{block}
-    {\centering Stack Overflow - Flattening a list with sum():}
-    \centering \url{http://stackoverflow.com/a/6632253/184363 }
-  \end{block}
-\end{frame}
+\input{18.tex}
 
 \begin{frame}[fragile]{19. El operador ternario}
   \begin{center}
