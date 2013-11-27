@@ -1,0 +1,117 @@
+\begin{frame}[fragile]{23. Parámetros por defecto mutables}
+  \begin{exampleblock}{}
+    \small
+    \begin{lstlisting}
+>>> def inserta_uno(valores=[]):
+...     valores.append(1)
+...     return valores
+...
+>>> inserta_uno(range(3))
+[0, 1, 2, 1]
+>>> inserta_uno()
+[1]
+>>> inserta_uno()
+[1, 1]
+>>> inserta_uno()
+[1, 1, 1]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{23. Parámetros por defecto mutables}
+  \begin{figure}
+    \centering
+    \includegraphics[height=6cm]{pics/omg-face.jpg}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{23. Parámetros por defecto mutables}
+  \begin{block}{}
+    \centering
+    \small
+    El motivo por el que esto ocurre es que las funciones en Python
+    son objetos de primera clase, no sólo un trozo más de código:
+    \structure{se evalúan cuando son definidas}, incluyendo parámetros
+    por defecto, y por tanto su estado puede cambiar de una vez a
+    otra.
+  \end{block}
+
+  \begin{alertblock}{}
+    \centering
+    Es decir, que los parámetros por defecto se evalúan sólo
+    \structure{una} vez, en el momento en el que \structure{la función
+    se define}.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{23. Parámetros por defecto mutables}
+  \begin{block}{}
+    \centering
+    La solución es usar un \structure{parámetro de sustitución}, en
+    lugar de modificar directamente el valor por defecto.
+  \end{block}
+
+  \begin{exampleblock}{}
+    \footnotesize
+    \begin{lstlisting}
+>>> def inserta_uno(valores=None):
+...     if valores is None:
+...         valores = []
+...     valores.append(1)
+...     return valores
+...
+>>> inserta_uno()
+[1]
+>>> inserta_uno()
+[1]
+>>> inserta_uno()
+[1]
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{23. Parámetros por defecto mutables}
+  \begin{alertblock}
+    \large
+    \centering
+    ¿Y entonces esto?
+  \end{alertblock}
+
+  \begin{exampleblock}{}
+    \small
+    \begin{lstlisting}
+>>> def suma(numeros, inicio=0):
+...     for x in numeros:
+...         inicio += x
+...     return inicio
+...
+>>> suma([1, 2])
+3
+>>> suma([3, 4])
+7
+>>> suma([1, 2, 3])
+6
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{23. Parámetros por defecto mutables}
+  \begin{block}{}
+    \centering
+    La razón es que, a diferencia de las listas, los enteros en Python
+    son \structure{inmutables}, por lo que no pueden modificarse de
+    una llamada a otra. Por tanto, \structure{inicio} siempre es cero
+    cuando llamamos a la función.
+  \end{block}
+
+  \small
+  \begin{block}
+    {\centering Call By Object}
+    \centering \url{http://effbot.org/zone/call-by-object.htm}
+  \end{block}
+
+  \begin{block}
+    {\centering Default Parameter Values in Python}
+    \centering \url{http://effbot.org/zone/default-values.htm}
+  \end{block}
+\end{frame}
