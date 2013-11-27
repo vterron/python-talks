@@ -1,0 +1,137 @@
+\begin{frame}[fragile]{17. Por qué "python" > [130, 129]}
+  \small
+  \begin{block}{}
+    \centering
+    Listas y tuplas se ordenan \structure{lexicográficamente},
+    comparando uno a uno los elementos. Para ser iguales, ambas
+    secuencias han de tener el mismo \structure{tipo}, la misma
+    \structure{longitud} y sus elementos ser \structure{iguales}.
+  \end{block}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> [1, 2] == [1, 2]
+True
+>>> [1, 2] == [3, 4]
+False
+>>> [1, 2] == (1, 2)
+False
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{17. Por qué "python" > [130, 129]}
+  \small
+  \begin{alertblock}{}
+    \centering
+    En caso de \structure{no} tener el mismo número de elementos, la
+    comparación de las dos secuencias está determinada por el primer
+    elemento en el que sus valores diferen.
+  \end{alertblock}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> (4, 2, 5) > (1, 3, 2)
+True
+>>> [2, 3, 1] >= [2, 4, 2]
+False
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{17. Por qué "python" > [130, 129]}
+  \small
+  \begin{block}{}
+    \centering
+    Si el elemento correspondiente, donde los valores difieren, no
+    existe, \structure{la secuencia más corta} va antes.
+  \end{block}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> (2, 3) > (1,2,3)
+True
+>>> [1, 2] < [1, 2, 3]
+True
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{17. Por qué "python" > [130, 129]}
+  \small
+  \begin{alertblock}{}
+    \centering
+    Los objetos de tipos diferentes nunca se consideran iguales, y se
+    ordenan de forma \structure{consistente pero arbitraria}. En
+    CPython, el criterio escogido es el del nombre de sus tipos.
+  \end{alertblock}
+
+  \footnotesize
+  \begin{exampleblock}{}
+    \begin{lstlisting}[escapechar=!]
+>>> "python" > [130, 129]    # "str" > "list"
+True
+>>> {1 : "uno"} > [1, 2, 3]  # "dict" < "list"
+False
+>>> (23,) > [34, 1]          # "tuple" > "list"
+True
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{block}
+    {\centering Stack Overflow: Maximum of two tuples}
+    \centering \url{http://stackoverflow.com/a/9576006/184363}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{17. Por qué "python" > [130, 129]}
+  \begin{block}{}
+    \centering
+    Pero un tipo de dato \structure{numérico} va siempre antes si lo
+    comparamos con uno \structure{no numérico}.
+  \end{block}
+
+  \footnotesize
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> 23 < "Python"
+True
+>>> 23 < (3, 1, 4)
+True
+>>> 23 > [3, 1, 4]
+False
+>>> 23 < {"pi" : 3.1415}
+True
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{block}
+    {\centering Stack Overflow: How does Python compare string and int?}
+    \centering \url{http://stackoverflow.com/a/3270689/184363}
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{17. Por qué "python" > [130, 129]}
+  \begin{alertblock}{}
+    \centering
+    Esto es un detalle de la \structure{implementación} de
+    \structure{CPython}.
+  \end{alertblock}
+
+  \small
+  \begin{center}
+    Nuestro código nunca debería depender de que valores de diferente
+    tipos se ordenen así. Y, en cualquier caso, ¿qué haces comparando
+    valores de diferente tipo? ¿Por qué querrías hacer eso?
+  \end{center}
+
+  \begin{exampleblock}
+    {\centering En Py3K el comportamiento ya es el que esperaríamos:}
+    \begin{lstlisting}
+>>> 23 < "Python"
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unorderable types: int() < str()
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
