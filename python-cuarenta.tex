@@ -217,49 +217,7 @@
 
 \input{31.tex}
 \input{32.tex}
-
-\begin{frame}[fragile]{33. collections.namedtuple}
-  \small
-  \begin{block}{}
-    \centering
-    Devuelve un tipo de dato, subclase de \structure{tuple}, que
-    podemos usar para crear tuplas que además nos permiten acceder
-    también por atributos.  Con \structure{namedtuple} estamos
-    definiendo nuestra propia clase en una línea de código -- no deja
-    de estar bien, aunque sean clases sencillas.
-  \end{block}
-
-  \scriptsize
-  \begin{exampleblock}
-    {\footnotesize La clase Punto(x, y, z)}
-    \begin{lstlisting}
->>> Punto = collections.namedtuple('Punto', ['x', 'y', 'z'])
->>> Punto.__mro__
-(<class '__main__.Punto'>, <type 'tuple'>, <type 'object'>
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]{33. collections.namedtuple}
-  \small
-  \begin{exampleblock}
-    {Y ahora usándola:}
-    \begin{lstlisting}
->>> dest = Punto(1, 4, 3)
->>> dest.x
-1
->>> dest.y
-4
->>> dest[2]
-3
-    \end{lstlisting}
-  \end{exampleblock}
-
-  \begin{block}
-    {\centering Understanding Python's iterator, iterable, and iteration protocols}
-    \centering \url{http://stackoverflow.com/q/9884132/184363}
-  \end{block}
-\end{frame}
+\input{33.tex}
 
 \begin{frame}[fragile]{34. itertools.chain()}
   \small
