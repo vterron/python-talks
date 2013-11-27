@@ -1,0 +1,111 @@
+\begin{frame}[fragile]{26. try-except-else-finally}
+  \begin{alertblock}{}
+    \centering
+    La construcción \structure{try-except-finally} admite también la
+    cláusula \structure{else}: este bloque de código se ejecuta sólo
+    si no se ha lanzado ninguna excepción.
+  \end{alertblock}
+
+  \begin{center}
+    \small
+    Esto nos permite minimizar el código que escribimos dentro de la
+    cláusula \structure{try}, reduciendo el riesgo de que
+    \structure{except} capture una excepción que realmente no
+    queríamos proteger con el \structure{try}.
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{26. try-except-else-finally}
+  \begin{exampleblock}
+    {\footnotesize
+      Descarga presentación, descomprime, actualiza log}
+    \tiny
+    \begin{lstlisting}[escapechar=!]
+import os
+import urllib
+import zipfile
+
+url = "http://github.com/vterron/PyConES-2013/archive/master.zip"
+path = "charla-pycon.zip"
+
+try:
+    urllib.urlretrieve(url, path)
+    myzip = zipfile.ZipFile(path)
+    myzip.extractall()  # puede lanzar !\color{red}{IOError}!
+
+    # Tambien puede lanzar !\color{red}{IOError}!
+    with open("descargas-log", "at") as fd:
+        fd.write("{0}\n".format(path))
+
+except !\color{red}{IOError}!:
+    print "He capturado IOError!"
+
+finally:
+    os.unlink(path)
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \small
+  \begin{alertblock}{}
+    \centering
+    ¿Cuál de los dos \structure{IOError} he capturado?
+    \structure{No lo sabemos}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{26. try-except-else-finally}
+
+  \begin{exampleblock}
+    {\footnotesize
+      Por supuesto, podríamos evitar este problema anidando try-elses:}
+    \tiny
+    \begin{lstlisting}
+try:
+    urllib.urlretrieve(url, path)
+    myzip = zipfile.ZipFile(path)
+    try:
+        myzip.extractall()
+	try:
+            with open("descargas-log", "at") as fd:
+                fd.write("{0}\n".format(path))
+        except IOError:
+            print "Error escribiendo fichero"
+
+    except IOError:
+        print "Error descomprimiendo fichero ZIP"
+
+finally:
+    os.unlink(path)
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \small
+  \begin{alertblock}{}
+    \centering
+    Pero, como dice el Zen de Python, "\emph{Flat is better than nested}"
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{26. try-except-else-finally}
+  \begin{block}{}
+    \centering
+    Utilizando la cláusula \structure{else} basta con:
+  \end{block}
+
+  \begin{exampleblock}{}
+    \footnotesize
+    \begin{lstlisting}[escapechar=!]
+try:
+    urllib.urlretrieve(url, path)
+    myzip = zipfile.ZipFile(path)
+    myzip.extractall()
+except IOError:
+    print "Error descomprimiendo fichero ZIP"
+!\color{red}{else:}!
+    with open("descargas-log", "at") as fd:
+        fd.write("{0}\n".format(path))
+finally:
+    os.unlink(path)
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
