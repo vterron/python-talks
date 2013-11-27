@@ -1,0 +1,65 @@
+\begin{frame}[fragile]{19. El operador ternario}
+  \begin{center}
+    El operator ternario (o condicional) nos permite escoger entre dos
+    expresiones en \structure{función de una tercera}, la condición.
+  \end{center}
+
+  \begin{block}
+    {\small
+      En casi todos los lenguajes de programación tiene la misma forma:}
+    \centering \LARGE test ? a : b
+  \end{block}
+
+  \begin{exampleblock}{Por ejemplo, en C:}
+    \begin{lstlisting}[language=C]
+int nsecs = (counter > 5) ? 5 : 0;
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{19. El operador ternario}
+  \begin{center}
+    En Python se conocen como \structure{expresiones condicionales}, y
+    existen desde la versión 2.5. Su sintaxis es:
+  \end{center}
+
+  \begin{block}{}
+    \centering \LARGE a if test else b
+  \end{block}
+
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> x = 2
+>>> "uno" if x == 1 else "otra cosa"
+'otra cosa'
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{19. El operador ternario}
+  \footnotesize
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+>>> hora = 17
+>>> msg = ("Es la" if hora == 1 else "Son las")
+>>> msg + " {0}h".format(hora)
+'Son las 17h'
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {Eleva al cuadrado si x es impar, divide entre dos de lo contrario:}
+    \begin{lstlisting}
+>>> x = 13
+>>> y = x ** 2 if x % 2 else x / 2
+>>> y
+169
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \small
+  \begin{block}
+    {\centering PEP 308: Conditional Expressions [2003]}
+    \centering \url{http://www.python.org/dev/peps/pep-0308/}
+  \end{block}
+\end{frame}

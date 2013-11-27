@@ -1,0 +1,107 @@
+\begin{frame}{28. \_\_str\_\_() vs \_\_repr\_\_()}
+
+  \footnotesize
+  \begin{alertblock}
+    {\centering
+      \small
+      El objetivo de \_\_repr\_\_() es ser inequívoco.
+    }
+    \centering
+
+    {Este método, ejecutado vía \structure{repr()}, devuelve una
+      cadena de texto con la \structure{representación única del
+        objeto}. Se usa sobre todo para depurar errores, por lo que la
+      idea es que incluya toda la información que necesitamos --- por
+      ejemplo, intentando entender qué ha fallado analizando unos
+      logs.  }
+  \end{alertblock}
+
+  \begin{block}
+    {\centering
+      \small
+      El objetivo de \_\_str\_\_() es ser legible.
+    }
+    \centering
+    {\footnotesize
+      La cadena que devuelve \structure{str()} no tiene otro fin que
+      el de ser fácil de comprender por \structure{humanos}: cualquier
+      cosa que aumente la legibilidad, como eliminar decimales
+      inútiles o información poco importante, es aceptable.
+    }
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{28. \_\_str\_\_() vs \_\_repr\_\_()}
+  \footnotesize
+  \begin{exampleblock}
+    {El módulo datetime nos proporciona un buen ejemplo:}
+    \begin{lstlisting}
+>>> import datetime
+>>> today = datetime.datetime.now()
+>>> str(today)
+'2013-11-20 13:51:53.006588'
+>>> repr(today)
+'datetime.datetime(2013, 11, 20, 13, 51, 53, 6588)'
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{28. \_\_str\_\_() vs \_\_repr\_\_()}
+  \small
+  \begin{block}{}
+    \centering
+    Idealmente, la cadena devuelta por \structure{\_\_repr\_\_()}
+    debería ser aquella que, pasada a \structure{eval()}, devuelve el
+    mismo objeto. Al fin y al cabo, si \structure{eval()} es capaz de
+    reconstruir el objeto a partir de ella, esto garantiza que
+    contiene \structure{toda} la infomación que necesaria:
+  \end{block}
+
+  \footnotesize
+  \begin{exampleblock} {}
+    \begin{lstlisting}
+>>> today = datetime.datetime.now()
+>>> repr(today)
+'datetime.datetime(2013, 11, 20, 13, 54, 33, 934577)'
+>>> today == eval(repr(today))
+True
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{28. \_\_str\_\_() vs \_\_repr\_\_()}
+  \begin{alertblock}{}
+    \centering
+    Por cierto, ¡usar \structure{eval(repr(obj))} para serializar
+    objetos no es buena idea! Es poco eficiente y, mucho peor,
+    peligroso. Usa \structure{pickle} mejor.
+  \end{alertblock}
+
+  \small
+  \begin{block}
+    {\centering Eval really is dangerous:}
+    \centering \url{http://nedbatchelder.com/blog/201206/eval_really_is_dangerous.html}
+  \end{block}
+\end{frame}
+
+\begin{frame}{28. \_\_str\_\_() vs \_\_repr\_\_()}
+  \small
+  \begin{alertblock}{}
+    \centering
+    \_\_repr\_\_() es para \structure{desarrolladores},
+    \_\_str\_\_() para \structure{usuarios}.
+  \end{alertblock}
+
+  \begin{block}{}
+    \centering
+    En caso de que nuestra clase defina \_\_repr\_\_() pero no
+    \_\_str\_\_(), la llamada a \structure{str() también devuelve
+    repr()}. Así que el único que de verdad tenemos que
+    implementar es \_\_repr\_\_().
+  \end{block}
+
+  \begin{block}
+    {\centering Difference between \_\_str\_\_ and \_\_repr\_\_ in Python:}
+    \centering \url{http://stackoverflow.com/q/1436703/184363}
+  \end{block}
+\end{frame}

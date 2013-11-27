@@ -1,0 +1,26 @@
+\begin{frame}[fragile]{38. Historia de comandos}
+  \small
+  \begin{block}{}
+    \centering
+    También podemos habilitar la historia de \structure{todo lo que
+      hemos escrito} en el intérprete de Python, accesibles pulsando
+    las \structure{teclas de navegación} vertical. Al igual que en una
+    terminal cualquiera, la historia se guarda en un fichero, por lo
+    que podemos reusar los comandos \structure{de una sesión a otra}.
+  \end{block}
+
+  \footnotesize
+  \begin{exampleblock}{}
+    \begin{lstlisting}
+import atexit
+import os.path
+import readline
+
+history_file = os.path.expanduser('~/.python_history')
+if os.path.exists(history_file):
+    readline.read_history_file(history_file)
+func = readline.write_history_file
+atexit.register(func, history_file)
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}

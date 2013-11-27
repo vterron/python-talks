@@ -1,0 +1,127 @@
+\begin{frame}[fragile]{25. for-else}
+  \begin{block}{}
+    \centering
+    \small
+    El bucle \structure{for} admite, opcionalmente, la cláusula
+    \structure{else}: este bloque se ejecuta sólo si el bucle for ha
+    terminado \emph{limpiamente} --- es decir, si \structure{no} se ha
+    usado \structure{break} para terminar antes de tiempo.
+  \end{block}
+
+  \small
+  \begin{exampleblock}
+    {No usamos break, else se ejecuta}
+    \begin{lstlisting}
+>>> for x in range(3):
+...     print x
+... else:
+...     print "¡Hemos terminado!"
+...
+0
+1
+2
+¡Hemos terminado!
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{25. for-else}
+  \small
+  \begin{exampleblock}
+    {Usamos break, else no se ejecuta}
+    \begin{lstlisting}
+>>> for x in range(3):
+...     print x
+...     break
+... else:
+...     print "¡Hemos terminado otra vez!"
+...
+0
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{alertblock}{}
+    \centering
+    Esta construcción, for-else, nos ahorra la necesidad de usar una
+    \structure{variable de bandera} para almacenar el estado de, por
+    ejemplo, una búsqueda.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{25. for-else}
+  \footnotesize
+  \begin{block}{}
+    \centering
+    Para lanzar una excepción si un elemento \structure{no ha sido
+      encontrado} en una secuencia, por ejemplo, podríamos usar una
+    variable que fuera \structure{False} y que, sólo si en algún
+    momento encontramos el elemento a buscar, pasamos a
+    \structure{True}. Al terminar el bucle, actuamos en función del
+    valor de esta variable.
+  \end{block}
+
+  \begin{exampleblock}{}
+    \scriptsize
+    %Escape triple quotes; otherwise string is italicized
+    \begin{lstlisting}[escapechar=!]
+def comprueba_que_esta(x, secuencia):
+    !"""! Lanza ValueError si x no está en la secuencia !"""!
+
+    encontrado = False
+    for elemento in secuencia:
+    if elemento == x:
+        encontrado = True
+        break
+
+    if not encontrado:
+        msg = "{0} no está en {1}".format(x, secuencia)
+        raise ValueError(msg)
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{25. for-else}
+  \begin{block}{}
+    \centering
+    La cláusula \structure{else} nos permite escribirlo así:
+  \end{block}
+
+  \begin{exampleblock}{}
+    \scriptsize
+    \begin{lstlisting}
+def comprueba_que_esta(x, secuencia):
+    for elemento in secuencia:
+    if elemento == x:
+            break
+    else:
+        msg = "{0} no está en {1}".format(x, secuencia)
+        raise ValueError(msg)
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{25. for-else}
+  \begin{alertblock}{}
+    \centering
+    Los bucles \structure{while} también admiten la cláusula
+    \structure{else}.
+  \end{alertblock}
+
+  \footnotesize
+  Hay a quien no convence el nombre --- y no sin motivo: de
+  primeras, podríamos creer que else sólo se ejecuta si el bucle for
+  no llega a ejecutarse nunca. Las razones detrás de este nombre son
+  históricas, por cómo los compiladores implementaban los bucles
+  while.
+
+  La forma de visualizar el else es que casi siempre está
+  \structure{emparejado} con un \structure{if}: el que está dentro del
+  bucle \structure{for}. Lo que estamos diciendo es "\emph{si ninguna
+    de las veces el if dentro del for es cierta, entonces ejecuta el
+    bloque de else}".
+
+  \begin{block}
+    {\centering Ned Batchelder: For/else}
+    \centering \url{http://nedbatchelder.com/blog/201110/forelse.html}
+  \end{block}
+\end{frame}

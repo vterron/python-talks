@@ -1,0 +1,101 @@
+\begin{frame}[fragile]{16. sorted() - parámetro 'key'}
+  \footnotesize
+  \begin{block}{}
+    \centering
+    Desde Python 2.4, tanto el método \structure{list.sort()} como la
+    función \structure{sorted()} aceptan el parámetro \structure{key},
+    con el que se especifica la función que se ejecuta para cada
+    elemento y a partir de cuyo resultado se ordena la secuencia.
+  \end{block}
+
+  \begin{exampleblock}
+    {Ordenar una serie de números por su valor absoluto:}
+    \begin{lstlisting}
+>>> nums = [-8, 3, 5, -1, 3]
+>>> sorted(nums, key=abs)
+[-1, 3, 3, 5, -8]
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {Una lista de cadenas lexicográficamente:}
+    \begin{lstlisting}
+>>> gnu = ["GNU", "is", "Not", "Unix"]
+>>> sorted(gnu)
+['GNU', 'Not', 'Unix', 'is']
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{16. sorted() - parámetro 'key'}
+  \begin{exampleblock}
+    {Ahora por su longitud:}
+    \begin{lstlisting}
+>>> sorted(gnu, key=len)
+['is', 'GNU', 'Not', 'Unix']
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{alertblock}{}
+    \centering
+    Desde 2.2, las ordenaciones en Python son \structure{estables}: al
+    tener 'GNU' y 'Not' la misma longitud, se mantiene el orden
+    original. Esto permite ordenar en función de \structure{dos o más
+    criterios}, en diferentes pasos.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{16. sorted() - parámetro 'key'}
+  \begin{block}{}
+    \centering
+    Podemos ordenar \structure{usando nuestras propias funciones}
+  \end{block}
+
+  \footnotesize
+  \begin{exampleblock}
+    {Ordenar por el número de vocales:}
+    \begin{lstlisting}
+>>> def nvocales(palabra):
+...    contador = 0
+...    for letra in palabra:
+...        if letra.lower() in "aeiou":
+...	   contador += 1
+...    return contador
+...
+>>> lame = "LAME Ain't an MP3 Encoder".split()
+>>> sorted(lame, key=nvocales)
+['MP3', 'an', 'LAME', "Ain't", 'Encoder']
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{16. sorted() - parámetro 'key'}
+  \begin{block}{}
+    \centering
+    O usando \structure{funciones anónimas}
+  \end{block}
+
+  \footnotesize
+  \begin{exampleblock}
+    {Ordenar por la parte compeja:}
+    \begin{lstlisting}
+>>> nums = [7+9j, 4-5j, 3+2j]
+>>> sorted(nums, key=lambda x: x.imag)
+[(4-5j), (3+2j), (7+9j)]
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {Ordenar por el segundo elemento de la tupla:}
+    \begin{lstlisting}
+>>> puntos = [(2, 3), (5, 1), (3, 4), (8, 2)]
+>>> sorted(puntos, key=lambda x: x[1])
+[(5, 1), (8, 2), (2, 3), (3, 4)]
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{block}
+    {\centering Sorting Mini-HOW TO}
+    \centering \url{http://wiki.python.org/moin/HowTo/Sorting/}
+  \end{block}
+\end{frame}

@@ -1,0 +1,60 @@
+\begin{frame}[fragile]{10. str.format()}
+  \small
+  \begin{block}{}
+    \centering
+    Tanto el operador \structure{\%} como \structure{str.format()}
+    permiten acceder a argumentos por su nombre, lo que es
+    especialmente útil si necesitamos usar más de una vez la misma
+    cadena. Pero \structure{str.format()} puede hacer muchas cosas
+    más, como acceder a atributos de los argumentos, o hacer
+    conversiones a str() y repr().
+  \end{block}
+
+  \footnotesize
+  \begin{exampleblock}
+    {Acceso a los argumentos por posición}
+    \begin{lstlisting}
+>>> '{0}{1}{0}'.format('abra', 'cad')
+'abracadabra'
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {Acceso a los atributos de un argumento por posición}
+    \begin{lstlisting}
+>>> "Parte real: {0.real}".format(2+3j)
+'Parte real: 2.0'
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}[fragile]{10. str.format()}
+  \footnotesize
+  \begin{exampleblock}
+    {Acceso a argumentos por nombre}
+    \scriptsize
+    \begin{lstlisting}
+>>> kwargs = {'nombre' : 'Pedro', 'apellido' : 'Medina'}
+>>> "{nombre} {apellido} se llama {nombre}".format(kwargs)
+'Pedro Medina se llama Pedro'
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \begin{exampleblock}
+    {Acceso a atributos de argumentos por nombre}
+    \scriptsize
+    \begin{lstlisting}
+>>> kwargs = {numero : 1+5j}
+>>> "Parte imaginaria: {numero.imag}".format(**kwargs)
+'Parte imaginaria: 5.0'
+    \end{lstlisting}
+  \end{exampleblock}
+
+  \small
+  \begin{block}
+    {\centering Format Specification Mini-Language}
+    \footnotesize
+    \centering
+    \url{http://docs.python.org/2/library/string.html#formatstrings}
+  \end{block}
+\end{frame}
