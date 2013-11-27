@@ -156,30 +156,7 @@
 \section{Los diez primeros}
 
 \input{01.tex}
-
-\begin{frame}{2. \large Encadenamiento de operadores lógicos}
-  \begin{alertblock}{En vez de escribir}
-    \centering \LARGE x => y and y < z
-  \end{alertblock}
-
-  \small
-  \begin{center}
-    A diferencia de C, todos los operadores lógicos tienen la misma
-    prioridad, y pueden ser encadenados de forma arbitraria.
-  \end{center}
-
-  \begin{block}{Mucho mejor}
-    \centering \LARGE x <= y < z
-  \end{block}
-
-  \small
-  \begin{center}
-    Las dos expresiones de arriba son equivalentes, aunque en la
-    segunda \structure{x} sólo se evalúa una vez. En ambos casos,
-    \structure{z} no llega a evaluarse si no se cumple que
-    \structure{x <= y} (\emph{lazy evaluation}).
-  \end{center}
-\end{frame}
+\input{02.tex}
 
 \begin{frame}[fragile]{3. 0.1 + 0.2 != 0.3}
   \begin{alertblock}{}
