@@ -219,57 +219,7 @@
 \input{32.tex}
 \input{33.tex}
 \input{34.tex}
-
-\begin{frame}[fragile]{35. functools.partial()}
-  \small
-  \begin{block}{}
-    \centering
-    En el módulo \structure{functools}, la función
-    \structure{partial()} nos permite \emph{congelar} otra función,
-    \structure{fijándole argumentos} de forma que podamos llamarla de
-    forma más sencilla y corta.
-  \end{block}
-
-  \begin{exampleblock}{}
-    \begin{lstlisting}
->>> import functools
->>> eleva_dos = functools.partial(pow, 2)
-    \end{lstlisting}
-  \end{exampleblock}
-
-\begin{exampleblock}
-  {Y ahora usándola:}
-    \begin{lstlisting}
->>> eleva_dos(3)
-8
->>> eleva_dos(10)
-1024
-    \end{lstlisting}
-  \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]{35. functools.partial()}
-  \small
-  \begin{alertblock}{}
-    \centering
-    Es importante tener presente que los argumentos que nosotros le
-    pasamos a la función \emph{congelada} se añaden
-    \structure{después} de los que hemos definido en
-    \structure{partial()}. Es necesario dar un rodeo si queremos crear
-    funciones parciales que añadan los argumentos por el comienzo --
-    por ejemplo, para devolver \structure{pow(x, 3)}.
-  \end{alertblock}
-
-  \begin{block}
-    {\centering Python: Why is functools.partial necessary?}
-    \centering \url{http://stackoverflow.com/a/3252425/184363}
-  \end{block}
-
-  \begin{block}
-    {\centering implementing functools.partial that prepends additional arguments}
-    \centering \url{http://stackoverflow.com/q/11831070/184363}
-  \end{block}
-\end{frame}
+\input{35.tex}
 
 \begin{frame}[fragile]{36. Pasando funciones a iter()}
   \begin{block}{}
