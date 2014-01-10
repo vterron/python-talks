@@ -8,6 +8,16 @@
 \usepackage{listings}
 \usepackage[T1]{fontenc}
 
+% A Nice Title Page for Beamer Presentations
+% http://github.com/dfalster/BeamerTitleSlide
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+
+% Define a new mdframed environment
+\newmdenv[tikzsetting={draw=black,fill=white,fill opacity=0.65},
+  backgroundcolor=none,leftmargin=0,rightmargin=0, innertopmargin=4pt,
+  skipbelow=\baselineskip, skipabove=\baselineskip]{TitleBox}
+
 % Reduce space between image and caption; also remove prefix 'Figure:'
 % http://tex.stackexchange.com/a/94018
 % http://tex.stackexchange.com/a/82462
@@ -41,6 +51,7 @@
 }
 
 \definecolor{red}{HTML}{F41B1B}
+\definecolor{darkerred}{HTML}{DE2931}
 \definecolor{blue}{HTML}{2E3CEC}
 \definecolor{green}{HTML}{3C8031}
 
