@@ -7,3 +7,5 @@ They are also `available as a PDF <http://www.iaa.es/~vterron/python-cuarenta.pd
 * Title: *["Python"] * 40 — Forty features of Python that you may not know*
 * Language: Spanish
 * License: `CC BY-SA 4.0 <http://creativecommons.org/licenses/by-sa/4.0/>`_
+
+The recording of the talk is available `on YouTube <http://www.youtube.com/watch?v=QZiX75rbkuI>`_.
