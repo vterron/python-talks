@@ -30,7 +30,7 @@ for letra in palabra:
 \begin{frame}[fragile]{32. collections.defaultdict}
   \footnotesize
   \begin{exampleblock}
-    {... o incluso esto...}
+    {...o incluso esto...}
     \begin{lstlisting}
 mydict == dict()
 for letra in palabra:
@@ -96,7 +96,7 @@ d[1][5] = 1.87
   \small
   \begin{block}{}
     \centering
-    Pasar usar valores por defecto \structure{diferentes de cero o
+    Para usar valores por defecto \structure{diferentes de cero o
       vacíos}, tenemos que tener presente que lo que
     defaultdict.\_\_init\_\_() recibe es \structure{una función} que
     acepta cero argumentos, que es la que se ejecuta cada vez que la
@@ -111,7 +111,7 @@ collections.defaultdict(lambda: -7)
   \end{exampleblock}
 
   \begin{exampleblock}
-    {Valor por defecto: números [1, 7]}
+    {Valor por defecto: números [0, 7]}
     \begin{lstlisting}
 collections.defaultdict(lambda: range(8))
     \end{lstlisting}
