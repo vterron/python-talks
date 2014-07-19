@@ -73,9 +73,9 @@ def comprueba_que_esta(x, secuencia):
 
     encontrado = False
     for elemento in secuencia:
-    if elemento == x:
-        encontrado = True
-        break
+        if elemento == x:
+            encontrado = True
+            break
 
     if not encontrado:
         msg = "{0} no está en {1}".format(x, secuencia)
@@ -95,7 +95,7 @@ def comprueba_que_esta(x, secuencia):
     \begin{lstlisting}
 def comprueba_que_esta(x, secuencia):
     for elemento in secuencia:
-    if elemento == x:
+        if elemento == x:
             break
     else:
         msg = "{0} no está en {1}".format(x, secuencia)
