@@ -20,9 +20,9 @@
 mydict = dict()
 for letra in palabra:
     if letra in mydict:
-        mydict[elemento] += 1
+        mydict[letra] += 1
     else:
-        mydict[elemento] == 1
+        mydict[letra] = 1
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -35,9 +35,9 @@ for letra in palabra:
 mydict = dict()
 for letra in palabra:
     try:
-        mydict[elemento] += 1
+        mydict[letra] += 1
     except KeyError:
-        pass
+        mydict[letra] = 1
     \end{lstlisting}
   \end{exampleblock}
 \end{frame}
@@ -50,7 +50,7 @@ for letra in palabra:
 import collections
 mydict = collections.defaultdict(int)
 for letra in palabra:
-    mydict[elemento] += 1
+    mydict[letra] += 1
     \end{lstlisting}
   \end{exampleblock}
 
