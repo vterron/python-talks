@@ -1,5 +1,3 @@
-#! /usr/bin/env python
-
 class Perro: # no heredamos de 'object'
 
     def __init__(self, nombre, raza, edad):

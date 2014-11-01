@@ -1,5 +1,3 @@
-#! /usr/bin/env python
-
 class Perro(object):
 
     def __init__(self, nombre, raza, edad):
