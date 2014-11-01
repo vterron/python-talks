@@ -4,10 +4,14 @@
 
 \begin{frame}{00. Heredando de object (new-style)}
   \centering
-  Al definir una clase hemos de heredar de \structure{object} para que
-  nuestra clase sea \textit{new-style}.
+  \small
+  Hemos de heredar de \structure{object} para que nuestra clase sea
+  \textit{new-style}.
 
-  \pythoncode[fontsize=\footnotesize]{./code/00/00-new-style-example.py}
+  \footnotesize
+  \pythoncode{./code/00/00-new-style-example.py}
+  \pythonoutput{./code/00/output/00-new-style-example}
+
 \end{frame}
 
 \begin{frame}{00. Heredando de object: por qué}
@@ -19,15 +23,17 @@
  \begin{justify}
    Hasta Python 2.1, el concepto de clase no tenía relación con el
    tipo: los objetos de todas las (\textit{old-style}) clases tenían
-   el mismo tipo: \textless type 'instance'\textgreater. Las clases
-   \textit{new-style} unifican clase y tipo — dicho de otra forma: una
-   clase \textit{new-style} no es sino un tipo definido por el
-   usuario.
+   el mismo tipo: \structure{\textless type 'instance' \textgreater}.
+   Las clases \textit{new-style} unifican clase y tipo — dicho de otra
+   forma: una clase \textit{new-style} no es sino un tipo definido por
+   el usuario.
  \end{justify}
 \end{frame}
 
 \begin{frame}{00. Heredando de object: ejemplo}
-  \pythoncode[fontsize=\footnotesize]{./code/00/01-old-style-example.py}
+  \small
+  \pythoncode{./code/00/01-old-style-example.py}
+  \pythonoutput{./code/00/output/01-old-style-example}
 \end{frame}
 
 \begin{frame}{00. La vida antes de Python 2.2}
@@ -51,11 +57,17 @@
 \end{frame}
 
 \begin{frame}{00. Lanzando una clase \textit{new-style}}
-  \pythoncode[fontsize=\normalsize]{./code/00/02-new-style-raise.py}
+  \pythoncode{./code/00/02-new-style-raise.py}
+  \vspace{0.5cm}
+  \footnotesize
+  \pythonoutput{./code/00/output/02-new-style-raise}
 \end{frame}
 
 \begin{frame}{00. Lanzando una clase \textit{old-style}}
   \pythoncode[fontsize=\normalsize]{./code/00/03-old-style-raise.py}
+  \vspace{0.5cm}
+  \footnotesize
+  \pythonoutput{./code/00/output/03-old-style-raise}
 \end{frame}
 
 \begin{frame}{00. Heredando de object (new-style)}

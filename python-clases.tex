@@ -10,6 +10,8 @@
 
 \usepackage{minted}
 \usemintedstyle{emacs} % of course
+\definecolor{mintedoutputbackground}{rgb}{0.95,0.95,0.95}
+
 
 % Set global options for \inputminted
 % https://tex.stackexchange.com/a/103191/48441
@@ -31,6 +33,11 @@
   showspaces=false,
   showtabs =false,
   texcl=false,
+}
+
+\newmintedfile[pythonoutput]{pycon}{
+  bgcolor=mintedoutputbackground,
+  tabsize=4,
 }
 
 % Enable accents and ñ in our code listings
