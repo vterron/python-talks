@@ -6,6 +6,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
+\usepackage{ragged2e}
 
 \usepackage{minted}
 \usemintedstyle{emacs} % of course
@@ -44,6 +45,9 @@
            {¡}{{\textexclamdown}}1
 }
 
+% \input a .tex file in the ./puntos/ directory
+\newcommand{\punto}[1]{\input{./puntos/#1.tex}}
+
 \usetheme{Copenhagen}
 \useoutertheme{infolines}
 \setbeamercovered{dynamic}
@@ -57,6 +61,9 @@
 
 \section{Introducción}
 \input{intro.tex}
+
+\section{00. Heredando de object (new-style)}
+\punto{00}
 
 \end{document}
 
