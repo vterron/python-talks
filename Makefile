@@ -4,7 +4,7 @@
 SHELL := /bin/bash
 
 PDFLATEX=pdflatex
-PDFLATEX_OPTS=-interaction=nonstopmode -halt-on-error
+PDFLATEX_OPTS=-interaction=nonstopmode -halt-on-error -shell-escape
 
 TEX_FILE=python-clases.tex
 

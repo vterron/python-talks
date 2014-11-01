@@ -5,6 +5,44 @@
 \documentclass[14pt]{beamer}
 
 \usepackage[utf8]{inputenc}
+\usepackage{listings}
+
+\usepackage{minted}
+\usemintedstyle{emacs} % of course
+
+% Set global options for \inputminted
+% https://tex.stackexchange.com/a/103191/48441
+\newmintedfile[pythoncode]{python}{
+  fontfamily=tt,
+  linenos=true,
+  numberblanklines=true,
+  numbersep=12pt,
+  numbersep=5pt,
+  gobble=0,
+  frame=leftline,
+  framerule=0.4pt,
+  framesep=2mm,
+  funcnamehighlighting=true,
+  tabsize=4,
+  obeytabs=false,
+  mathescape=false
+  samepage=false,
+  showspaces=false,
+  showtabs =false,
+  texcl=false,
+}
+
+% Enable accents and ñ in our code listings
+% http://stackoverflow.com/a/2782147/184363
+\lstset{
+  literate={á}{{\'a}}1
+           {é}{{\'e}}1
+           {í}{{\'i}}1
+           {ó}{{\'o}}1
+           {ú}{{\'u}}1
+           {ñ}{{\~n}}1
+           {¡}{{\textexclamdown}}1
+}
 
 \usetheme{Copenhagen}
 \useoutertheme{infolines}
@@ -16,6 +54,9 @@
 \institute{IAA-CSIC}
 
 \begin{document}
+
+\section{Introducción}
+\input{intro.tex}
 
 \end{document}
 
