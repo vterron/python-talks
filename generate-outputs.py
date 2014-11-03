@@ -34,6 +34,9 @@ for root, dirs, files in os.walk(ROOT, topdown=False):
             print "Script:", path
 
             args = ['python', path]
+            if basename.endswith('py3k'):
+                args[0] = 'python3'
+
             output = os.path.join(output_dir, basename)
             kwargs = dict(stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
             process = subprocess.Popen(args, **kwargs)
