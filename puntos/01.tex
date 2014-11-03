@@ -1,0 +1,190 @@
+% Author: Victor Terron (c) 2014
+% Email: `echo vt2rron1iaa32s | tr 132 @.e`
+% License: CC BY-SA 4.0
+
+\begin{frame}{01. Python's super() considered super!}
+  \begin{block}{}
+    \large
+    \centering
+    La función \structure{super()} nos devuelve un \structure{objeto
+      proxy} que delega llamadas a una superclase.
+  \end{block}
+
+  \vspace{0.35cm}
+
+ \begin{justify}
+   En su uso más básico y común, nos permite llamar a un método
+   definido en la clase base (es decir, de la que hemos heredado) sin
+   tener que nombrarlas explícitamente, haciendo nuestro código más
+   \structure{sencillo} y \structure{mantenible}.
+ \end{justify}
+\end{frame}
+
+\begin{frame}{01. Algo que \emph{no} funciona}
+  \footnotesize
+  \pythoncode{./code/01/10-super-example-error.py}
+  \vspace{0.10cm}
+  \pythonoutput{./code/01/output/10-super-example-error}
+\end{frame}
+
+\begin{frame}{01. Hay que hacerlo así}
+  \footnotesize
+  \pythoncode{./code/01/11-super-example-py2k-0.py}
+  \pythonoutput{./code/01/output/11-super-example-py2k-0}
+\end{frame}
+
+\begin{frame}{01. Un segundo ejemplo}
+  \footnotesize
+  \pythoncode{./code/01/12-super-example-py2k-1.py}
+  \scriptsize
+  \pythonoutput{./code/01/output/12-super-example-py2k-1}
+\end{frame}
+
+\begin{frame}{01. super() en Python 3000}
+
+  \begin{center}
+    En \structure{Python 3} ya no es necesario especificar la clase actual.
+  \end{center}
+
+  \footnotesize
+  \pythoncode{./code/01/13-super-example-py3k.py}
+  \pythonoutput{./code/01/output/13-super-example-py3k}
+\end{frame}
+
+\begin{frame}[fragile]{01. Herencia múltiple}
+  \begin{center}
+    \small
+    Donde el verdadero poder de \structure{super()} se hace patente,
+    sin embargo, es cuando trabajamos con herencia múltiple.
+  \end{center}
+
+  \scriptsize
+  \begin{exampleblock}
+    {Diagrama de clases en texto plano cutre}
+    \begin{lstlisting}
+     +----------+
+     |  Humano  |
+     +----------+
+     /         \
+    /           \
++--------+    +--------+
+| Cyborg |    |  Ninja |
++--------+    +--------+
+    \           /
+     \         /
+       +-----+
+       |T1000|
+       +-----+
+    \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{01. T-1000}
+  \scriptsize
+  \pythoncode{./code/01/14-multiple-inheritance-0.py}
+\end{frame}
+
+\begin{frame}{01. T-1000}
+  \begin{block}{}
+    \center
+    Usamos \structure{super()} para llamar al método padre de T1000.
+  \end{block}
+
+  \vspace{0.50cm}
+
+  \scriptsize
+  \pythonoutput{./code/01/output/14-multiple-inheritance-0}
+\end{frame}
+
+\begin{frame}{01. T-1000}
+  \begin{center}
+    Hemos visto que T1000 hereda antes de Cyborg que de Ninja, por lo
+    que Cyborg delega la llamada en \structure{Cyborg.ataca()}. ¿Y si
+    Cyborg no define ataca()?
+  \end{center}
+
+  \vspace{0.5cm}
+
+  \begin{alertblock}{}
+    \center
+    Podríamos pensar que entonces Cyborg buscará el método en su
+    padre: Humano.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{01. T-1000}
+  \scriptsize
+  \pythoncode{./code/01/15-multiple-inheritance-1.py}
+\end{frame}
+
+\begin{frame}{01. Clases base y hermanas}
+  \footnotesize
+  \pythonoutput{./code/01/output/15-multiple-inheritance-1}
+
+  \vspace{0.5cm}
+
+  \normalsize
+  \begin{block}{}
+    \center
+    Pero no. Lo que super() hace es recorrer el MRO y delegar en
+    \structure{la primera clase que encuentra} por encima de T1000 que
+    define el método que estamos buscando.
+  \end{block}
+
+  \begin{center}
+    Es el \structure{hermano} de Cyborg, Ninja, quien define
+    \structure{ataca()}
+  \end{center}
+\end{frame}
+
+\begin{frame}{01. Superclases y herencia múltiple}
+   \begin{alertblock}{}
+     \Large
+     \centering
+     El concepto de superclase no tiene sentido en herencia múltiple.
+  \end{alertblock}
+
+  \begin{justify}
+   Esto es lo terrorífico de \structure{super()}, y a su vez tan
+   maravilloso: nos permite construir subclases que componen a otras
+   ya existentes, determinando su comportamiento según el
+   \structure{orden} en el que se heredan.
+  \end{justify}
+\end{frame}
+
+\begin{frame}{01. super() — el orden importa}
+  \scriptsize
+  \pythoncode{./code/01/16-multiple-inheritance-2.py}
+\end{frame}
+
+\begin{frame}{01. super() — el orden importa}
+  \pythonoutput{./code/01/output/16-multiple-inheritance-2}
+
+  \footnotesize
+  \begin{block}{\centering Python’s super() considered super!}
+    \centering \url{https://rhettinger.wordpress.com/2011/05/26/}
+  \end{block}
+
+  \begin{block}{\centering Things to Know About Python Super [1 of 3]}
+    \centering \url{http://www.artima.com/weblogs/viewpost.jsp?thread=236275}
+  \end{block}
+
+  \begin{block}{\centering Understanding Python super() and \_\_init\_\_() methods}
+    \centering \url{https://stackoverflow.com/q/576169/184363}
+  \end{block}
+\end{frame}
+
+\begin{frame}{01. Python's super() considered super!}
+  \begin{center}
+    En opinión de Michele Simionato, \structure{super()} es uno de los
+    detalles de Python más complicados de entender (``\textit{one of the
+      most tricky and surprising Python constructs}'')
+    \end{center}
+
+  \vspace{0.25cm}
+
+  \begin{alertblock}{\centering Moraleja}
+    \centering Usamos \structure{super()} para llamar a métodos
+    definidos en alguna de las clases de las que heredamos.
+  \end{alertblock}
+\end{frame}
