@@ -8,7 +8,8 @@
 we come across. The output of each script (both standard output and error)
 is written to a text file of the same name but without extension, stored in
 the OUTPUT directory (relative to the directory where the script is located).
-Lines are wrapped so that every line is at most 70 characters long.
+Lines are wrapped so that every line is at most 70 characters long. Only the
+first fifty output lines are written to each file.
 
 """
 
@@ -43,6 +44,6 @@ for root, dirs, files in os.walk(ROOT, topdown=False):
             out = process.communicate()[0]
 
             with open(output, 'wt') as fd:
-                for line in out.splitlines():
+                for line in out.splitlines()[:50]:
                     for wrapped_line in textwrap.wrap(line):
                         fd.write(wrapped_line + '\n')
