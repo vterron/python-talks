@@ -1,0 +1,158 @@
+% Author: Victor Terron (c) 2014
+% Email: `echo vt2rron1iaa32s | tr 132 @.e`
+% License: CC BY-SA 4.0
+
+\begin{frame}{02. El primer parámetro: self}
+  \begin{block}{}
+    \centering
+    Al definir el método de una clase, el primer parámetro ha de ser
+    \structure{self}: esta variable es una referencia al objeto de la
+    clase que ha llamado al método.
+  \end{block}
+
+  \begin{center}
+    \small Es equivalente al \structure{this} de otros lenguajes como
+    Java o C++.
+  \end{center}
+\end{frame}
+
+\begin{frame}{01. Ejemplo: \_\_init\_\_() y distancia()}
+  \footnotesize
+  \pythoncode{./code/02/20-self-example.py}
+  \vspace{0.10cm}
+  \pythonoutput{./code/02/output/20-self-example}
+\end{frame}
+
+\begin{frame}{02. El nombre 'self' es una convención}
+  \footnotesize
+  \pythoncode{./code/02/21-this-example.py}
+  \scriptsize
+  \pythonoutput{./code/02/output/21-this-example}
+\end{frame}
+
+\begin{frame}{02. ¿Por qué tenemos que definirlo?}
+  \begin{center}
+    El parámetro no tiene por qué llamarse 'self': puede ser cualquier
+    otra cosa. Pero \structure{self} es la convención, y culturalmente
+    está mal visto usar algo diferente.
+  \end{center}
+
+  \begin{alertblock}{}
+    \centering
+    ¿Pero por qué tenemos que añadirlo explícitamente a cada método
+    que definamos?  ¿Por qué no puede declararse de forma automática
+    por nosotros, y así ahorrarnos esos seis caracteres?
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{02. ¿Podría ser self opcional?}
+  \begin{center}
+    Bruce Eckel propuso en 2008 exactamente eso: que \structure{self}
+    pasara a ser una keyword y pudiera usarse dentro de una clase,
+    pero que no hubiera que añadirla como primer parámetro en cada
+    método que definamos.
+  \end{center}
+
+  \footnotesize
+  \begin{block}{\centering Self in the Argument List: Redundant is not Explicit}
+    \centering \url{http://www.artima.com/weblogs/viewpost.jsp?thread=239003}
+  \end{block}
+\end{frame}
+
+\begin{frame}{02. Si self fuera opcional}
+  \small
+  \pythoncode{./code/02/22-if-self-were-optional.py}
+\end{frame}
+
+\begin{frame}{02. Si self fuera opcional — ventajas}
+  \begin{center}
+    \small
+    Eliminaría redundancias y errores confusos para principiantes como:
+  \end{center}
+
+  \footnotesize
+  \pythoncode{./code/02/23-self-error.py}
+  \vspace{0.10cm}
+  \pythonoutput{./code/02/output/23-self-error}
+\end{frame}
+
+\begin{frame}{02. self \textit{no} puede ser opcional}
+  \begin{block}{\centering El Zen de Python}
+    \Large
+    \centering
+    Explícito es mejor que implícito.
+  \end{block}
+\end{frame}
+
+\begin{frame}{02. La explicación larga: no es tan sencillo}
+  \begin{center}
+    \footnotesize
+    Hay una justificación de tipo teórico: recibir el objeto actual
+    como argumento refuerza la equivalencia entre dos modos de llamar
+    a un método:
+  \end{center}
+
+  \scriptsize
+  \pythoncode{./code/02/24-method-call-equivalency.py}
+  \pythonoutput{./code/02/output/24-method-call-equivalency}
+\end{frame}
+
+\begin{frame}{02. Un argumento más práctico}
+  \begin{block}{}
+    \large
+    \centering
+    La referencia explícita a \structure{self} hace posible añadir una
+    clase dinámicamente, añadiéndole un método sobre la marcha.
+  \end{block}
+\end{frame}
+
+\begin{frame}{02. Añadiendo un método dinámicamente}
+  \footnotesize
+  \pythoncode{./code/02/25-self-add-method.py}
+  \pythonoutput{./code/02/output/25-self-add-method}
+
+  \vspace{-0.5cm}
+  \begin{center}
+    \structure{init\_x()} está definida fuera de la clase (es una
+    función), y como argumento recibe la referencia al objeto cuyo
+    atributo \structure{x} es modificado. Basado en el ejemplo de
+    Guido van Rossum.
+  \end{center}
+\end{frame}
+
+\begin{frame}{02. No puede ser opcional — otra razón}
+  \begin{justify}
+    \small
+    Pero el argumento definitivo está en los \structure{decoradores}:
+    al decorar una función, no es trivial determinar automáticamente
+    si habría que añadirle el parámetro \structure{self} o no: el
+    decorador podría estar convirtiendo la función en, en entre otros,
+    un método estático (que no tiene \structure{self}) o en un método
+    de clase (\structure{classmethod}, que recibe una referencia a la
+    clase, no al objeto).
+  \end{justify}
+
+  \begin{alertblock}{}
+    \centering
+    Arreglar eso implicaría cambios no triviales en el lenguaje,
+    considerar casos especiales y un poco de magia negra. Y hubiera
+    roto la compatibilidad hacia atrás de Python 3.1.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{02. El primer parámetro: self}
+  \footnotesize
+  \begin{block}{\centering Why explicit self has to stay (Guido van Rossum)}
+    \centering \url{http://neopythonic.blogspot.com.es/2008/10/why-explicit-self-has-to-stay.html}
+  \end{block}
+
+  \vspace{0.5cm}
+  {
+    \normalsize
+    \begin{alertblock}{\centering Moraleja}
+      \centering Usamos \structure{self} para acceder los atributos del objeto [*]
+    \end{alertblock}
+  }
+
+  [*] Un método es un atributo ejecutable — ver \structure{callable()}
+\end{frame}
