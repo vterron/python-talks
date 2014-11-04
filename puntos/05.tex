@@ -1,0 +1,195 @@
+% Author: Victor Terron (c) 2014
+% Email: `echo vt2rron1iaa32s | tr 132 @.e`
+% License: CC BY-SA 4.0
+
+\begin{frame}{05. Métodos estáticos}
+  \begin{block}{}
+    \centering
+    Los método estáticos (\textit{static methods}) son aquellos que no
+    necesitan acceso a \structure{ningún atributo} de ningún objeto en
+    concreto de la clase.
+  \end{block}
+\end{frame}
+
+\begin{frame}{05. \textit{self} innecesario — ejemplo}
+  \footnotesize
+  \pythoncode{./code/05/50-staticmethod-example-0.py}
+  \pythonoutput{./code/05/output/50-staticmethod-example-0}
+\end{frame}
+
+\begin{frame}{05. Métodos estáticos}
+  \begin{center}
+    \small
+    En este caso no es necesario que recibamos como primer argumento
+    una referencia al objeto que está llamando el método.
+  \end{center}
+
+  \begin{block}{}
+    \large
+    \centering
+    Podemos usar \structure{@staticmethod}, un decorador, para que
+    nuestra función \structure{no} lo reciba.
+  \end{block}
+\end{frame}
+
+\begin{frame}{05. \textit{self} innecesario — ejemplo}
+  \scriptsize
+  \pythoncode{./code/05/51-staticmethod-example-1.py}
+  \pythonoutput{./code/05/output/51-staticmethod-example-1}
+\end{frame}
+
+\begin{frame}{05. Métodos estáticos}
+  \begin{block}{}
+    \centering
+     Nada nos impediría mover este método a una función fuera de la
+     clase, ya que no hace uso de ningún atributo de ningún objeto,
+     pero la dejamos dentro porque su \structure{lógica} (hacer sumas)
+     \structure{pertenece conceptualmente a Calculadora}.
+  \end{block}
+
+  \small
+  \begin{justify}
+     Los métodos estáticos no dependen de las
+     \structure{características} individuales de los objetos que los
+     invocan, por lo que podemos considerar que en realidad pertenecen
+     "a la clase" (siempre que no los confundamos con los
+     \structure{classmethods}). Eso también significa que
+     \structure{los podemos llamar directamente sobre la clase}, sin
+     que haya que crear un objeto de la misma.
+  \end{justify}
+\end{frame}
+
+\begin{frame}{05. Métodos estáticos — sobre la clase}
+  \footnotesize
+  \pythoncode{./code/05/52-staticmethod-example-2.py}
+  \pythonoutput{./code/05/output/52-staticmethod-example-2}
+\end{frame}
+
+\begin{frame}{05. Métodos de clase}
+  \begin{block}{}
+    \centering
+    Los métodos de clase (\textit{class methods}) pueden visualizarse
+    como una variante de los métodos normales: sí reciben un primer
+    argumento, pero la referencia no es al objeto que llama al método
+    (\structure{self}), sino a la \structure{clase} de dicho objeto
+    (\structure{cls}, por convención).
+  \end{block}
+\end{frame}
+
+\begin{frame}{05. Métodos de clase — motivación}
+  \begin{alertblock}{}
+    \centering
+     Una referencia a la clase es lo que nos hace falta si necesitamos
+     \structure{devolver otro objeto} de la misma clase.
+  \end{alertblock}
+
+  \begin{center}
+    \small
+    Por ejemplo, podríamos tener la clase Ameba y querer implementar
+    su método fisión — que simula el proceso de bipartición y devuelve
+    dos objetos de la misma clase.
+  \end{center}
+\end{frame}
+
+\begin{frame}{05. Ejemplo — \textit{hard-codeando} el tipo}
+  \scriptsize
+  \pythoncode{./code/05/53-new-object-problem-0.py}
+  \pythonoutput{./code/05/output/53-new-object-problem-0}
+\end{frame}
+
+\begin{frame}{05. Problema: \textit{hard-coding} + herencia}
+  \scriptsize
+  \pythoncode{./code/05/54-new-object-problem-1.py}
+  \pythonoutput{./code/05/output/54-new-object-problem-1}
+\end{frame}
+
+\begin{frame}{05. Ejemplo — usando  \_\_class\_\_ o type()}
+  \scriptsize
+  \pythoncode{./code/05/55-new-object-problem-2.py}
+  \pythonoutput{./code/05/output/55-new-object-problem-2}
+\end{frame}
+
+\begin{frame}{05. Ejemplo — más problemas}
+  \begin{alertblock}{}
+    \centering
+    \structure{type(self)} es, de forma casi indiscutible, preferible
+    a acceder a \structure{self.\_\_class\_\_}
+  \end{alertblock}
+
+  \begin{center}
+    \small
+    El único escenario en el que no podemos usarlo es en las clases
+    \textit{old-style}, porque antes de la unificación de clase y tipo
+    \structure{type()} devolvía siempre \structure{\textless type
+      'instance' \textgreater}.
+  \end{center}
+\end{frame}
+
+\begin{frame}{05. Ejemplo — \textit{old-style}}
+  \scriptsize
+  \pythoncode{./code/05/56-new-object-problem-3.py}
+  \pythonoutput{./code/05/output/56-new-object-problem-3}
+\end{frame}
+
+\begin{frame}{05. Métodos de clase}
+  \begin{center}
+    \small
+    Así que, técnicamente, \structure{\_\_class\_\_} es la única
+    solución que funciona tanto en clases \textit{old-style} como
+    \textit{new-style}.
+  \end{center}
+
+  \begin{alertblock}{}
+    \center
+    Pero todo eso da igual, porque precisamente
+    \structure{@classmethod}, otro decorador, existe para recibir como
+    primer argumento el tipo (es decir, la clase) del objeto que ha
+    llamado al método.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{05. Métodos de clase — ejemplo}
+  \scriptsize
+  \pythoncode{./code/05/57-classmethod-example-0.py}
+  \pythonoutput{./code/05/output/57-classmethod-example-0}
+\end{frame}
+
+\begin{frame}{05. A veces necesitamos type()}
+  \begin{alertblock}{}
+    \centering
+    Por supuesto, usar \structure{type(self)} es inevitable cuando
+    necesitamos crear objetos de la misma clase \structure{y} acceder
+    a atributos del objeto que llama al método.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{05. A veces necesitamos type() — ejemplo}
+  \scriptsize
+  \pythoncode{./code/05/58-classmethod-example-1.py}
+  \pythonoutput{./code/05/output/58-classmethod-example-1}
+\end{frame}
+
+\begin{frame}{05. Métodos de clase y estáticos}
+  \small
+  \begin{block}{\centering Python @classmethod and @staticmethod for beginner?}
+    \centering \url{https://stackoverflow.com/a/12179752/184363}
+  \end{block}
+
+  \begin{block}{\centering Python type() or \_\_class\_\_, == or is}
+    \centering \url{https://stackoverflow.com/a/9611083/184363}
+  \end{block}
+\end{frame}
+
+\begin{frame}{05. Métodos de clase y estáticos}
+  \begin{alertblock}{\centering Moraleja (I)}
+    \centering Usamos \structure{@staticmethod} cuando el método
+    trabaja con la clase, no con sus objetos.
+  \end{alertblock}
+
+  \vspace{0.25cm}
+  \begin{alertblock}{\centering Moraleja (II)}
+    \centering Usamos \structure{@classmethod} cuando trabajamos con
+    la clase \structure{y} queremos devolver un objeto de la misma
+    clase.
+  \end{alertblock}
+\end{frame}
