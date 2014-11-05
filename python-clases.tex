@@ -8,10 +8,19 @@
 \usepackage{listings}
 \usepackage{ragged2e}
 
+% A Nice Title Page for Beamer Presentations
+% http://github.com/dfalster/BeamerTitleSlide
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+
+% Define a new mdframed environment
+\newmdenv[tikzsetting={draw=black,fill=white,fill opacity=0.65},
+  backgroundcolor=none,leftmargin=0,rightmargin=0, innertopmargin=4pt,
+  skipbelow=\baselineskip, skipabove=\baselineskip]{TitleBox}
+
 \usepackage{minted}
 \usemintedstyle{emacs} % of course
 \definecolor{mintedoutputbackground}{rgb}{0.95,0.95,0.95}
-
 
 % Set global options for \inputminted
 % https://tex.stackexchange.com/a/103191/48441
@@ -68,6 +77,7 @@
 \begin{document}
 
 \section{Introducción}
+\input{portada.tex}
 \input{intro.tex}
 
 \section{00. Heredando de object (new-style)}
