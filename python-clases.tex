@@ -80,6 +80,18 @@
 \input{portada.tex}
 \input{intro.tex}
 
+\begin{frame}
+  \frametitle{Índice}
+  \tableofcontents
+\end{frame}
+
+\AtBeginSection[]{
+  \begin{frame}
+    \frametitle{Índice}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
 \section{00. Heredando de object (new-style)}
 \punto{00}
 
