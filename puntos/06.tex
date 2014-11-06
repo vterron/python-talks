@@ -1,0 +1,383 @@
+% Author: Victor Terron (c) 2014
+% Email: `echo vt2rron1iaa32s | tr 132 @.e`
+% License: CC BY-SA 4.0
+
+\begin{frame}{06. \textit{getters} — Por qué}
+  \begin{block}{}
+    \small
+    \centering
+    Consideremos la clase Circulo, con los atributos \structure{radio}
+    y \structure{area}.
+  \end{block}
+
+  \begin{center}
+    El área depende del radio: hay una relación entre ambos atributos,
+    por lo que si cambiamos uno de ellos habría que recalcular el
+    otro. \structure{El área es una función del radio}.
+  \end{center}
+\end{frame}
+
+\begin{frame}{06. \textit{getters} — Problema}
+  \scriptsize
+  \pythoncode{./code/06/600-getter-example-0.py}
+  \pythonoutput{./code/06/output/600-getter-example-0}
+\end{frame}
+
+\begin{frame}{06. \textit{getters}}
+  \begin{block}{}
+    \centering
+    La solución es sencilla: podemos convertir \structure{area} en una
+    función, \structure{area()}, y hacer que calcule el área del
+    círculo dependiendo del radio de nuestro objeto en cada momento.
+  \end{block}
+\end{frame}
+
+\begin{frame}{06. \textit{getters} — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/06/601-getter-example-1.py}
+  \pythonoutput{./code/06/output/601-getter-example-1}
+\end{frame}
+
+\begin{frame}{06. \textit{getters}}
+  \begin{alertblock}{}
+    \large
+    \centering
+    Funciona, pero hemos pasado de leer un atributo a llamar a un
+    método.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{06. \textit{setters} — Por qué}
+  \begin{block}{}
+    \centering
+    A este círculo le podemos poner radio negativo.
+  \end{block}
+\end{frame}
+
+\begin{frame}{06. \textit{setters} — Problema}
+  \footnotesize
+  \pythoncode{./code/06/602-setter-example-0.py}
+  \pythonoutput{./code/06/output/602-setter-example-0}
+\end{frame}
+
+\begin{frame}{06. \textit{setters}}
+  \begin{block}{}
+    \centering
+     Podríamos usar una variable privada para almacenar el radio, y
+     proporcionar métodos en la clase tanto para \structure{acceder} a
+     la variable como para \structure{ajustar} su valor.
+  \end{block}
+
+  \begin{center}
+    \small
+    Es ahí donde haríamos la comprobación de que el valor es no
+    negativo, lanzando un error en caso de que así sea.
+  \end{center}
+\end{frame}
+
+\begin{frame}{06. \textit{setters} — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/06/603-setter-example-1.py}
+  \pythonoutput{./code/06/output/603-setter-example-1}
+\end{frame}
+
+\begin{frame}{06. Mutadores}
+  \begin{block}{}
+    \centering
+    Estos métodos son conocidos como \textit{setters} y \textit{setters}
+  \end{block}
+
+  \begin{justify}
+    \small
+    También llamados \structure{mutadores}, son métodos que usamos
+    para controlar los \structure{accesos} y \structure{cambios} de
+    una variable. De esta forma, podemos implementar cualquier
+    funcionalidad en el acceso a los atributos de la clase: desde
+    validar los nuevos datos (como en el ejemplo anterior) o disparar
+    un evento cuando una variable sea leída.
+  \end{justify}
+\end{frame}
+
+\begin{frame}{06. Mutadores — Ejemplo}
+  \footnotesize
+  \pythoncode{./code/06/604-setters-getters-example.py}
+  \pythonoutput{./code/06/output/604-setters-getters-example}
+\end{frame}
+
+\begin{frame}{06. Propiedades}
+  \begin{block}{}
+    \centering
+     En Python, las \structure{propiedades} nos permiten implementar
+     la funcionalidad exponiendo estos métodos como atributos.
+  \end{block}
+
+  \begin{center}
+    \small
+    De esta forma, podemos seguir trabajando leyendo el valor de
+    \structure{atributos} o asignándoles un nuevo valor, pero
+    \structure{entre bastidores se están ejecutando funciones} que
+    controlan el acceso. Esto mola mil.
+  \end{center}
+\end{frame}
+
+\begin{frame}{06. Propiedades — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/06/605-properties-example.py}
+\end{frame}
+
+\begin{frame}{06. Propiedades — Ejemplo}
+  \scriptsize
+  \pythonoutput{./code/06/output/605-properties-example}
+\end{frame}
+
+\begin{frame}{06. Propiedades}
+  \begin{alertblock}{}
+    \centering
+    \structure{@property} convierte \structure{PIN()} en un
+    \textit{getter} para el atributo de sólo lectura con ese
+    \structure{mismo nombre}.
+  \end{alertblock}
+
+  \begin{center}
+    \small
+    Nótese como la asignación en \structure{\_\_init\_\_()} llama al
+    \textit{setter}, ya que está asignando un valor al atributo
+    \structure{PIN} — que es ahora una propiedad.
+  \end{center}
+\end{frame}
+
+\begin{frame}{06. area como atributo (\textit{getter})}
+  \scriptsize
+  \pythoncode{./code/06/606-property-fget.py}
+\end{frame}
+
+\begin{frame}{06. area como atributo (\textit{getter})}
+  \footnotesize
+  \pythonoutput{./code/06/output/606-property-fget}
+\end{frame}
+
+\begin{frame}{06. radio como atributo (\textit{setter})}
+  \scriptsize
+  \pythoncode{./code/06/607-property-fset.py}
+\end{frame}
+
+\begin{frame}{06. radio como atributo (\textit{setter})}
+  \footnotesize
+  \pythonoutput{./code/06/output/607-property-fset}
+\end{frame}
+
+\begin{frame}{06. \textit{deleter}}
+  \begin{block}{}
+    \centering
+    Hay un tercera \textit{property} que podemos crear: el \structure{\textit{deleter}}
+  \end{block}
+
+  \begin{center}
+    \small
+    Ahora nuestra clase \structure{CajaFuerte} guarda un historial de
+    todas las contraseñas, para mayor comodidad de la NSA. El
+    \textit{getter} de PIN nos devuelve la última que se ha ajustado
+    (o \structure{None} si no hay ninguna), el \textit{setter} la
+    añade al final de la lista interna y el \textit{deleter} vacía
+    esta lista.
+  \end{center}
+\end{frame}
+
+\begin{frame}{06. \textit{deleter} — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/06/608-property-deleter.py}
+\end{frame}
+
+\begin{frame}{06. \textit{deleter} — Ejemplo}
+  \footnotesize
+  \pythoncode{./code/06/608-property-deleter-usage.py}
+  \pythonoutput{./code/06/output/608-property-deleter-usage}
+\end{frame}
+
+\begin{frame}{06. @property}
+  \begin{alertblock}{}
+    \centering
+    Poniéndonos un poco técnicos, lo que está ocurriendo con el
+    decorador \structure{@property} es que la función se está
+    convirtiendo en en un \textit{getter} para un atributo de
+    \structure{sólo lectura de ese mismo nombre}.
+  \end{alertblock}
+
+  \begin{block}{}
+    \small
+    \centering
+    Este objeto \structure{property} nos ofrece a su vez los métodos
+    \textit{getter}, \textit{setter} y \textit{deleter}, que podemos
+    usar como decoradores para copiar la propiedad y ajustar su
+    correspondiente función de acceso.
+  \end{block}
+\end{frame}
+
+\begin{frame}{06. \textit{docstring}}
+  \begin{block}{}
+    \large
+    \centering
+    El \textit{docstring} de la \structure{@property} será aquel que
+     especifiquemos para el \textit{setter}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{06. \textit{docstring} — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/06/609-fget-docstring.py}
+  \pythonoutput{./code/06/output/609-fget-docstring}
+\end{frame}
+
+\begin{frame}{06. @property}
+  \begin{alertblock}{}
+    \centering
+    Al usar decoradores, hay que asegurarse de que las funciones que
+    usamos \structure{tienen todas el mismo nombre} que la que hemos
+    definido como \textit{setter} [*]
+  \end{alertblock}
+
+  \begin{center}
+    \footnotesize
+    \centering
+        [*] Es decir, aquella que hemos decorado en primer lugar, con
+        \structure{@property}
+  \end{center}
+\end{frame}
+
+\begin{frame}{06. @property — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/06/610-name-unmatch.py}
+  \pythonoutput{./code/06/output/610-name-unmatch}
+\end{frame}
+
+\begin{frame}{06. property()}
+  \begin{alertblock}{}
+    \centering
+    La sintaxis del \structure{decorador} es simplemente una interfaz
+    cómoda para la llamada a la función \structure{property()}.
+  \end{alertblock}
+
+  \begin{center}
+    \small
+     Esta función recibe \textit{setter}, \textit{getter},
+     \textit{deleter} y \textit{docstring} (opcionales), y nos
+     devuelve el objeto \structure{\textit{property}} que asignamos a
+     nuestra clase como si fuera un atributo más. Si lo hacemos así,
+     podemos dar a las diferentes funciones el nombre que queramos.
+  \end{center}
+\end{frame}
+
+\begin{frame}{06. property() — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/06/611-property-function.py}
+  \pythonoutput{./code/06/output/611-property-function}
+\end{frame}
+
+\begin{frame}{06. property() — Argumentos nombrados}
+  \begin{alertblock}{}
+    \centering
+    No tenemos que usar todos los argumentos a
+    \structure{property()}. Si sólo pasamos uno será el
+    \textit{getter}; dos, \textit{getter} y \textit{setter}, y
+    así. Para especificar algunos en concreto que no vayan en ese
+    orden tendríamos que usar \structure{argumentos nombrados}.
+  \end{alertblock}
+
+  \begin{center}
+    \small
+    Por ejemplo, podríamos querer PIN pueda ser ajustado y borrado,
+    pero —por seguridad— nunca leído. Intentarlo lanzará la excepción
+    \structure{AttributeError: unreadable attribute}.
+  \end{center}
+\end{frame}
+
+\begin{frame}{06. property() — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/06/612-setter-and-deleter.py}
+  \pythonoutput{./code/06/output/612-setter-and-deleter}
+\end{frame}
+
+\begin{frame}{06. property()}
+  \begin{alertblock}{}
+    \large
+    \centering
+    Por supuesto, si intentamos usar alguno que no hemos definido nos
+    encontraremos con un error.
+  \end{alertblock}
+
+  \begin{center}
+    \small
+    Por ejemplo, si no hemos definido el \textit{deleter}, intentar
+    borrar la \textit{property} con \structure{del} lanzará el error
+    \structure{AttributeError: can't delete attribute}.
+  \end{center}
+\end{frame}
+
+\begin{frame}{06. property() — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/06/613-deleter-error.py}
+  \pythonoutput{./code/06/output/613-deleter-error}
+\end{frame}
+
+\begin{frame}{06. Propiedades — siempre}
+  \begin{alertblock}{}
+    \Large
+    \centering
+     Entre \structure{\textit{@properties}} vs \textit{getters} y
+     \textit{setters}, la elección está clara:
+     \structure{\textit{@properties}}, siempre.
+  \end{alertblock}
+
+  \begin{justify}
+    \small
+    La forma Pythónica de acceder a los atributos es hacerlo
+    directamente, ya que todos ellos son públicos. Las
+    \textit{properties} nos permiten que nuestro código sea
+    inicialmente simple y que más tarde incorporemos lógica
+    \structure{sin que el resto del código tenga que cambiar} — para
+    el resto del mundo, desde fuera, seguirá siendo un atributo.
+  \end{justify}
+\end{frame}
+
+\begin{frame}{06. Propiedades — siempre}
+  \begin{block}{}
+    \centering
+    Por ejemplo, inicialmente podríamos almacenar el radio de la clase
+    \structure{Circulo} tal y como nos lo dieran, aceptando cualquier
+    valor. Más adelante, podríamos añadir la comprobación de que sea
+    un número no negativo, sin que sea necesario cambiar nada más — lo
+    que no ocurriría al pasar de atributo a \textit{setter} y
+    \textit{getter}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{06. Uniform Access Principle}
+  \begin{block}{}
+    \centering
+    Formalmente, la idea es adherirnos al \structure{Uniform Access
+      Principle}: el acceso a todos los atributos lo hacemos a través
+    de una notación uniforme, al margen de que estén implementados
+    mediante simple almacenamiento (un atributo) o una llamada a un
+    método (propiedades).
+  \end{block}
+\end{frame}
+
+\begin{frame}{06. Propiedades (@property)}
+  \footnotesize
+  \begin{block}{\centering ``public'' or ``private'' attribute in Python ? What is the best way?}
+    \centering \url{https://stackoverflow.com/q/4555932/184363}
+  \end{block}
+
+  \begin{block}{\centering Python @property versus getters and setters}
+    \centering \url{https://stackoverflow.com/q/6618002/184363}
+  \end{block}
+
+  \normalsize
+  \begin{alertblock}{\centering Moraleja}
+    \centering
+    No usamos \textit{setters} ni \textit{getters}, sino simple acceso
+    a atributos. Si y cuando necesitemos alguna lógica de acceso,
+    podemos reemplazar estos atributos por funciones y usar
+    \structure{@properties}.
+  \end{alertblock}
+\end{frame}
