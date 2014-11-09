@@ -1,0 +1,299 @@
+% Author: Victor Terron (c) 2014
+% Email: `echo vt2rron1iaa32s | tr 132 @.e`
+% License: CC BY-SA 4.0
+
+\begin{frame}{09. \_\_init\_\_() y \_\_new\_\_()}
+  \begin{block}{}
+    \centering
+    Asumamos que vamos a operar con \structure{medias ponderadas} y
+    queremos almacenar los pesos en su propia clase.
+  \end{block}
+
+  \begin{center}
+    \small
+    Estos pesos son \structure{inmutables}, por lo que decidimos
+    heredar de \structure{tuple} para asegurarnos de que así sea.
+  \end{center}
+\end{frame}
+
+\begin{frame}{09. Una primera aproximación}
+  \pythoncode{./code/09/900-why-we-need-new-0.py}
+  \pythonoutput{./code/09/output/900-why-we-need-new-0}
+\end{frame}
+
+\begin{frame}{09. Pero hay un problema}
+  \begin{alertblock}{}
+    \centering
+    Pronto advertimos un problema: los pesos no tienen \structure{por
+      qué sumar uno}, como sería de esperar.
+  \end{alertblock}
+
+  \begin{center}
+    Los valores que le pasemos a nuestra clase se van a aceptar
+    \structure{sean los que sean}.
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  {\Large 09. Pero hay un problema — Demostración}
+  \pythoncode{./code/09/901-why-we-need-new-1.py}
+  \pythonoutput{./code/09/output/901-why-we-need-new-1}
+\end{frame}
+
+\begin{frame}{09. Una posible solución}
+  \begin{block}{}
+    \centering
+    Así que tenemos una idea: vamos a hacer que
+    \structure{\_\_init\_\_()} compruebe que los valores son
+      correctos y lance \structure{ValueError} de lo contrario.
+  \end{block}
+\end{frame}
+
+\begin{frame}{09. Una posible solución — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/09/902-why-we-need-new-2.py}
+  \pythonoutput{./code/09/output/902-why-we-need-new-2}
+\end{frame}
+
+\begin{frame}{09. Mejorándolo un poco más}
+  \begin{block}{}
+    \centering
+    Pero nunca nos damos por satisfechos — ¿y si nuestro constructor,
+    en vez de lanzar un error, se encargara de \structure{normalizar}
+    los pesos?
+  \end{block}
+
+  \begin{center}
+    \small
+    Así podríamos darle pesos relativos: [2, 1] sería ``\textit{el
+      primer elemento tiene un peso que es el doble que el segundo}'',
+    es decir, \structure{[0.66, 0.33]}, de forma cómoda.
+  \end{center}
+\end{frame}
+
+\begin{frame}{09. Mejorándolo un poco más}
+  \begin{alertblock}{}
+    \centering
+    \large
+    Podríamos intentarlo así, sin embargo — pero descubrimos que
+    \structure{no} funciona.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{\large 09. Mejorándolo un poco más — Problema}
+  \footnotesize
+  \pythoncode{./code/09/903-why-we-need-new-3.py}
+  \pythonoutput{./code/09/output/903-why-we-need-new-3}
+\end{frame}
+
+\begin{frame}{09. ¿Por qué?}
+  \begin{block}{}
+    \centering
+    Estamos heredando de una clase \structure{inmutable}, y para
+    cuando llegamos a \structure{\_\_init\_\_()} ya es demasiado tarde
+    para cambiar nada: el objeto \structure{ya ha sido creado}.
+  \end{block}
+
+  \begin{center}
+    Y, al ser \structure{inmutable}, no podemos cambiarlo.
+  \end{center}
+\end{frame}
+
+\begin{frame}{09. \_\_init\_\_() es el \textit{inicializador}}
+  \begin{alertblock}{}
+    \centering
+    \structure{\_\_init\_\_()} recibe una instancia (objeto) como su
+    primer argumento (que, no en vano, se llama '\structure{self}') y
+    su responsabilidad es \structure{inicializarla}.
+  \end{alertblock}
+
+  \begin{center}
+    Es decir, \structure{ajustar sus atributos} a los valores que
+    deban tener. No debe devolver \structure{nada}.
+  \end{center}
+\end{frame}
+
+\begin{frame}{09. Podríamos intentar hacer esto...}
+  \footnotesize
+  \pythoncode{./code/09/904-return-from-init-0.py}
+  \pythonoutput{./code/09/output/904-return-from-init-0}
+\end{frame}
+
+\begin{frame}{09. ... pero no funciona}
+  \begin{center}
+    Esto no funciona: '\structure{self}' es una \structure{variable
+      local} a la que le hemos asignado un nuevo valor. Y si no ha
+    lanzado error es porque \structure{super(Pesos, self).\_\_init\_\_()}
+    ha devuelto \structure{None} y a su vez nuestro
+    \structure{\_\_init\_\_()}.
+  \end{center}
+
+  \begin{block}{}
+    \centering
+    Ése es el único valor que \structure{\_\_init\_\_()} puede devolver,
+    porque sólo puede \structure{inicializar} el objeto — llegados a
+    este punto, el objeto \structure{ya existe}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{09. Esto tampoco funciona}
+  \scriptsize
+  \pythoncode{./code/09/905-return-from-init-1.py}
+  \pythonoutput{./code/09/output/905-return-from-init-1}
+\end{frame}
+
+\begin{frame}{09. ¿Y qué objeto es ese?}
+  \begin{center}
+    \large
+    ¿De dónde viene el objeto que recibe \structure{\_\_init\_\_()}?
+    ¿Quién lo ha creado?
+  \end{center}
+\end{frame}
+
+\begin{frame}{09. \_\_new\_\_()}
+    \begin{block}{}
+      \centering
+      El método mágico \structure{\_\_new\_\_()} recibe la
+      \structure{clase} como primer argumento, y es su responsabilidad
+      devolver \structure{una nueva instancia} (objeto) de esta clase.
+    \end{block}
+
+    \begin{center}
+      \small
+      Es \structure{después} de llamar a \structure{\_\_new\_\_()} cuando
+      \structure{\_\_init\_\_()}, con el objeto ya creado , se
+      \structure{ejecuta}.
+    \end{center}
+\end{frame}
+
+\begin{frame}{09. Trivia — \_\_init\_\_()}
+  \begin{alertblock}{}
+    \centering
+    Trivia: el método \structure{\_\_init\_\_()} de las clases inmutables
+    \structure{no hace nada} e \structure{ignora los} argumentos que
+    le pasamos.
+  \end{alertblock}
+
+  \begin{center}
+    \small
+    Es \structure{\_\_new\_\_()} quien se encarga de todo. De lo
+    contrario, podríamos usarlo para \structure{modificar} el valor de
+    objetos inmutables.
+  \end{center}
+\end{frame}
+
+\begin{frame}{09. Trivia — Ejemplo}
+  \pythoncode{./code/09/906-immutable-init.py}
+  \pythonoutput{./code/09/output/906-immutable-init}
+\end{frame}
+
+\begin{frame}{09. Regresando a nuestra clase Pesos}
+  \begin{block}{}
+    \centering
+    Lo que tenemos que hacer entonces es \structure{normalizar} los
+    pesos en \structure{\_\_new\_\_()}, pasándole los valores ya
+    normalizados al método \structure{\_\_new\_\_()} de la clase base:
+    \structure{tuple}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{09. Pesos — ahora sí}
+  \footnotesize
+  \pythoncode{./code/09/907-Pesos-with-new-0.py}
+  \pythonoutput{./code/09/output/907-Pesos-with-new-0}
+\end{frame}
+
+
+\begin{frame}{09. ¡Hay que pasar la clase a \_\_new\_\_()!}
+  \scriptsize
+  \pythoncode{./code/09/908-Pesos-with-new-1.py}
+  \pythonoutput{./code/09/output/908-Pesos-with-new-1}
+\end{frame}
+
+\begin{frame}{09. Aún mejor: con generadores}
+  \scriptsize
+  \pythoncode{./code/09/909-Pesos-with-new-2.py}
+  \pythonoutput{./code/09/output/909-Pesos-with-new-2}
+
+  \begin{center}
+    \small
+    Y ya no necesitamos \structure{\_\_init\_\_()} para nada.
+  \end{center}
+\end{frame}
+
+\begin{frame}{09. AnswerToEverything}
+  \begin{block}{}
+    \centering
+    Otro ejemplo: una clase que siempre devuelve \structure{42},
+    independientemente del valor que se le pase como argumento al
+    crearla.
+  \end{block}
+\end{frame}
+
+\begin{frame}{09. AnswerToEverything — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/09/910-AnswerToEverything-0.py}
+  \pythonoutput{./code/09/output/910-AnswerToEverything-0}
+\end{frame}
+
+\begin{frame}{09. AnswerToEverything — Mejor así}
+  \footnotesize
+  \pythoncode{./code/09/911-AnswerToEverything-1.py}
+  \pythonoutput{./code/09/output/911-AnswerToEverything-1}
+
+  \begin{center}
+    \small
+    Nótese como \structure{\_\_init\_\_()}, aquí, no ha llegado a
+    ejecutarse, ya que nuestra clase es inmutable.
+  \end{center}
+\end{frame}
+
+\begin{frame}{09. ¿\textit{Constructor} o \textit{inicializador}?}
+  \begin{block}{}
+    \center
+    Normalmente nos referimos a \structure{\_\_init\_\_()} como el
+    \textit{constructor} (incluso en la documentación de Python) pero
+    poniéndonos estrictos quizás deberíamos llamarlo
+    \textit{inicializador}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{09. ¿\textit{Constructor} o \textit{inicializador}?}
+  \begin{center}
+    En realidad el nombre no importa mientras tengamos claro el
+    \structure{orden} en el que ocurren las cosas:
+  \end{center}
+
+  \begin{itemize}
+    \item Creamos un objeto llamando a la clase.
+    \item \structure{\_\_new\_\_()} se ejecuta, *args y **kwargs
+    \item \structure{\_\_new\_\_()} devuelve un nuevo objeto
+    \item \structure{\_\_init\_\_()} inicializa el nuevo objeto
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{09. \_\_init\_\_() y \_\_new\_\_()}
+  \small
+  \begin{block}
+    {\centering Python's use of \_\_new\_\_ and \_\_init\_\_?}
+    \centering
+    \url{https://stackoverflow.com/q/674304/184363}
+  \end{block}
+
+  \begin{block}
+    {\centering Overriding the \_\_new\_\_ method (GvR)}
+    \centering
+    \url{https://www.python.org/download/releases/2.2/descrintro/\#\_\_new\_\_}
+  \end{block}
+
+  \vspace{0.5cm}
+  {
+    \normalsize
+    \begin{alertblock}{\centering Moraleja}
+      \centering
+      Es \structure{\_\_new\_\_()} quien \structure{crea} el nuevo
+      objeto. La mayor parte del tiempo sólo necesitamos tenerlo en
+      cuenta cuando \structure{heredamos de clases inmutables}.
+    \end{alertblock}
+  }
+\end{frame}
