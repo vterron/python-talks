@@ -8,7 +8,7 @@ They are also `available as a PDF`__, always up-to-date (via git hooks).
 * Language: Spanish
 * License: `CC BY-SA 4.0 <http://creativecommons.org/licenses/by-sa/4.0/>`_
 
-The recording of the talk is available `on YouTube <http://www.youtube.com/watch?v=QZiX75rbkuI>`_.
+More information is available on the `GitHub page of the talk <http://vterron.github.io/PyConES-2013/>`_.
 
 .. |PDF| image:: ./pics/portada.png
 .. _PDF: http://www.iaa.es/~vterron/python-cuarenta.pdf
