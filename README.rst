@@ -1,4 +1,4 @@
-The Jupyter notebook of my talk at `EuroPython 2016 <https://ep2016.europython.eu/en/`_ (Bilbao, Spain).
+The Jupyter notebook of my talk at `EuroPython 2016 <https://ep2016.europython.eu/en/>`_ (Bilbao, Spain).
 
 |Notebook|_
 
