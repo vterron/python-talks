@@ -1,0 +1,353 @@
+% Author: Victor Terron (c) 2014
+% Email: `echo vt2rron1iaa32s | tr 132 @.e`
+% License: CC BY-SA 4.0
+
+\begin{frame}{08. collections.namedtuple()}
+  \begin{block}{}
+    \Large
+    \centering
+    El módulo \structure{collections} es genial, y una de sus joyas es
+    namedtuple()
+  \end{block}
+
+  \begin{center}
+    \small
+    Hay ocasiones en las que tenemos necesitamos clases que no son más
+    que contenedores de atributos. Por ejemplo, podríamos definir la
+    clase \structure{Punto} para almacenar las coordenadas (x, y, z)
+    de un punto en el espacio tridimensional.
+  \end{center}
+\end{frame}
+
+\begin{frame}{08. Ejemplo — sin namedtuple()}
+  \footnotesize
+  \pythoncode{./code/08/800-why-we-need-namedtuples-0.py}
+  \pythonoutput{./code/08/output/800-why-we-need-namedtuples-0}
+\end{frame}
+
+\begin{frame}{08. collections.namedtuple()}
+  \begin{alertblock}{}
+    \centering
+    Aunque no necesitemos hacer nada más con estos atributos, hemos
+    tenido que definir un \structure{\_\_init\_\_()} lleno de
+    aburridas asignaciones.
+  \end{alertblock}
+
+  \begin{center}
+    Y, al no haber definido \structure{\_\_str\_\_()} ni
+    \structure{\_\_repr\_\_()}, ni siquiera podemos imprimir por
+    pantalla nuestro objeto de la forma que esperaríamos.
+  \end{center}
+\end{frame}
+
+\begin{frame}{08. Ejemplo — sin \_\_repr\_\_()}
+  \footnotesize
+  \pythoncode{./code/08/801-why-we-need-namedtuples-1.py}
+  \pythonoutput{./code/08/output/801-why-we-need-namedtuples-1}
+\end{frame}
+
+\begin{frame}{08. collections.namedtuple()}
+  \begin{alertblock}{}
+    \large
+    \centering
+    Tampoco podemos comparar dos puntos sin definir
+    \structure{\_\_eq\_\_()}, ya que sin este método Python comparará
+    posiciones en memoria.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{08. Ejemplo — sin \_\_eq\_\_()}
+  \scriptsize
+  \pythoncode{./code/08/802-why-we-need-namedtuples-2.py}
+  \pythonoutput{./code/08/output/802-why-we-need-namedtuples-2}
+\end{frame}
+
+\begin{frame}{08. Ejemplo — con \_\_eq\_\_()}
+  \footnotesize
+  \pythoncode{./code/08/803-why-we-need-namedtuples-3.py}
+\end{frame}
+
+\begin{frame}{08. Esto es muy aburrido}
+  \begin{block}{}
+    \centering
+    Para algo tan sencillo como imprimir y comparar dos puntos hemos
+    tenido que definir varios métodos.
+  \end{block}
+
+  \begin{center}
+    \small
+    Es fácil terminar así definiendo incontables métodos mágicos
+    cuando lo único que nosotros queríamos era almacenar tres
+    coordenadas, nada más.
+  \end{center}
+\end{frame}
+
+\begin{frame}{08. collections.namedtuple()}
+  \begin{alertblock}{}
+    \Large
+    \centering
+    Todo esto podemos ahorrárnoslo usando las
+    \structure{\textit{namedtuples}}.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{08. collections.namedtuple() — Ejemplo}
+  \footnotesize
+  \pythoncode{./code/08/804-Point-with-namedtuple.py}
+  \pythonoutput{./code/08/output/804-Point-with-namedtuple}
+\end{frame}
+
+\begin{frame}{08. collections.namedtuple()}
+  \begin{block}{}
+    \centering
+    Lo que \structure{namedtuple()}, una \textit{factory function},
+    nos devuelve, es una nueva clase que hereda de \structure{tuple}
+      pero que también permite acceso a los atributos por
+      \structure{nombre}.
+  \end{block}
+
+  \begin{center}
+    \small
+    Nada más y nada menos — pero al ser una subclase significa que
+    todos los métodos mágicos que necesitábamos ya están
+    implementados.
+  \end{center}
+\end{frame}
+
+\begin{frame}{08. collections.namedtuple() — Ejemplo}
+  \footnotesize
+  \pythoncode{./code/08/805-namedtuple-explained.py}
+  \pythonoutput{./code/08/output/805-namedtuple-explained}
+\end{frame}
+
+\begin{frame}{08. Creando una \textit{namedtuple}}
+  \begin{block}{}
+    \large
+    \centering
+    \structure{namedtuple()} recibe dos argumentos: el
+    \structure{nombre} de la clase y sus \structure{atributos}.
+  \end{block}
+
+  \begin{center}
+    \small
+    Estos pueden especificarse en una secuencia de cadenas de texto, o
+    en una \structure{única cadena de texto} en la que estén separados
+    por espacios o comas.
+  \end{center}
+\end{frame}
+
+\begin{frame}{08. Creando una \textit{namedtuple} — Ejemplo}
+  \small
+  \pythoncode{./code/08/806-namedtuple-field_names.py}
+\end{frame}
+
+\begin{frame}{08. Nombres de atributos}
+  \begin{center}
+    \small
+    El nombre de los atributos puede ser cualquier identificador
+    (``\textit{nombre de variable}'') válido en Python: letras,
+    números o guiones bajos, \structure{pero} no pueden empezar por
+    números (esto es normal) ni guión bajo (particulariad de las
+    namedtuples).
+  \end{center}
+
+  \begin{block}{}
+    \centering
+    Tampoco puede ser ninguna \structure{keyword} de Python (como
+    \structure{for}, \structure{print} o \structure{def}). De ser así,
+    lanzará \structure{ValueError}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{08. Nombres de atributos — Ejemplo}
+  \footnotesize
+  \pythoncode{./code/08/807-namedtuple-invalid-identifier.py}
+  \scriptsize
+  \pythonoutput{./code/08/output/807-namedtuple-invalid-identifier}
+\end{frame}
+
+\begin{frame}{08. rename = True}
+  \begin{block}{}
+    \centering
+    Podemos usar \structure{rename = True} para que los
+    identificadores inválidos se renombren automáticamente,
+    reemplazándolos con nombres posicionales.  También elimina
+    identificadores duplicados, si los hay.
+  \end{block}
+
+  \begin{center}
+    \small
+    Esto es muy útil si estamos generando nuestra
+    \structure{namedtuple} a partir de una consulta a una base de
+    datos, por ejemplo.
+  \end{center}
+\end{frame}
+
+\begin{frame}{08. rename = True — Ejemplo}
+  \footnotesize
+  \pythoncode{./code/08/808-namedtuple-rename.py}
+  \pythonoutput{./code/08/output/808-namedtuple-rename}
+\end{frame}
+
+\begin{frame}{08. typename}
+  \begin{alertblock}{}
+    \centering
+    Normalmente asignamos el objeto que \structure{namedtuple()} nos
+    devuelve (la clase) a un objeto con el mismo nombre.
+  \end{alertblock}
+
+  \begin{center}
+    \small
+    Esto puede parecer redundante, pero tiene sentido: el primer
+    argumento que le pasamos a \structure{namedtuple()} es el nombre
+    de la clase, independientemente de qué identificador usemos en
+    nuestro código para referirnos a la misma.
+  \end{center}
+\end{frame}
+
+\begin{frame}{08. typename — Ejemplo}
+  \footnotesize
+  \pythoncode{./code/08/809-namedtuple-why-typename.py}
+  \pythonoutput{./code/08/output/809-namedtuple-why-typename}
+\end{frame}
+
+\begin{frame}{08. Añadiendo métodos}
+  \begin{alertblock}{}
+    \centering
+    Pero con las namedtuples no estamos limitados a la funcionalidad
+    que nos proporcionan. Podemos \structure{heredar} de ellas para
+    implementar \structure{nuestros propios métodos}.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{08. Añadiendo métodos — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/08/810-Point-own-methods-0.py}
+  \pythonoutput{./code/08/output/810-Point-own-methods-0}
+\end{frame}
+
+\begin{frame}{08. Añadiendo métodos}
+  \begin{block}{}
+    \centering
+    Es preferible heredar de una namedtuple con el mismo nombre pero
+    que \structure{comienza por un guión bajo}.
+  \end{block}
+
+  \begin{center}
+    \small
+    Esto es lo mismo que hace CPython cuando un módulo viene
+    acompañado de una extensión en C (por ejemplo,
+    \structure{\_socket}).
+  \end{center}
+\end{frame}
+
+\begin{frame}{08. Añadiendo métodos — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/08/811-Point-own-methods-1.py}
+  \pythonoutput{./code/08/output/811-Point-own-methods-1}
+\end{frame}
+
+\begin{frame}{08. Añadiendo métodos}
+  \begin{block}{}
+   \large
+   \centering
+   Mejor aún, saltándonos un paso intermedio...
+  \end{block}
+\end{frame}
+
+\begin{frame}{08. Añadiendo métodos — Mejor aún}
+  \footnotesize
+  \pythoncode{./code/08/812-Point-own-methods-2.py}
+  \pythonoutput{./code/08/output/812-Point-own-methods-2}
+\end{frame}
+
+\begin{frame}{08. Un ejemplo un poco más completo}
+  \scriptsize
+  \pythoncode{./code/08/813-Point-own-methods-3.py}
+  \pythonoutput{./code/08/output/813-Point-own-methods-3}
+\end{frame}
+
+\begin{frame}{08. verbose = True}
+  \begin{block}{}
+    \centering
+    Al llamar a \structure{namedtuple()}, la opción
+    \structure{verbose=True} hace que se nos imprima por pantalla la
+    definición de la clase justo antes de construirla.
+  \end{block}
+\end{frame}
+
+\begin{frame}{08. verbose = True — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/08/814-namedtuple-verbose.py}
+  \pythonoutput{./code/08/output/814-namedtuple-verbose}
+\end{frame}
+
+\begin{frame}{08. \_asdict()}
+  \begin{block}{}
+    \centering
+    El método \structure{namedtuple.\_asdict()} nos devuelve un
+    \structure{OrderedDict} que asociada cada atributo (clave del
+    diccionario) a su valor correspondiente.
+  \end{block}
+\end{frame}
+
+\begin{frame}{08. \_asdict() — Ejemplo}
+  \small
+  \pythoncode{./code/08/815-namedtuple-asdict.py}
+  \pythonoutput{./code/08/output/815-namedtuple-asdict}
+\end{frame}
+
+\begin{frame}{08. \_replace()}
+  \begin{center}{}
+    Y por último — al heredar de \structure{tuple}, las
+    \structure{namedtuples} son, por definición, inmutables. Pero no
+    tenemos por qué abandonar toda esperanza.
+  \end{center}
+
+  \begin{block}{}
+    \centering
+    Usando el método \structure{\_replace()} podemos cambiar el valor
+    de uno o más atributos, aunque lo que obtenemos es un nuevo objeto
+    (¡ya que el original \structure{no puede} ser modificado!)
+  \end{block}
+\end{frame}
+
+\begin{frame}{08. \_replace() — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/08/816-namedtuple-replace.py}
+  \pythonoutput{./code/08/output/816-namedtuple-replace}
+\end{frame}
+
+\begin{frame}{08. collections.namedtuple() — Ventajas}
+  \begin{itemize}
+    \item Proporcionan un punto de partida muy razonable.
+    \item No tenemos que empezar desde cero nuestras clases.
+    \item La inmutabilidad hace nuestro código más seguro.
+    \item Más legibles, más elegantes.
+    \item Menor uso de memoria (\structure{\_\_slots\_\_}).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{08. collections.namedtuple()}
+  \small
+  \begin{block}
+    {\centering What are ``named tuples'' in Python?}
+    \centering
+    \url{http://stackoverflow.com/q/2970608/184363}
+  \end{block}
+
+  \begin{block}
+    {\centering namedtuple - Python Module of the Week}
+    \centering
+    \url{http://pymotw.com/2/collections/namedtuple.html}
+  \end{block}
+
+  \vspace{0.5cm}
+  {
+    \normalsize
+    \begin{alertblock}{\centering Moraleja}
+      \centering
+      Usa \structure{namedtuple()} siempre que puedas.
+    \end{alertblock}
+  }
+\end{frame}

@@ -1,0 +1,158 @@
+% Author: Victor Terron (c) 2014
+% Email: `echo vt2rron1iaa32s | tr 132 @.e`
+% License: GNU GPLv3
+
+\documentclass[14pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{ragged2e}
+
+% A Nice Title Page for Beamer Presentations
+% http://github.com/dfalster/BeamerTitleSlide
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+
+% Define a new mdframed environment
+\newmdenv[tikzsetting={draw=black,fill=white,fill opacity=0.65},
+  backgroundcolor=none,leftmargin=0,rightmargin=0, innertopmargin=4pt,
+  skipbelow=\baselineskip, skipabove=\baselineskip]{TitleBox}
+
+\usepackage{minted}
+\usemintedstyle{emacs} % of course
+\definecolor{mintedoutputbackground}{rgb}{0.95,0.95,0.95}
+
+% Set global options for \inputminted
+% https://tex.stackexchange.com/a/103191/48441
+\newmintedfile[pythoncode]{python}{
+  fontfamily=tt,
+  linenos=true,
+  numberblanklines=true,
+  numbersep=12pt,
+  numbersep=5pt,
+  gobble=0,
+  frame=leftline,
+  framerule=0.4pt,
+  framesep=2mm,
+  funcnamehighlighting=true,
+  tabsize=4,
+  obeytabs=false,
+  mathescape=false
+  samepage=false,
+  showspaces=false,
+  showtabs =false,
+  texcl=false,
+}
+
+\newmintedfile[pythonoutput]{pycon}{
+  bgcolor=mintedoutputbackground,
+  tabsize=4,
+}
+
+% Enable accents and ñ in our code listings
+% http://stackoverflow.com/a/2782147/184363
+\lstset{
+  literate={á}{{\'a}}1
+           {é}{{\'e}}1
+           {í}{{\'i}}1
+           {ó}{{\'o}}1
+           {ú}{{\'u}}1
+           {ñ}{{\~n}}1
+           {¡}{{\textexclamdown}}1
+}
+
+% \input a .tex file in the ./puntos/ directory
+\newcommand{\punto}[1]{\input{./puntos/#1.tex}}
+
+\usetheme{Copenhagen}
+\useoutertheme{infolines}
+\setbeamercovered{dynamic}
+\setbeamertemplate{navigation symbols}{} % remove navigation symbols
+
+\title{Clases en Python: lo estás haciendo mal}
+\author{Víctor Terrón}
+\date{9 de noviembre de 2014}
+\institute{IAA-CSIC}
+
+\begin{document}
+
+\section{Introducción}
+\input{portada.tex}
+\input{intro.tex}
+
+\begin{frame}
+  \frametitle{Índice}
+  \tableofcontents
+\end{frame}
+
+\AtBeginSection[]{
+  \begin{frame}
+    \frametitle{Índice}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\section{00. Heredando de object (new-style)}
+\punto{00}
+
+\section{01. super()}
+\punto{01}
+
+\section{02. El primer parámetro: self}
+\punto{02}
+
+{
+% http://tex.stackexchange.com/a/3994/48441
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/programmer-two-states.png}}
+\begin{frame}[plain]
+\end{frame}
+}
+
+\section{03. Variables de clase (estáticas)}
+\punto{03}
+
+\section{04. Atributos privados y ocultos}
+\punto{04}
+
+\section{05. Métodos estáticos y de clase}
+\punto{05}
+
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/game-developer-expectation.jpg}}
+\begin{frame}[plain]
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/game-developer-reality.jpg}}
+\begin{frame}[plain]
+\end{frame}
+}
+
+\section{06. Propiedades (@property)}
+\punto{06}
+
+\section{07. \_\_str\_\_() y \_\_repr\_\_()}
+\punto{07}
+
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/pair-programming-expectation.jpg}}
+\begin{frame}[plain]
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{pics/pair-programming-reality.jpg}}
+\begin{frame}[plain]
+\end{frame}
+}
+
+\section{08. collections.namedtuple()}
+\punto{08}
+
+\section{09. \_\_init\_\_() y \_\_new\_\_()}
+\punto{09}
+
+\section{Epílogo}
+\input{epilogo.tex}
+\end{document}

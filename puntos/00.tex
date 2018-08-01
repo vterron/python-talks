@@ -1,0 +1,86 @@
+% Author: Victor Terron (c) 2014
+% Email: `echo vt2rron1iaa32s | tr 132 @.e`
+% License: CC BY-SA 4.0
+
+\begin{frame}{00. Heredando de object (new-style)}
+  \centering
+  \small
+  Hemos de heredar de \structure{object} para que nuestra clase sea
+  \textit{new-style}.
+
+  \footnotesize
+  \pythoncode{./code/00/00-new-style-example.py}
+  \pythonoutput{./code/00/output/00-new-style-example}
+
+\end{frame}
+
+\begin{frame}{00. Heredando de object: por qué}
+ \begin{block}{Algo de historia}
+    \centering Las clases \textit{new-style} aparecieron en Python 2.2
+    (diciembre de 2001)
+  \end{block}
+
+ \begin{justify}
+   Hasta Python 2.1, el concepto de clase no tenía relación con el
+   tipo: los objetos de todas las (\textit{old-style}) clases tenían
+   el mismo tipo: \structure{\textless type 'instance' \textgreater}.
+   Las clases \textit{new-style} unifican clase y tipo — dicho de otra
+   forma: una clase \textit{new-style} no es sino un tipo definido por
+   el usuario.
+ \end{justify}
+\end{frame}
+
+\begin{frame}{00. Heredando de object: ejemplo}
+  \small
+  \pythoncode{./code/00/01-old-style-example.py}
+  \pythonoutput{./code/00/output/01-old-style-example}
+\end{frame}
+
+\begin{frame}{00. La vida antes de Python 2.2}
+ \begin{alertblock}{}
+    \centering Pero no es una cuestión sólo de qué devuelve \structure{type()}
+  \end{alertblock}
+
+  \small
+  \begin{itemize}
+    \item No existía \structure{super()...}
+    \item ... ni los descriptores...
+    \item ... ni \structure{\_\_slots\_\_}
+    \item El MRO (\textit{Method Resolution Order}) era mucho más simple.
+    \item Las clases podían ser lanzadas, sin heredar de \structure{Exception}.
+  \end{itemize}
+
+  \small
+  \begin{block}{\centering Old style and new style classes in Python}
+    \centering \url{https://stackoverflow.com/a/19950198/184363}
+  \end{block}
+\end{frame}
+
+\begin{frame}{00. Lanzando una clase \textit{new-style}}
+  \pythoncode{./code/00/02-new-style-raise.py}
+  \vspace{0.5cm}
+  \footnotesize
+  \pythonoutput{./code/00/output/02-new-style-raise}
+\end{frame}
+
+\begin{frame}{00. Lanzando una clase \textit{old-style}}
+  \pythoncode[fontsize=\normalsize]{./code/00/03-old-style-raise.py}
+  \vspace{0.5cm}
+  \footnotesize
+  \pythonoutput{./code/00/output/03-old-style-raise}
+\end{frame}
+
+\begin{frame}{00. Heredando de object (new-style)}
+  \begin{itemize}
+    \item Por compatibilidad, las clases siguen siendo
+      \textit{old-style} por defecto.
+    \item En Python 3 las clases \textit{old-style} han desaparecido —
+      heredar de \structure{object} es opcional.
+    \item El resumen es que tenemos que heredar siempre de
+      \structure{object} (o de otra clase \textit{new-style}, claro).
+  \end{itemize}
+
+  \begin{alertblock}{\centering Moraleja}
+    \centering Hay que heredar de \structure{object} \emph{siempre}
+  \end{alertblock}
+\end{frame}

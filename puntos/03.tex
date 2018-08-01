@@ -1,0 +1,153 @@
+% Author: Victor Terron (c) 2014
+% Email: `echo vt2rron1iaa32s | tr 132 @.e`
+% License: CC BY-SA 4.0
+
+\begin{frame}{03. Variables de clase (estáticas)}
+  \begin{center}
+    Una variable estática es aquella ubicada estáticamente (es decir,
+    la memoria se ha reservado en tiempo de compilación) y cuyo tiempo
+    de vida se extiende durante toda la ejecución del programa.
+  \end{center}
+
+  \begin{block}{}
+    \centering En Python, las variables definidas dentro de una clase,
+    pero no dentro de un método, son llamadas variables
+    \structure{estáticas} o \structure{de clase}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{03. Ejemplo}
+  \small
+  \pythoncode{./code/03/30-class-variable-example-0.py}
+  \pythonoutput{./code/03/output/30-class-variable-example-0}
+\end{frame}
+
+\begin{frame}{03. Variables de clase}
+  \begin{block}{}
+    \large
+    \centering
+    Estas variables son \structure{compartidas} por todos los objetos
+    de la clase.
+  \end{block}
+
+  \begin{justify}
+    \small
+    Si ahora asignamos un valor a \structure{jefe} en objeto de la
+    clase T1000, hemos creado el atributo en ese objeto, pero no hemos
+    cambiado la variable de la clase. Esto ocurre porque el ámbito
+    (\textit{scope}) en el que hemos definido este atributo no es el
+    mismo que el de la clase.
+  \end{justify}
+\end{frame}
+
+\begin{frame}{03. Ejemplo — de nuevo}
+  \small
+  \pythoncode{./code/03/31-class-variable-example-1.py}
+  \pythonoutput{./code/03/output/31-class-variable-example-1}
+\end{frame}
+
+\begin{frame}{03. Definiendo constantes}
+  \small
+  \begin{center}
+    Hay quien acostumbra, viniendo de otros lenguajes de programación,
+    a definir constantes dentro de una clase:
+  \end{center}
+
+  \pythoncode{./code/03/32-defining-constants-0.py}
+  \pythonoutput{./code/03/output/32-defining-constants-0}
+
+  \begin{block}{}
+    \centering
+    En Python no necesitamos ninguna clase: tan sólo tenemos que
+    definir nuestras constantes como variables globales
+    (\textit{module-level variables}) — en mayúsculas, de acuerdo con
+    el \structure{PEP 8}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{03. Definiendo constantes — mejor así}
+  \footnotesize
+  \pythoncode{./code/03/33-defining-constants-1.py}
+  \pythonoutput{./code/03/output/33-defining-constants-1}
+\end{frame}
+
+\begin{frame}{03. Una mala idea}
+  \small
+  \begin{justify}
+    Hay quien podría pensar (sobre todo viniendo de otros lenguajes de
+    programación) que las variables de clase se podrían usar para
+    declarar los atributos de la clase, y asignarles sus valores en
+    \structure{\_\_init\_\_()}.
+  \end{justify}
+
+  \pythoncode{./code/03/34-initializing-to-None-0.py}
+\end{frame}
+
+\begin{frame}{03. Una mala idea — ejemplo}
+  \small
+  \begin{alertblock}{}
+    \centering
+    Esto \structure{no} es buena idea:
+  \end{alertblock}
+
+  \begin{itemize}
+    \item Estamos \structure{mezclando} variables estáticas con las de
+      objeto.
+    \item \structure{No} usa más espacio (sólo hay una definición de
+      esos \structure{None}).
+    \item \structure{No} es más lento (sólo si la búsqueda de una
+      variable falla).
+    \item \structure{Pero} puede enmascarar errores.
+  \end{itemize}
+
+  \footnotesize
+  \begin{block}
+    {\centering Is it a good practice to declare instance variables as None in a class in Python?}
+    \centering \url{https://programmers.stackexchange.com/q/254576}
+  \end{block}
+\end{frame}
+
+\begin{frame}{03. Una mala idea — demostración}
+  \footnotesize
+  \pythoncode{./code/03/35-initializing-to-None-1.py}
+  \pythonoutput{./code/03/output/35-initializing-to-None-1}
+\end{frame}
+
+\begin{frame}{03. Acceso}
+  \begin{block}{}
+    \centering
+    Para acceder a una variable de clase podemos hacerlo escribiendo
+    el nombre de la clase o a través de \structure{self}.
+  \end{block}
+
+  \begin{center}
+    \small
+    \centering
+    La ventaja de \structure{self} es que hace nuestro código más
+    reusable si en algún momento tenemos que renombrar la clase.
+  \end{center}
+\end{frame}
+
+\begin{frame}{03. Acceso — ejemplo}
+  \scriptsize
+  \pythoncode{./code/03/36-self-or-class-name.py}
+  \pythonoutput{./code/03/output/36-self-or-class-name}
+\end{frame}
+
+\begin{frame}{03. Variables de clase (estáticas)}
+  \footnotesize
+  \begin{block}{\centering Static class variables in Python}
+    \centering \url{https://stackoverflow.com/q/68645/184363}
+  \end{block}
+
+  \vspace{0.5cm}
+  {
+    \normalsize
+    \begin{alertblock}{\centering Moraleja}
+      \centering Usamos las variables estáticas (o de clase) para los
+      atributos que son \structure{comunes} a todos los atributos de
+      la clase. Los atributos de los objetos se definen en
+      \structure{\_\_init\_\_()}
+    \end{alertblock}
+  }
+\end{frame}

@@ -1,0 +1,233 @@
+% Author: Victor Terron (c) 2014
+% Email: `echo vt2rron1iaa32s | tr 132 @.e`
+% License: CC BY-SA 4.0
+
+\begin{frame}{04. \_foo y \_\_spam}
+
+  \begin{center}
+    \small
+    \centering
+    Las variables que comienzan por un \structure{guión bajo} (\_foo)
+    son consideradas \structure{privadas}.  Su nombre indica a otros
+    programadores que \structure{no son públicas}: son un detalle de
+    implementación del que no se puede depender — entre otras cosas
+    porque podrían desaparecer en cualquier momento.
+  \end{center}
+
+  \begin{block}{}
+    \large
+    Pero nada nos \structure{impide} acceder a esas variables.
+  \end{block}
+\end{frame}
+
+\begin{frame}{04. Ejemplo}
+  \small
+  \pythoncode{./code/04/40-private-example.py}
+  \pythonoutput{./code/04/output/40-private-example}
+\end{frame}
+
+\begin{frame}{04. Privadas — por convención}
+  \begin{alertblock}{}
+    \small
+    \centering
+    El guión bajo es una \structure{señal}: nos indica que no
+    deberíamos acceder a esas variables, aunque técnicamente no haya
+    nada que nos lo impida.
+  \end{alertblock}
+
+  \begin{center}
+    \large
+    "We're all consenting adults here" [*]
+    \end{center}
+
+  \begin{center}
+    \scriptsize
+        [*] \url{https://mail.python.org/pipermail/tutor/2003-October/025932.html}
+  \end{center}
+\end{frame}
+
+\begin{frame}{04. Es posible, pero no debemos}
+  \begin{alertblock}{}
+    \centering
+    Nada te impide hacerlo, pero se asume que todos somos lo
+    suficientemente responsables. No se manipulan las variables
+    internas de \structure{otras clases u objetos}.
+  \end{alertblock}
+
+  \begin{center}
+    \small
+    Python prefiere obviar esa (en gran parte) falsa seguridad que
+    keywords como \structure{protected} o \structure{private} dan en
+    Java — el código fuente siempre se puede editar, al fin y al cabo,
+    o podemos usar reflexión.
+  \end{center}
+\end{frame}
+
+\begin{frame}{04. Algo que no se debe hacer — ejemplo}
+  \footnotesize
+  \pythoncode{./code/04/41-private-bad-idea.py}
+  \pythonoutput{./code/04/output/41-private-bad-idea}
+\end{frame}
+
+\begin{frame}{04. Evitando colisiones}
+  \begin{block}{}
+    \centering
+    Las variables privadas también son útiles cuando queremos tener un
+    método con el \structure{mismo} nombre que uno de los atributos de
+    la clase.
+  \end{block}
+
+  \begin{center}
+    \small
+    No podemos tener un atributo y un método llamados, por ejemplo,
+    \structure{edad}: en ese caso es común almacenar el valor en un
+    atributo privado (\structure{Persona.\_edad})
+  \end{center}
+\end{frame}
+
+\begin{frame}{04. Evitando colisiones — ejemplo}
+  \scriptsize
+  \pythoncode{./code/04/42-method-with-same-name.py}
+  \pythonoutput{./code/04/output/42-method-with-same-name}
+\end{frame}
+
+\begin{frame}{04. Variables ocultas — \textit{enmarañadas}}
+  \begin{block}{}
+    \centering
+     Dos guiones bajos al comienzo del nombre (\structure{\_\_spam})
+     llevan el ocultamiento un paso más allá, enmarañando
+     (\textit{name-mangling}) la variable de forma que sea más difícil
+     verla desde fuera.
+  \end{block}
+\end{frame}
+
+\begin{frame}{04. Variables ocultas — ejemplo}
+  \footnotesize
+  \pythoncode{./code/04/43-mangled-example-0.py}
+  \pythonoutput{./code/04/output/43-mangled-example-0}
+\end{frame}
+
+\begin{frame}{04. Accediendo a \_\_spam}
+  \begin{block}{}
+    \centering
+     Pero en realidad \structure{sigue siendo posible} acceder a la
+     variable. Tan sólo se ha hecho un poco más difícil.
+  \end{block}
+
+  \begin{center}
+    \small
+    Podemos acceder a ella a tráves de \structure{\_clase\_\_attr},
+    donde \structure{clase} es el nombre de la clase actual y
+    \structure{attr} el nombre de la variable.  Hay casos legítimos
+    para hacerlo, como, por ejemplo, en un \structure{depurador}.
+  \end{center}
+\end{frame}
+
+\begin{frame}{04. Accediendo a \_\_spam — ejemplo}
+  \small
+  \pythoncode{./code/04/44-mangled-example-1.py}
+  \pythonoutput{./code/04/output/44-mangled-example-1}
+\end{frame}
+
+\begin{frame}{04: Conflicto de nombres}
+  \begin{block}{}
+    \centering
+    El objetivo de las \structure{\_\_variables} es prevenir
+    accidentes, evitando \structure{colisiones} de atributos con el
+    mismo nombre que podrían ser definidos en una subclase.
+  \end{block}
+
+  \begin{center}
+    \small
+    Por ejemplo, podríamos definir en una clase heredada el mismo
+    atributo (\structure{\_PIN}) que la clase base, por lo que al
+    asignarle un valor perderíamos el valor definido por esta última.
+  \end{center}
+\end{frame}
+
+\begin{frame}{04: Conflicto de nombres — ejemplo}
+  \small
+  \pythoncode{./code/04/45-mangled-why-we-need-them-0.py}
+  \pythonoutput{./code/04/output/45-mangled-why-we-need-them-0}
+\end{frame}
+
+\begin{frame}{04: Conflicto de nombres — solución}
+  \begin{block}{}
+    \centering
+     Usando \structure{\_\_PIN}, la variable es automáticamente
+     renombrada a \structure{\_Habitacion\_\_PIN} y
+     \structure{\_CamaraAcorazada\_\_PIN}, respectivamente.
+  \end{block}
+
+  \begin{center}
+    \small
+    Hemos evitado así la colisión aunque usemos el mismo nombre en la
+    clase base y la subclase.
+  \end{center}
+\end{frame}
+
+\begin{frame}{04: Conflicto de nombres — demostración}
+  \small
+  \pythoncode{./code/04/46-mangled-why-we-need-them-1.py}
+  \pythonoutput{./code/04/output/46-mangled-why-we-need-them-1}
+\end{frame}
+
+\begin{frame}{04: Conflicto de nombres — mejorado}
+  \scriptsize
+  \pythoncode{./code/04/47-mangled-why-we-need-them-2.py}
+  \pythonoutput{./code/04/output/47-mangled-why-we-need-them-2}
+\end{frame}
+
+\begin{frame}{04. \_foo y \_\_spam}
+  \begin{alertblock}{}
+    \centering En la mayor parte de las ocasiones, lo que necesitamos
+    es \structure{\_foo}. Tan sólo en escenarios muy concretos nos hace
+    falta usar \structure{\_\_spam}.
+    escenarios muy concretos.
+  \end{alertblock}
+
+  \begin{justify}
+    \small
+    \structure{Trivia}: el \textit{name-mangling} sólo se produce si
+    el nombre de la variable tiene dos guiones bajos al comienzo y
+    \structure{como mucho} uno al final. \structure{\_\_PIN} y
+    \structure{\_\_PIN\_} se \textit{enmarañarían}, pero no
+    \structure{\_\_PIN\_\_}. Ése es el motivo por el que podemos usar
+    los métodos mágicos (\structure{\_\_init\_\_()} y demás) sin
+    problema.
+  \end{justify}
+\end{frame}
+
+\begin{frame}{04. \_foo y \_\_spam}
+  \begin{center}
+    Ned Batchelder propuso en 2006 el término "dunder" (de
+    \textit{double underscore}). Así, \structure{\_\_init\_\_()} sería
+    ``\textit{dunder init dunder}'', o simplemente ``\textit{dunder
+      init}''.
+  \end{center}
+
+  \small
+  \begin{block}{\centering Dunder}
+    \centering \url{http://nedbatchelder.com/blog/200605/dunder.html}
+  \end{block}
+\end{frame}
+
+\begin{frame}{04. \_foo y \_\_spam}
+  \footnotesize
+  \begin{block}{\centering Private Variables and Class-local References}
+    \centering \url{https://docs.python.org/2/tutorial/classes.html\#private-variables-and-class-local-references}
+  \end{block}
+
+  \begin{block}{\centering Python name mangling: When in doubt, do what?}
+    \centering \url{https://stackoverflow.com/q/7456807/184363}
+  \end{block}
+
+  \vspace{0.25cm}
+
+  \normalsize
+  \begin{alertblock}{\centering Moraleja}
+    \centering Usamos \structure{\_foo} para variables privadas. En la
+    mayor parte de las ocasiones, \structure{\_\_spam} no hace
+    falta. Ante la duda, mejor sólo un guión bajo.
+  \end{alertblock}
+\end{frame}

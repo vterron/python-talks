@@ -1,0 +1,196 @@
+% Author: Victor Terron (c) 2014
+% Email: `echo vt2rron1iaa32s | tr 132 @.e`
+% License: CC BY-SA 4.0
+
+\begin{frame}{07. \_\_str\_\_() y \_\_repr\_\_()}
+  \begin{center}
+    \small
+    La documentación de Python hace referencia a que el método mágico
+    \structure{\_\_str\_\_()} ha de devolver la representación
+    ``informal'' del objeto, mientras que \structure{\_\_repr\_\_()}
+    la ``formal''.
+  \end{center}
+
+  \begin{block}{}
+    \centering
+    \Large
+    ¿Eso exactamente qué significa?
+  \end{block}
+\end{frame}
+
+\begin{frame}{07. Imprimiendo un objeto Triangulo}
+  \footnotesize
+  \pythoncode{./code/07/700-neither-str-nor-repr.py}
+  \pythonoutput{./code/07/output/700-neither-str-nor-repr}
+\end{frame}
+
+\begin{frame}{07. \_\_str\_\_()}
+  \begin{block}{}
+    \centering
+    La función \structure{\_\_str\_\_()} debe devolver la
+    \structure{cadena de texto} que se muestra por pantalla si
+    llamamos a la función \structure{str()}.
+  \end{block}
+
+  \begin{center}
+    \small
+    Esto es lo que hace Python cuando usamos \structure{print}.
+  \end{center}
+\end{frame}
+
+\begin{frame}{07. \_\_str\_\_() — Ejemplo}
+  \scriptsize
+  \pythoncode{./code/07/701-str-example-0.py}
+  \pythonoutput{./code/07/output/701-str-example-0}
+\end{frame}
+
+\begin{frame}{07. \_\_str\_\_()}
+  \begin{block}{}
+    \centering
+    No obstante, es mejor hacerlo sin \textit{hard-codear} el nombre
+    de la clase, para que nuestro código sea más reusable.
+  \end{block}
+
+  \begin{center}
+    Podemos acceder al atributo mágico \structure{\_\_name\_\_} de la
+    clase actual, \structure{type(self)}, para obtener el nombre de la
+    clase como una cadena de texto.
+  \end{center}
+\end{frame}
+
+\begin{frame}{07. \_\_str\_\_() — Mejor así}
+  \scriptsize
+  \pythoncode{./code/07/702-str-example-1.py}
+  \pythonoutput{./code/07/output/702-str-example-1}
+\end{frame}
+
+\begin{frame}{07. \_\_str\_\_()}
+  \begin{alertblock}{}
+    \Large
+    \centering
+    El objetivo de \structure{\_\_str\_\_()} es ser legible.
+  \end{alertblock}
+
+  \begin{center}
+    La cadena que devuelve \structure{str()} no tiene otro fin que el
+    de ser fácil de comprender \structure{por humanos}: cualquier cosa
+    que aumente la legibilidad, como eliminar decimales inútiles o
+    información poco importante, es aceptable.
+  \end{center}
+\end{frame}
+
+\begin{frame}{07. \_\_repr\_\_()}
+  \begin{alertblock}{}
+    \large
+    \centering
+    El objetivo de \structure{\_\_repr\_\_()} es ser inequívoco.
+  \end{alertblock}
+
+  \begin{center}
+    De \structure{\_\_repr\_\_()}, por el otro lado, se espera que nos
+    devuelva una cadena de texto con una \structure{representación
+    única} del objeto. Nos hace falta, por ejemplo, si estamos
+    depurando un error y necesitamos saber, analizando unos logs, qué
+    es exactamente uno de los objetos de la clase.
+  \end{center}
+\end{frame}
+
+\begin{frame}{07. \_\_repr\_\_()}
+  \begin{block}{}
+    \large
+    \centering
+    A esta representación única se accede con la función
+    \structure{repr()} o las comillas hacia atrás (\`{}\`{}).
+  \end{block}
+
+  \begin{center}
+    \small
+    Si \structure{\_\_repr\_\_()} no está definido, Python, en vez de
+    dar un error, nos genera una representación automática, indicando
+    el nombre de la clase y la dirección en memoria del objeto.
+  \end{center}
+\end{frame}
+
+\begin{frame}{07. \_\_repr\_\_() — No definido}
+  \footnotesize
+  \pythoncode{./code/07/703-repr-undefined.py}
+  \pythonoutput{./code/07/output/703-repr-undefined}
+\end{frame}
+
+\begin{frame}{07. \_\_repr\_\_()}
+  \begin{alertblock}{}
+    \centering
+    Idealmente, la cadena devuelta por \structure{\_\_repr\_\_()}
+    debería ser aquella que, pasada a \structure{eval()}, devuelve el
+    mismo objeto.
+  \end{alertblock}
+
+  \begin{center}
+    \small
+    Al fin y al cabo, si \structure{eval()} es capaz de reconstruir el
+    objeto a partir de ella, esto garantiza que contiene
+    \structure{toda la infomación} necesaria.
+  \end{center}
+\end{frame}
+
+\begin{frame}{07. \_\_repr\_\_() y eval()}
+  \scriptsize
+  \pythoncode{./code/07/704-repr-example.py}
+  \pythonoutput{./code/07/output/704-repr-example}
+\end{frame}
+
+\begin{frame}{07. \_\_repr\_\_() sin  \_\_str\_\_()}
+  \begin{block}{}
+    \centering
+    En caso de que nuestra clase defina \structure{\_\_repr\_\_()}
+    pero no \structure{\_\_str\_\_()}, la llamada a \structure{str()}
+    también devuelve \structure{\_\_repr\_\_()}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{07. \_\_repr\_\_() sin \_\_str\_\_() — Ejemplo}
+  \footnotesize
+  \pythoncode{./code/07/705-repr-no-str.py}
+  \pythonoutput{./code/07/output/705-repr-no-str}
+\end{frame}
+
+\begin{frame}{07. \_\_repr\_\_() sin  \_\_str\_\_()}
+  \begin{block}{}
+    \centering
+    Por eso en el primer ejemplo veíamos el nombre de la clase y su
+    dirección en memoria: la llamada a \structure{\_\_str\_\_()}
+    falló, por lo que Python nos devolvió \structure{\_\_repr\_\_()}.
+  \end{block}
+
+  \begin{alertblock}{}
+    \small
+    \centering
+    El único que de verdad tenemos que implementar es
+    \structure{\_\_repr\_\_()}.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{07. \_\_str\_\_() y \_\_repr\_\_() — Ejemplo}
+  \footnotesize
+  \pythoncode{./code/07/706-datetime-str-and-repr.py}
+  \pythonoutput{./code/07/output/706-datetime-str-and-repr}
+\end{frame}
+
+\begin{frame}{07. \_\_str\_\_() y \_\_repr\_\_()}
+  \small
+  \begin{block}
+    {\centering Difference between \_\_str\_\_ and \_\_repr\_\_ in Python}
+    \centering
+    \url{http://stackoverflow.com/q/1436703}
+  \end{block}
+
+  \vspace{0.5cm}
+  {
+    \normalsize
+    \begin{alertblock}{\centering Moraleja}
+      \centering
+      \_\_repr\_\_() es para desarrolladores, \_\_str\_\_() para
+      usuarios.
+    \end{alertblock}
+  }
+\end{frame}
