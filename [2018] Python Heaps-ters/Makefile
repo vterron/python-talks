@@ -21,4 +21,4 @@ present: slides
 	python -m ${MODULE.PYTHON.${PYTHON_VERSION_MAJOR}} 8000
 
 clean:
-	rm -fv *.{html}
+	rm -fv *html
