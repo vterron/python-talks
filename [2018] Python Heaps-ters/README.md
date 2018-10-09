@@ -1,4 +1,4 @@
-The Jupyter notebook of my talk at [PyConES 2018](https://2018.es.pycon.org/) (Malaga, Spain). You can [view it online with nbviewer][nbviewer].
+The Jupyter notebook of my talk at [PyConES 2018](https://2018.es.pycon.org/) (Málaga, Spain). You can [view it online with nbviewer][nbviewer].
 
 [![Front slide](./images/cover.svg)][nbviewer]
 
