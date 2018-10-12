@@ -18,7 +18,8 @@ slides: ${NOTEBOOK_FILE}
 	jupyter nbconvert ${NOTEBOOK_FILE} --to slides ${NBCONVERT_OPTS}
 
 present: slides
-	python -m ${MODULE.PYTHON.${PYTHON_VERSION_MAJOR}} 8000
+	# Binding to port 0 asks the kernel to allocate us a free port.
+	python -m ${MODULE.PYTHON.${PYTHON_VERSION_MAJOR}} 0
 
 clean:
 	rm -fv *html
