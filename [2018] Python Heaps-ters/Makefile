@@ -1,7 +1,8 @@
 #SHELL := /bin/bash
 
 NOTEBOOK_FILE=python-heaps-ters.ipynb
-NBCONVERT_OPTS=--SlidesExporter.reveal_transition=none
+NBCONVERT_OPTS=--SlidesExporter.reveal_transition=none \
+	       --reveal-prefix=https://cdn.jsdelivr.net/reveal.js/3.0
 
 # Find out the module we need for the HTTP server, depending on the Python
 # version. [Source: https://stackoverflow.com/a/4933395]
