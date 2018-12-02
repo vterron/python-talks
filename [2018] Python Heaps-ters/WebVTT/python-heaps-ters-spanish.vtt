@@ -1,0 +1,2004 @@
+WEBVTT
+
+NOTE Paragraph
+
+00:00:06.530 --> 00:00:09.280
+Yo vine a hablar de las <i>heaps</i>
+y esto fue un juego de palabras
+
+00:00:09.280 --> 00:00:10.813
+así un poco triste,
+
+00:00:11.715 --> 00:00:15.758
+pero a mí me gusta mucho
+esa estructura de datos
+
+00:00:15.758 --> 00:00:17.268
+que es la <i>heap</i>
+
+00:00:17.268 --> 00:00:19.222
+y nosotros la vemos mucho
+en la documentación.
+
+00:00:19.831 --> 00:00:23.341
+El problema es que yo tengo ese trauma
+de que creo que lo que ocurre
+
+00:00:23.341 --> 00:00:25.042
+con esta estructura
+de datos es que te dicen:
+
+00:00:25.042 --> 00:00:28.573
+"Es una estructura de datos muy chula la <i>heap</i>
+y se usa así" y te enseñan cómo se usa,
+
+00:00:28.573 --> 00:00:30.342
+pero realmente nunca hemos interiorizado
+
+00:00:30.342 --> 00:00:31.702
+por qué hacía falta.
+
+00:00:31.702 --> 00:00:34.371
+Es una... frikada,
+es una cosa ahí muy divertida,
+
+00:00:34.373 --> 00:00:36.777
+pero como realmente no interioricé
+por qué me hacía falta,
+
+00:00:36.777 --> 00:00:38.172
+lo olvido a los 10 minutos.
+
+00:00:38.177 --> 00:00:39.892
+Y es lo que a mí me pasó
+durante mucho tiempo.
+
+00:00:39.892 --> 00:00:42.186
+Entonces, mi motivación era
+usar un ejemplo para ver
+
+00:00:42.186 --> 00:00:44.152
+por qué realmente hacen falta.
+
+00:00:44.622 --> 00:00:46.281
+Para ello lo que vamos a hacer
+es ver un problema
+
+00:00:46.281 --> 00:00:50.143
+que aparentemente no tiene solución...
+aparentemente
+
+00:00:50.147 --> 00:00:53.183
+y después vamos a ver
+cómo la caballería son las <i>heaps</i>
+
+00:00:53.183 --> 00:00:56.335
+y cómo tienen tres operaciones
+con sus complejidades,
+
+00:00:56.335 --> 00:00:59.439
+dos opciones para [implementarlas]
+y cómo las usamos en Python.
+
+00:01:00.289 --> 00:01:01.823
+El problema irresoluble...
+
+00:01:03.843 --> 00:01:05.583
+Me va a costar, esto me está costando... aquí.
+
+00:01:06.243 --> 00:01:07.470
+El problema irresoluble
+
+00:01:07.470 --> 00:01:10.462
+es encontrar el máximo
+dentro de una serie de valores.
+
+00:01:10.462 --> 00:01:12.681
+Nos van a dar unos cuantos enteros
+y nosotros vamos a coger,
+
+00:01:12.686 --> 00:01:14.238
+tenemos que encontrar el máximo.
+
+00:01:14.239 --> 00:01:15.601
+Pues eso programando,
+lo que haríamos sería:
+
+00:01:15.601 --> 00:01:18.374
+"Muy bien, pues voy a escribir mi función
+que encuentra el máximo".
+
+00:01:18.374 --> 00:01:21.658
+Y lo que hace es que nos vamos recorriendo
+todos los números uno a uno
+
+00:01:21.661 --> 00:01:23.999
+y cuando nos encontramos...
+cada vez que vemos un nuevo valor,
+
+00:01:23.999 --> 00:01:26.399
+lo comparamos con el máximo
+que hemos visto hasta entonces
+
+00:01:26.406 --> 00:01:30.239
+y si es mayor que el anterior máximo,
+actualizamos esa variable.
+
+00:01:31.391 --> 00:01:34.684
+El valor inicial es menos infinito
+
+00:01:34.684 --> 00:01:37.920
+y así, cualquier valor que veamos
+será mayor que menos infinito.
+
+00:01:37.920 --> 00:01:41.700
+Y bueno, esta solución es muy rápida
+porque es <i>O(n)</i> y funciona.
+
+00:01:41.970 --> 00:01:44.292
+Por supuesto, de todas formas,
+sabemos que en la librería estándar
+
+00:01:44.292 --> 00:01:47.123
+tenemos una cosa que se llama <i>max()</i>
+y <i>max()</i> es igual,
+
+00:01:47.123 --> 00:01:49.190
+le damos nuestra serie de valores,
+le damos cualquier iterable
+
+00:01:49.194 --> 00:01:52.959
+y nos dice
+"Muy bien, pues el máximo de esa lista era 9"
+
+00:01:52.964 --> 00:01:55.691
+porque en este caso, como ejemplo,
+estamos trabajando con enteros.
+
+00:01:57.074 --> 00:01:59.252
+Muy bien. ¿Y si queremos encontrar
+los dos mayores valores?
+
+00:01:59.252 --> 00:02:01.761
+Pues entonces podríamos hacer una cosa
+y nos vamos a HackerRank
+
+00:02:01.761 --> 00:02:03.036
+y a toda estas [webs] guays
+y la gente lo que dice es
+
+00:02:03.036 --> 00:02:06.162
+"Muy bien, voy a tener dos variables
+<i>top</i> o <i>first</i> y el segundo".
+
+00:02:06.172 --> 00:02:08.592
+Y entonces lo que voy a hacer es
+ir recorriéndome todos los valores
+
+00:02:08.595 --> 00:02:10.020
+y cada vez que veo un nuevo valor
+lo que hago es:
+
+00:02:10.020 --> 00:02:11.991
+"Muy bien, ¿es este valor el nuevo máximo?"
+
+00:02:11.991 --> 00:02:14.631
+Sí. En ese caso actualiza
+y desplaza a los otros dos
+
+00:02:14.631 --> 00:02:17.041
+y, si no, lo que hago
+es que comparo con el segundo.
+
+00:02:17.041 --> 00:02:18.140
+Es decir, cada vez que veo un valor,
+
+00:02:18.140 --> 00:02:20.580
+tiene que compararse
+con los dos mayores que ya tenemos.
+
+00:02:20.584 --> 00:02:22.010
+Sencillo, ¿verdad?
+
+00:02:22.010 --> 00:02:24.364
+También podemos simplificar
+el código un poquito más
+
+00:02:24.364 --> 00:02:27.501
+si lo que hacemos es utilizar
+los operadores de asignación simultánea
+
+00:02:27.501 --> 00:02:29.885
+y entonces nos ahorramos
+tener que hacer el...
+
+00:02:29.885 --> 00:02:31.477
+Podemos hacerlo en un único paso, ¿verdad?
+
+00:02:31.477 --> 00:02:34.307
+Podemos decir eso de, por ejemplo,
+<i>top</i>, el primero y el segundo
+
+00:02:34.307 --> 00:02:37.665
+empiezan desde menos infinito
+en una única línea.
+
+00:02:37.855 --> 00:02:40.569
+Muy bien. ¿Y si queremos encontrar
+los <i>tres</i> mayores valores?
+
+00:02:40.576 --> 00:02:43.062
+Pues muy bien. Entonces tenemos que...
+Vale, vamos a hacerlo igual.
+
+00:02:43.066 --> 00:02:45.756
+Cada valor lo que tiene que hacer
+es compararse con <i>todos</i> los valores
+
+00:02:45.756 --> 00:02:50.260
+que hemos visto hasta la [fecha]
+Con los tres mayores valores
+
+00:02:50.264 --> 00:02:51.519
+que hemos visto hasta ahora.
+
+00:02:51.523 --> 00:02:53.222
+Y de nuevo, sigue funcionando.
+
+00:02:53.222 --> 00:02:56.479
+El patrón que estamos viendo
+es que la complejidad sería <i>O(kn)</i>,
+
+00:02:56.479 --> 00:03:00.238
+donde <i>k</i> es el número de valores
+que queremos encontrar máximos
+
+00:03:00.239 --> 00:03:02.150
+y <i>n</i>, el tamaño de la entrada.
+
+00:03:02.150 --> 00:03:04.602
+Y eso, en cálculo asintótico,
+lo dejamos en <i>O(n)</i>
+
+00:03:04.602 --> 00:03:05.988
+y está muy bien.
+
+00:03:05.988 --> 00:03:08.348
+¿Cómo podemos generalizar esto?,
+es el problema ahora.
+
+00:03:08.358 --> 00:03:11.029
+¿Cómo lo hacemos si quiero que la función
+sea uno de los parámetros?
+
+00:03:11.029 --> 00:03:13.167
+No que yo esté allí a mano
+haciendo comparaciones
+
+00:03:13.167 --> 00:03:16.080
+con cada valor que tengo
+entre los máximos.
+
+00:03:16.080 --> 00:03:19.059
+Pues, la forma de generalizarlo
+sería una cosa que se ve mucho,
+
+00:03:19.067 --> 00:03:21.060
+lo que digo es: "Muy bien,
+voy a ordenar la lista
+
+00:03:21.065 --> 00:03:23.114
+y voy a coger los <i>n</i> primeros".
+
+00:03:23.114 --> 00:03:25.396
+Al fin y al cabo, si la lista está ordenada.
+
+00:03:25.397 --> 00:03:30.631
+Si está ordenada y cojo los <i>n</i> primeros,
+tengo los <i>n</i> máximos o los <i>n</i> mínimos
+
+00:03:30.631 --> 00:03:32.431
+en función de lo que yo necesitara.
+
+00:03:32.745 --> 00:03:35.045
+Entonces, nuestra función
+se convierte simplemente
+
+00:03:35.047 --> 00:03:36.760
+en que a mí me van a dar
+una serie de números,
+
+00:03:36.760 --> 00:03:40.665
+yo voy a ordenarlos y yo voy a devolverte
+los <i>n</i> mayores utilizando los corchetes,
+
+00:03:40.665 --> 00:03:42.816
+que es el operador <i>slice</i>.
+
+00:03:43.099 --> 00:03:44.746
+"Vale, pero no quiero modificar
+la lista original".
+
+00:03:44.746 --> 00:03:47.103
+Sencillo, pues, entonces
+lo que hago es una copia.
+
+00:03:47.103 --> 00:03:49.255
+Cuando llamo a <i>sorted()</i>,
+nos hace una copia.
+
+00:03:49.705 --> 00:03:53.336
+Como hay un montón de código, pensé
+"Voy a meter imágenes de un <i>hipster</i>
+
+00:03:53.336 --> 00:03:56.527
+que está aquí trabajando en el problema".
+
+00:03:56.527 --> 00:03:59.836
+No voy a revelar, sería muy embarazoso
+qué tuve que poner
+
+00:03:59.836 --> 00:04:02.546
+en el buscador de imágenes
+hasta que encontré la imagen que quería,
+
+00:04:02.548 --> 00:04:04.657
+pero lo encontré y tengo,
+de hecho, el mismo señor
+
+NOTE Paragraph
+
+00:04:04.657 --> 00:04:08.422
+a lo largo de toda la charla
+y su estado de ánimo va cambiando.
+
+00:04:09.359 --> 00:04:10.449
+(risas)
+
+00:04:11.276 --> 00:04:14.587
+El problema… Es verdad, funciona,
+hemos dicho que funciona
+
+00:04:14.587 --> 00:04:16.742
+y solamente tenemos que ordenar.
+<i>n log n</i>, está muy bien.
+
+00:04:16.742 --> 00:04:18.898
+El problema es que ahora
+hay un tipo de problema
+
+00:04:18.902 --> 00:04:20.736
+para el cual no es suficiente.
+
+00:04:20.736 --> 00:04:22.377
+Y el problema que planteo es este.
+
+00:04:22.377 --> 00:04:23.887
+Tienes que encontrar el máximo
+de una serie de valores
+
+00:04:23.887 --> 00:04:25.308
+pero no caben en memoria.
+
+00:04:25.308 --> 00:04:27.596
+Es una lista tan grande
+que no cabe en memoria,
+
+00:04:27.596 --> 00:04:29.129
+si lo intentaras cargar,
+tu ordenador muere.
+
+00:04:29.129 --> 00:04:32.036
+De hecho, el intérprete de Python fallará
+
+00:04:32.036 --> 00:04:33.915
+y dejará de ejecutarse.
+
+00:04:33.915 --> 00:04:37.376
+Y es un ejemplo que ocurre
+en el mundo real.
+
+00:04:37.597 --> 00:04:40.315
+Los mejores ejemplos que se me ocurrieron:
+
+00:04:40.315 --> 00:04:44.144
+¿Qué pasa si tengo un archivo
+con un trillón de coordenadas de GPS
+
+00:04:44.144 --> 00:04:48.078
+y tengo que encontrar las <i>k</i>,
+(2, 3, 100, 1 000...) coordenadas
+
+00:04:48.078 --> 00:04:49.729
+que están más cercanas de un punto?
+
+00:04:49.736 --> 00:04:52.313
+O un <i>log</i> de una página web
+donde quiero procesar
+
+NOTE Paragraph
+
+00:04:52.313 --> 00:04:55.197
+todos los <i>logs</i> y encontrar,
+siguiendo algún criterio,
+
+00:04:55.202 --> 00:04:56.155
+<i>n</i> valores.
+
+00:04:56.155 --> 00:04:58.706
+La cosa es que no caben y esto
+ocurre mucho en el mundo real,
+
+00:04:58.707 --> 00:05:01.257
+esto del <i>big data</i> y cosas
+de las que yo no entiendo.
+
+00:05:01.504 --> 00:05:05.226
+Yo pensaba mucho en cómo plantear esto
+y creo que a lo que llegué fue:
+
+00:05:05.226 --> 00:05:09.346
+cuando no puedes cargar todos los datos
+en memoria, realmente lo que pasa
+
+00:05:09.346 --> 00:05:13.365
+es que no tienes (¿obvio, verdad?)
+una visión de todos los datos a la vez,
+
+00:05:13.365 --> 00:05:15.588
+porque hemos dicho,
+¡no puedes cargarlos todos!
+
+00:05:15.608 --> 00:05:17.396
+Entonces, de alguna forma,
+es como que está...
+
+00:05:17.402 --> 00:05:19.635
+Es como pensar... nada es estático,
+
+00:05:19.635 --> 00:05:21.045
+sino que se está moviendo.
+
+00:05:21.075 --> 00:05:23.510
+Solamente puedes procesar
+la información en trocitos,
+
+00:05:23.510 --> 00:05:25.627
+entonces no puedo ordenar porque, claro,
+
+00:05:25.627 --> 00:05:28.758
+para ordenar tendría que ver
+todos los elementos a la vez.
+
+00:05:29.338 --> 00:05:32.622
+A modo de ejemplo, pensé:
+Muy bien, voy utilizar Bash y voy a generar
+
+00:05:32.626 --> 00:05:35.376
+un montón de números y, de hecho,
+aquí muestro que es verdad,
+
+00:05:35.376 --> 00:05:37.847
+en el repositorio está el archivo
+con un montón de números
+
+00:05:37.847 --> 00:05:40.582
+y aquí vemos que son uno por línea
+y tenemos enteros.
+
+00:05:40.582 --> 00:05:44.038
+Entonces digo: "Muy bien,
+¿cómo encuentro el máximo en el fichero?".
+
+00:05:44.040 --> 00:05:46.633
+El problema que teníamos antes, ¿verdad?,
+¿cómo encuentro el máximo?
+
+00:05:46.637 --> 00:05:48.861
+Pues, voy a abrir el fichero,
+voy a recorrerme todas las líneas,
+
+00:05:48.861 --> 00:05:51.608
+por cada línea comparo si el nuevo número
+es mayor que el máximo
+
+00:05:51.610 --> 00:05:52.790
+que he visto hasta ahora.
+
+00:05:52.790 --> 00:05:53.571
+Bien.
+
+00:05:53.571 --> 00:05:54.809
+Es lo mismo que habíamos hecho antes
+
+00:05:54.809 --> 00:05:57.121
+pero hemos incorporado
+el abrir un fichero y manipularlo.
+
+00:05:57.124 --> 00:06:00.644
+Vale, ¿y cómo encuentro
+los dos mayores números del fichero?
+
+00:06:00.644 --> 00:06:02.101
+Pues, puedo hacer lo que hacía antes.
+
+00:06:02.101 --> 00:06:05.724
+Tengo mi <i>top</i> y tengo mi <i>second</i>
+y voy a ir actualizando esas variables
+
+00:06:05.724 --> 00:06:07.049
+conforme vea nuevos valores.
+
+00:06:07.049 --> 00:06:10.641
+Nunca he cargado el fichero entero,
+solamente he cargado un número,
+
+00:06:10.645 --> 00:06:12.773
+he ido yendo una línea a una línea.
+
+00:06:12.773 --> 00:06:15.237
+Muy bien, y ya sabemos lo que estamos
+haciendo realmente.
+
+00:06:15.237 --> 00:06:16.660
+Es lo [mismo] que habíamos hecho antes.
+
+00:06:16.660 --> 00:06:19.209
+El problema, ¿cómo generalizo
+esta solución?
+
+00:06:19.209 --> 00:06:20.439
+Porque la solución de antes decía:
+
+00:06:20.439 --> 00:06:22.549
+"Voy a ordernar y voy a utilizar
+el <i>slice operator</i>."
+
+00:06:22.553 --> 00:06:25.432
+Aquí no puedo, porque hemos dicho
+"No puedo ordenar, no cabe en memoria".
+
+00:06:25.432 --> 00:06:27.086
+Y esto ocurre.
+
+00:06:27.086 --> 00:06:28.835
+¿Cómo lo hacemos entonces?
+
+00:06:28.835 --> 00:06:33.104
+Pues, hay un montón de intentos
+y cada intento es más desesperado
+
+00:06:33.104 --> 00:06:34.445
+porque no funciona nunca,
+
+00:06:34.451 --> 00:06:37.018
+porque lo primero sería: "Muy bien,
+lo que voy a hacer es mantener
+
+00:06:37.018 --> 00:06:39.097
+en vez de en variables,
+yo voy a tener una lista
+
+00:06:39.097 --> 00:06:41.831
+y en la lista voy a decir: aquí tengo
+mis <i>n</i> mayores... <i>k</i>, vamos a llamarlo <i>k</i>".
+
+00:06:41.831 --> 00:06:44.321
+Mis <i>k</i> mayores valores
+que he visto hasta ahora.
+
+00:06:44.323 --> 00:06:45.653
+Y entonces, cada vez
+que veo un nuevo número
+
+00:06:45.653 --> 00:06:47.708
+lo que hago es que lo cojo
+y lo comparo con todos los números.
+
+00:06:47.717 --> 00:06:49.290
+De hecho, tengo que compararlo con el mínimo.
+
+00:06:49.290 --> 00:06:52.450
+Y entonces, por ejemplo,
+si yo tengo 3, 5 y 7 y veo un 2,
+
+00:06:52.452 --> 00:06:55.810
+¿entra 2 dentro de estos tres
+mayores valores del fichero?
+
+00:06:55.810 --> 00:06:59.758
+Pues no, porque 2 no es mayor
+que el mínimo, que es 3.
+
+00:06:59.758 --> 00:07:03.113
+Sin embargo, cuando veo un 6,
+el 6 sí, entonces quitaríamos el 3.
+
+00:07:03.113 --> 00:07:06.040
+Es como que tenemos que desplazar
+al más pequeñito y metemos el 6
+
+00:07:06.040 --> 00:07:08.539
+y nuestra nueva lista de máximos
+en memoria es 6, 5, 7.
+
+00:07:08.540 --> 00:07:09.988
+Podemos hacer esto.
+
+00:07:09.988 --> 00:07:12.114
+Y lo escribimos, y funciona.
+
+00:07:12.114 --> 00:07:17.249
+El problema es que cuando nos paramos
+a pensar en la complejidad del algoritmo,
+
+00:07:17.448 --> 00:07:21.913
+este algoritmo en principio funciona
+porque es <i>O(kn)</i>,
+
+00:07:21.913 --> 00:07:24.698
+con lo cual deberíamos generalizarlo
+y dejarlo en <i>O(n)</i>,
+
+00:07:24.698 --> 00:07:27.469
+pero hay un problema y es que esa <i>k</i>
+realmente aquí, como también
+
+00:07:27.469 --> 00:07:32.520
+es un parámetro de la función, no es
+una constante, estrictamente hablando
+
+00:07:32.520 --> 00:07:34.611
+porque podría ser una función de <i>n</i>,
+
+00:07:34.611 --> 00:07:37.960
+y si es una función de <i>n</i>
+se queda en <i>O(n^2)</i>
+
+00:07:37.960 --> 00:07:41.302
+Y eso, para expresarlo en términos
+para humanos, un ejemplo que a mí [se] me ocurre
+
+00:07:41.302 --> 00:07:43.831
+es que me dicen: "Muy bien,
+coge ese fichero monstruoso
+
+00:07:43.832 --> 00:07:46.632
+y coge todos los números
+que están por debajo de la media",
+
+00:07:46.632 --> 00:07:49.870
+donde entonces lo que estamos haciendo
+es que <i>k</i> es igual a <i>1 / n</i>
+
+00:07:49.874 --> 00:07:51.751
+y entonces, nuestro algoritmo muere.
+
+00:07:51.751 --> 00:07:53.524
+Hay un enlace a <i>Stack Overflow</i>.
+Pablo [Galindo] no está de acuerdo
+
+00:07:53.524 --> 00:07:56.292
+en que utilice <i>Stack Overflow</i>
+como fuente,
+
+00:07:56.292 --> 00:07:59.267
+Pablo quería que yo hiciera
+los cálculos aquí,
+
+00:07:59.267 --> 00:08:02.000
+algo para lo que no estoy capacitado.
+
+00:08:02.000 --> 00:08:07.069
+Recordatorio de todos los años,
+de que la complejidades de los algoritmos
+
+00:08:07.069 --> 00:08:10.148
+son esenciales y fundamentales
+porque nuestro algoritmo cuadrático
+
+00:08:10.148 --> 00:08:14.695
+es esa línea roja, lo que quiere decir que
+procesar unos cuantos valores funcionaría
+
+00:08:14.695 --> 00:08:16.328
+un ficherito de un millón de números...
+
+00:08:16.328 --> 00:08:18.021
+y he perdido mucho tiempo
+jugando con esto...
+
+00:08:18.021 --> 00:08:20.619
+ya llevaría unos cuantos miles de años.
+Lo de siempre.
+
+00:08:22.934 --> 00:08:24.856
+De hecho tenía aquí el ejemplo.
+
+00:08:24.862 --> 00:08:28.936
+Haciendo cálculos a ojo con la servilleta,
+
+00:08:28.936 --> 00:08:31.746
+si procesar 1 000 elementos
+nos llevaba un segundo,
+
+00:08:31.746 --> 00:08:35.964
+procesar 10 000 elementos
+ya entraba en básicamente más de un día.
+
+00:08:35.964 --> 00:08:37.739
+Pero esto es para hacernos una idea.
+
+00:08:37.739 --> 00:08:39.158
+El segundo intento, y tenía muchos más,
+
+00:08:39.158 --> 00:08:41.419
+he tenido que dejarlo en menos
+porque se nos iba la charla.
+
+00:08:41.419 --> 00:08:43.458
+Entonces, el segundo intento
+lo que decía era: "Muy bien,
+
+00:08:43.458 --> 00:08:44.591
+lo que voy a hacer es que... claro".
+
+00:08:44.596 --> 00:08:47.270
+Lo que es caro cuando hacemos
+el análisis de ese cálculo,
+
+00:08:47.270 --> 00:08:49.852
+cuando calculábamos la complejidad
+de nuestro algoritmo,
+
+00:08:49.855 --> 00:08:53.284
+lo que es <i>muy</i> caro es ese borrado,
+porque el borrado en una lista es <i>O(n)</i>.
+
+00:08:53.284 --> 00:08:55.871
+Entonces había otro intento que era,
+"Muy bien lo que voy a hacer
+
+00:08:55.871 --> 00:09:00.173
+para que el borrado no sea <i>O(n)</i>,
+voy a mantener esta lista ordenada
+
+00:09:00.177 --> 00:09:03.503
+en orden inverso, de forma que cuando
+quito un número es un <i>pop()</i>
+
+00:09:03.503 --> 00:09:06.841
+y el <i>pop()</i> es <i>O(1)</i>,
+entonces me ahorro ese borrado caro.
+
+00:09:07.134 --> 00:09:09.622
+Y eso es cierto, el problema
+es que para mantenerlo ordenado
+
+00:09:09.622 --> 00:09:12.731
+tienes que ordenar y entonces,
+para ordenar te metes
+
+00:09:12.734 --> 00:09:14.681
+en <i>O(n log n)</i>
+y te quedas en que al final,
+
+00:09:14.684 --> 00:09:18.284
+también es cuadrático,
+de hecho, es incluso más despacio
+
+00:09:18.284 --> 00:09:19.742
+porque también tienes un logaritmo.
+
+00:09:19.745 --> 00:09:22.742
+Y aquí es donde
+las transparencias completas,
+
+00:09:22.742 --> 00:09:25.462
+en la versión del director.
+
+00:09:25.906 --> 00:09:29.132
+Hay un intento 3 y un intento 4
+y cada vez son más tristes
+
+00:09:29.132 --> 00:09:32.433
+porque al final ya es "Voy a intentar
+utilizar listas enlazadas
+
+00:09:32.433 --> 00:09:34.822
+que mantengo [ordenadas] con búsqueda binaria".
+
+00:09:34.822 --> 00:09:37.705
+Y siempre llegamos a
+"No se puede hacer, es cuadrático".
+
+00:09:37.711 --> 00:09:39.333
+Y cuadrático no funciona.
+
+00:09:39.333 --> 00:09:41.542
+Aquí mi señor está preocupado.
+
+00:09:41.544 --> 00:09:43.760
+(risas)
+
+00:09:43.760 --> 00:09:46.173
+Por supuesto, tenía que ser
+un periódico de <i>business</i>.
+
+00:09:47.733 --> 00:09:49.310
+Entonces, ¿cuál es la solución?
+
+00:09:51.232 --> 00:09:52.915
+La solución son las <i>heaps</i>,
+
+00:09:55.291 --> 00:09:57.022
+porque básicamente el problema
+que tenemos aquí
+
+00:09:57.029 --> 00:09:59.667
+es que tenemos que o borrar
+[elementos] en una lista en medio
+
+00:09:59.671 --> 00:10:03.713
+o tenemos que desplazar
+y todas esas cosas son <i>O(n)</i>,
+
+00:10:03.713 --> 00:10:05.763
+porque tenemos que mover
+toda la lista en memoria.
+
+00:10:05.763 --> 00:10:08.876
+Básicamente hemos encontrado como un límite
+porque es una estructura unidimensional
+
+00:10:08.876 --> 00:10:11.667
+y entonces, pues, tenemos que movernos,
+y ese movimiento es caro.
+
+00:10:11.670 --> 00:10:14.262
+A mí me gusta aquí la cita
+y me acordé en <i>Contact</i>
+
+00:10:14.262 --> 00:10:16.964
+cuando tienen los planos de los marcianos
+
+00:10:16.967 --> 00:10:19.225
+y le dicen: "No, no podéis...",
+no sé si alguien se acuerda,
+
+00:10:19.225 --> 00:10:21.509
+"No podéis encajar los mapitas
+de los marcianos
+
+00:10:21.509 --> 00:10:24.864
+porque no son 2D, son más listos,
+son marcianos, es 3D".
+
+00:10:24.864 --> 00:10:28.123
+Y entonces montaban un cubo
+y en el cubo lo entendías.
+
+00:10:28.124 --> 00:10:30.576
+Aquí, básicamente, no nos podemos mover
+en una dimensión,
+
+00:10:30.576 --> 00:10:33.154
+necesitamos <i>dos</i> dimensiones
+y por eso este es uno de los motivos
+
+00:10:33.160 --> 00:10:37.574
+por los cuales tenemos los árboles, así en general
+y como uno de los árboles, es la <i>heap.</i>
+
+00:10:37.574 --> 00:10:39.159
+¿Y qué es una <i>heap</i>?
+
+00:10:39.159 --> 00:10:40.560
+Ésta es la transparencia fundamental.
+
+00:10:40.560 --> 00:10:42.701
+Una <i>heap</i> es una estructura de datos
+
+00:10:42.701 --> 00:10:45.857
+basada en un árbol que tiene
+una única invariante.
+
+00:10:45.857 --> 00:10:49.497
+Y la invariante, que parece que quiere
+decir "algo que se cumple siempre",
+
+00:10:49.497 --> 00:10:55.778
+es que todo nodo es menor
+o igual que los que están por debajo.
+
+00:10:56.547 --> 00:10:57.908
+Aquí tenemos al 1.
+
+00:10:57.908 --> 00:10:59.606
+El 1 es menor que el 2 y el 5.
+
+00:10:59.606 --> 00:11:03.021
+El 2 es menor que el 9 y que el 4
+y el 5 es menor que el 7 y que el 8.
+
+00:11:03.021 --> 00:11:05.109
+Ya está, eso es lo que satisface una <i>heap</i>.
+
+00:11:05.109 --> 00:11:08.158
+Lo que pasa es que esto
+tiene unas consecuencias muy interesantes.
+
+00:11:08.706 --> 00:11:10.665
+He ido para atrás. <i>Hop</i>.
+
+00:11:11.576 --> 00:11:14.785
+Si todo nodo es menor
+que todos los que tiene por debajo,
+
+00:11:14.788 --> 00:11:18.817
+al parecer, si sabes matemáticas,
+puedes derivar que la raíz
+
+00:11:18.824 --> 00:11:20.383
+tiene que ser el mínimo.
+
+00:11:20.383 --> 00:11:24.715
+Y una implementación muy típica
+es una <i>heap</i> binaria,
+
+00:11:24.715 --> 00:11:26.470
+que es lo que vamos a ver ahora.
+
+00:11:27.732 --> 00:11:30.896
+También tiene
+una característica de trivia,
+
+00:11:30.896 --> 00:11:34.312
+que es un árbol binario completo,
+que quiere decir que los niveles
+
+00:11:34.312 --> 00:11:36.888
+se rellenan de izquierda a derecha
+
+00:11:36.888 --> 00:11:38.934
+y de arriba a abajo,
+y vas rellenando nodos.
+
+00:11:38.934 --> 00:11:40.917
+Nunca hay huequecitos a mitad del árbol.
+
+00:11:40.917 --> 00:11:43.246
+Y esto, de hecho, es parte
+del algoritmo de <i>heapsort</i>,
+
+00:11:43.246 --> 00:11:46.698
+esto que se estudia cuando te toca,
+de algoritmos de ordenación.
+
+00:11:46.698 --> 00:11:50.053
+Se inventó esta estructura de datos
+para implementar el algoritmo.
+
+00:11:50.056 --> 00:11:53.946
+También tenemos una <i>max-heap</i>,
+que es lo mismo pero el opuesto.
+
+00:11:53.946 --> 00:11:56.706
+Todo nodo es mayor o igual
+que todos sus descendientes.
+
+00:11:59.199 --> 00:12:01.356
+Algo importante es
+que no hay relación alguna
+
+00:12:01.356 --> 00:12:03.569
+entre los nodos de un mismo nivel.
+
+00:12:03.573 --> 00:12:07.009
+Tú solamente sabes en una <i>heap</i>
+qué relación tienes con tus ancestros
+
+00:12:07.013 --> 00:12:08.549
+y con tus descendientes.
+
+00:12:08.549 --> 00:12:11.139
+Es decir, 2 y 5 no tienen
+ningún tipo de relación,
+
+00:12:11.147 --> 00:12:14.379
+no saben nada el uno del otro,
+igual que los nietos de la raíz, ¿no?
+
+00:12:14.379 --> 00:12:16.970
+Lo único que nos importa en la <i>heap</i>
+es que el mínimo,
+
+NOTE Paragraph
+
+00:12:16.970 --> 00:12:18.510
+(Y esa es la visión que nosotros
+tenemos desde fuera),
+
+00:12:18.515 --> 00:12:20.730
+el mínimo es la raíz.
+
+00:12:21.405 --> 00:12:23.084
+¿Y por qué me importa todo esto?
+
+00:12:26.431 --> 00:12:30.109
+Porque ¿cuánto cuesta
+conseguir la raíz en una <i>heap</i>?
+
+00:12:30.109 --> 00:12:32.736
+Pues, bueno, hemos dicho
+que como la invariante de una <i>heap</i>
+
+00:12:32.736 --> 00:12:37.370
+es que el mínimo está en la raíz,
+cuando quiero el mínimo de una <i>heap</i>,
+
+00:12:37.375 --> 00:12:39.876
+lo que digo es "Dame la raíz", ya está.
+
+00:12:39.876 --> 00:12:42.092
+¿Quieres el mínimo? El mínimo
+de todos esos elementos
+
+00:12:42.092 --> 00:12:44.350
+porque se deriva de la invariante,
+es [el] que está en la raíz.
+
+00:12:44.350 --> 00:12:48.838
+Voy a la raíz y ahí tengo el mínimo
+y eso es tiempo constante.
+
+00:12:50.753 --> 00:12:52.211
+¿Cómo se borra la raíz?
+
+00:12:52.215 --> 00:12:55.443
+Es decir, si quiero el mínimo
+y quiero sacar el mínimo...
+
+00:12:55.443 --> 00:12:56.490
+¿Esto suena bien?
+
+00:12:56.490 --> 00:12:58.595
+Y quiero sacar el mínimo
+de mi conjunto de datos,
+
+00:12:58.602 --> 00:13:00.174
+lo que quiero hacer es borrar la raíz.
+
+00:13:00.174 --> 00:13:02.052
+¿Cuánto cuesta hacer un borrado
+de una raíz?
+
+00:13:02.052 --> 00:13:05.312
+Muy bien, lo que tenemos que hacer
+es que... cuando eliminamos un valor,
+
+00:13:05.315 --> 00:13:07.378
+lo que hacemos es que lo
+rellenamos con el último,
+
+00:13:07.378 --> 00:13:09.812
+pero lo que pasa es que eso
+puede que rompa la invariante.
+
+00:13:09.818 --> 00:13:11.688
+Entonces lo que hacemos
+es que rebalanceamos...
+
+00:13:11.690 --> 00:13:13.213
+Lo que hacemos es restaurarla.
+
+00:13:13.213 --> 00:13:14.643
+Y es más fácil verlo con un ejemplo.
+
+00:13:14.646 --> 00:13:16.414
+Digamos que yo tenía mi conjunto
+de números y digo:
+
+00:13:16.414 --> 00:13:17.194
+"Quita el 1".
+
+00:13:17.194 --> 00:13:19.174
+Entonces borramos el 1.
+
+00:13:19.174 --> 00:13:21.406
+Estonces lo que hacemos es que lo
+rellenamos con el último del árbol,
+
+00:13:21.406 --> 00:13:25.187
+cojo el 7 y el 7 se va ahora
+al sitio donde estaba la raíz.
+
+00:13:25.191 --> 00:13:26.725
+Ahora 7 es la nueva raíz.
+
+00:13:26.734 --> 00:13:28.350
+Pero hemos dicho, un momento,
+
+00:13:28.350 --> 00:13:30.590
+esto puede que deje
+de satisfacer la invariante.
+
+00:13:30.595 --> 00:13:32.740
+Entonces, tenemos que comprobar
+y lo que hacemos es que lo comparamos
+
+00:13:32.746 --> 00:13:35.069
+con el menor de los dos hijos que tiene.
+
+00:13:35.069 --> 00:13:37.529
+Tiene un 2 y tiene un 5,
+¿cuál es el mínimo de 2 y 5?
+
+00:13:37.532 --> 00:13:39.994
+Es 2. Entonces, lo que hacemos
+es que comparamos.
+
+00:13:39.994 --> 00:13:41.831
+¿Es 7 menor que 2? No.
+
+00:13:41.831 --> 00:13:45.858
+Entonces, tenemos que cambiarlos,
+y entonces 7 ocupa el lugar de 2
+
+00:13:45.867 --> 00:13:47.110
+y 2 pasa a la raíz.
+
+00:13:47.115 --> 00:13:49.445
+Y ahora repetimos lo mismo otra vez.
+
+00:13:49.445 --> 00:13:52.194
+Muy bien, 7. Compárate con 9 y con 4.
+
+00:13:52.198 --> 00:13:54.042
+4 es el menor de esos dos valores.
+
+00:13:54.042 --> 00:13:58.714
+¿Eres menor que 4, 7? No.
+Entonces tenemos que cambiarlo.
+
+00:13:58.714 --> 00:14:02.823
+Y lo hacemos y hemos restaurado
+la invariante en la <i>heap</i>.
+
+00:14:02.823 --> 00:14:07.206
+Esto, en términos
+de complejidad logarítmica...
+
+00:14:09.264 --> 00:14:13.743
+Bueno, esto es logarítmico
+porque tenemos que repetir
+
+00:14:13.743 --> 00:14:15.783
+lo máximo tantas veces
+como niveles hay en el árbol,
+
+00:14:15.790 --> 00:14:17.510
+con lo cual, eso es logarítmico.
+
+00:14:17.510 --> 00:14:18.425
+Y la inserción.
+
+00:14:18.425 --> 00:14:20.484
+Pues, para la inserción lo que hacemos
+es que, como hemos dicho
+
+00:14:20.484 --> 00:14:22.514
+que es un árbol binario completo,
+vamos de izquierda a derecha,
+
+00:14:22.514 --> 00:14:26.434
+lo que hacemos es que lo insertamos
+en el último hueco que haya.
+
+00:14:26.434 --> 00:14:28.926
+Y de nuevo tenemos que comprobar
+si satisface la invariante,
+
+00:14:28.927 --> 00:14:30.227
+y si no es así, lo reparamos.
+
+00:14:30.228 --> 00:14:31.648
+Es decir, nos llega un nuevo valor.
+
+00:14:31.648 --> 00:14:34.662
+Nos va a llegar y vamos a ponerlo
+en el último hueco, es un 3.
+
+00:14:34.662 --> 00:14:36.151
+Entonces ahora, de nuevo, comparamos,
+
+00:14:36.151 --> 00:14:37.510
+pero ahora, en este caso, hacia arriba.
+
+00:14:37.510 --> 00:14:41.174
+3, ¿eres menor que 5?
+
+00:14:41.251 --> 00:14:43.773
+Es decir, ¿es 5 menor que 3?
+porque ésa es la invariante.
+
+00:14:43.779 --> 00:14:45.382
+No. Entonces yo los cambio.
+
+00:14:45.382 --> 00:14:47.094
+Y ahora llegamos aquí y de nuevo.
+
+00:14:47.097 --> 00:14:48.601
+Ahora 3, compárate.
+
+00:14:48.601 --> 00:14:49.391
+¿Es 2 menor que 3?
+
+00:14:49.400 --> 00:14:51.313
+En este caso sí, con lo cual
+podemos parar ahí.
+
+00:14:51.313 --> 00:14:54.675
+Y entonces hemos satisfecho
+nuestra invariante.
+
+00:14:57.825 --> 00:14:59.334
+Y esto tiene unas implicaciones
+muy importantes
+
+00:14:59.334 --> 00:15:01.569
+porque lo que quiere decir
+es que podemos
+
+00:15:01.569 --> 00:15:03.705
+añadir valores a una <i>heap</i>
+y eliminar el mínimo,
+
+00:15:03.713 --> 00:15:07.226
+que es lo que nos interesa de ella, en
+ambos casos [en] tiempo logarítmico.
+
+00:15:07.231 --> 00:15:09.535
+Y básicamente, esto soluciona
+un montón de problemas,
+
+00:15:09.535 --> 00:15:11.205
+esto es lo que necesitábamos.
+
+00:15:11.205 --> 00:15:13.178
+Tiene un montón de aplicaciones,
+como por ejemplo <i>heapsort</i>,
+
+00:15:13.182 --> 00:15:14.278
+que [ya] lo hemos dicho,
+
+00:15:14.278 --> 00:15:16.713
+es fundamental para la implementación
+del algoritmo de Dijkstra;
+
+00:15:16.713 --> 00:15:21.111
+y también en una cosa que, bueno,
+cuando tienes varios ficheros ordenados ya
+
+00:15:21.114 --> 00:15:23.011
+y quieres generar
+un único fichero ordenado,
+
+00:15:23.011 --> 00:15:24.925
+también se hace utilizando <i>heaps</i>.
+
+00:15:26.252 --> 00:15:28.179
+Mi señor está un poco más contento.
+
+00:15:29.066 --> 00:15:31.390
+Esto lo vamos a ver solamente por encima...
+esto lleva mucho tiempo.
+
+00:15:31.392 --> 00:15:34.632
+Esto podría ser una asignatura entera,
+pero vamos a hacernos una idea.
+
+00:15:37.211 --> 00:15:38.951
+La idea original de implementar una <i>heap</i>
+hemos dicho que es un árbol.
+
+00:15:38.951 --> 00:15:40.750
+Muy bien, impleméntalo como un árbol.
+
+00:15:40.756 --> 00:15:42.861
+Entonces, tendríamos nuestra clase...
+
+00:15:42.861 --> 00:15:45.705
+Pues, bueno, yo empezaría con un nodo,
+con mi clase nodo
+
+00:15:45.705 --> 00:15:49.379
+que tiene dos atributos, que serían
+el hijo de la izquierda
+
+00:15:49.382 --> 00:15:52.663
+y el hijo de la derecha
+y lo utilizaría así.
+
+00:15:52.663 --> 00:15:54.842
+Tengo mi nodo, entonces
+le asigno cuál es su hijo de la izquierda,
+
+00:15:54.843 --> 00:15:56.188
+cuál es el hijo de la derecha
+
+00:15:56.188 --> 00:15:58.802
+y podría establecer la relación
+entre los nodos así.
+
+00:15:58.807 --> 00:16:02.364
+Y con eso, ya implementaría mi <i>heap</i> binaria,
+que tendría sus tres operaciones.
+
+00:16:02.368 --> 00:16:04.653
+Ahora, el problema es que
+cuando te sientas a implementarlo
+
+00:16:04.653 --> 00:16:09.917
+esto muy difícil porque ¿cómo sabes
+cuál es el último hueco en la <i>heap</i>?
+
+00:16:09.917 --> 00:16:12.112
+De hecho, vamos a verlo simplemente
+con un ejemplo.
+
+00:16:12.112 --> 00:16:15.632
+Si yo te digo "Muy bien,
+vamos a insertar un valor,
+
+00:16:15.632 --> 00:16:17.883
+ahora tienes que insertarlo en el último hueco".
+
+00:16:17.886 --> 00:16:19.125
+¿Cómo sabes cómo se llega ahí?
+
+00:16:19.125 --> 00:16:21.034
+Es decir, si yo te digo, "vas a insertar
+ahora en esta <i>heap</i> binaria
+
+00:16:21.035 --> 00:16:22.101
+un nuevo número ahí".
+
+00:16:22.101 --> 00:16:24.334
+¿Cómo sabes que en mi implementación
+en Python tengo que ir a la raíz,
+
+00:16:24.334 --> 00:16:27.132
+tengo que tomar el caminito de la derecha,
+para llegar al 5,
+
+00:16:27.132 --> 00:16:29.454
+y luego que el siguiente hueco
+está a la derecha?
+
+00:16:29.461 --> 00:16:32.872
+Resulta que es muy difícil,
+o al menos no inmediato.
+
+00:16:32.876 --> 00:16:34.705
+No es que <i>no</i> se pueda solucionar.
+
+00:16:34.705 --> 00:16:37.893
+De hecho, hay una cosa que se llaman
+los árboles que tienen hilos,
+
+00:16:37.901 --> 00:16:41.419
+[donde] lo que haces es que mantienes punteros
+o referencias a cuál es básicamente
+
+00:16:41.419 --> 00:16:42.793
+esa posición que te va a hacer falta luego
+
+00:16:42.793 --> 00:16:45.534
+y tienes que asegurarte de mantenerlo
+todo en todo momento actualizado,
+
+00:16:45.538 --> 00:16:46.872
+o puedes usar un...
+
+00:16:46.881 --> 00:16:50.972
+Hay un artículo muy chulo
+de Paul Picazo, en el que implementa
+
+00:16:50.972 --> 00:16:52.903
+otra forma de solucionar este problema.
+
+00:16:52.912 --> 00:16:54.933
+Pero la cosa es que no es fácil.
+
+00:16:54.933 --> 00:16:57.423
+Y la alternativa, de hecho, que es el truco…
+
+00:16:57.423 --> 00:16:59.108
+No lo utilizan así los ordenadores.
+
+00:16:59.108 --> 00:17:01.240
+Lo que utilizamos hoy día
+realmente son listas,
+
+00:17:01.240 --> 00:17:06.622
+utilizamos <i>arrays</i> y básicamente
+no tenemos tiempo para entenderlo bien
+
+00:17:06.622 --> 00:17:09.434
+pero la idea básicamente
+es que aplanamos esa <i>heap</i>
+
+00:17:09.434 --> 00:17:11.593
+y entonces tenemos
+todos los valores puestos en fila.
+
+00:17:11.600 --> 00:17:14.312
+Entonces, la raíz, por ejemplo,
+es el primer valor,
+
+00:17:14.312 --> 00:17:16.362
+sus dos hijos son el segundo
+y tercer elemento
+
+00:17:16.362 --> 00:17:20.783
+y puedes utilizar matemáticas
+para moverte entre los diferentes índices,
+
+00:17:20.783 --> 00:17:23.562
+que es básicamente la fórmula,
+que siempre se te olvida
+
+00:17:23.566 --> 00:17:27.113
+y vas a buscarla cuando te hace falta
+y entonces, con esta fórmula,
+
+00:17:27.116 --> 00:17:30.294
+tú en un árbol puedes moverte
+a sus ancestros y a sus descendientes
+
+00:17:30.294 --> 00:17:31.513
+estando en un nodo.
+
+00:17:31.517 --> 00:17:35.954
+Y así es como realmente se implementan
+y resulta que si utilizas esta implementación
+
+00:17:35.954 --> 00:17:38.334
+las dos preguntas que teníamos
+[ya no son] muy difíciles
+
+00:17:38.334 --> 00:17:41.787
+porque si dices "Muy bien,
+¿cuál era el último nodo en este árbol?"
+
+00:17:41.787 --> 00:17:44.334
+Muy bien, el último nodo
+es el último elemento, menos 1.
+
+00:17:44.334 --> 00:17:45.901
+Eso yo lo sé hacer en Python.
+
+00:17:45.902 --> 00:17:47.393
+Y del mismo modo,
+¿cuál es el último elemento
+
+00:17:47.393 --> 00:17:48.542
+si yo quiero añadir uno nuevo?
+
+00:17:48.542 --> 00:17:51.693
+Pues, simplemente, hago un <i>append()</i>.
+Ya está. Esos dos problemas se solucionan,
+
+00:17:51.694 --> 00:17:54.737
+lo cual nos lleva a las <i>heaps</i> en Python.
+
+00:17:54.737 --> 00:17:58.230
+Las <i>heaps</i> en Python [son] una <i>min-heap</i>,
+como hemos dicho, es decir,
+
+00:17:58.231 --> 00:18:01.952
+el mínimo está siempre en la raíz
+y la cosa es que la librería estándar,
+
+00:18:01.952 --> 00:18:05.114
+podemos mirar luego a Pablo [Galindo],
+no lo encapsula en su propia clase,
+
+00:18:05.118 --> 00:18:07.029
+tenemos que nosotros trabajar con lista,
+
+00:18:07.029 --> 00:18:10.285
+pero era útil aprender por qué
+[existe] esta implementación en lista,
+
+00:18:10.285 --> 00:18:12.177
+porque ahora entendemos
+por qué se hace así.
+
+00:18:12.177 --> 00:18:14.529
+Cuando tú trabajas con una <i>heap</i> en Python,
+lo que tienes que hacer es...
+
+00:18:14.539 --> 00:18:17.333
+tú tienes esa lista 
+y esa lista es la que manipulas
+
+00:18:17.333 --> 00:18:20.498
+utilizando las funciones del módulo <i>heapq</i>.
+
+00:18:22.515 --> 00:18:24.895
+Yo creo que esto se merece
+estar en su propia clase
+
+00:18:25.904 --> 00:18:28.973
+porque nos daría un poquito más
+de nivel de abstracción.
+
+00:18:28.973 --> 00:18:30.642
+Es decir, ¿cómo trabajo en Python
+con una <i>heap</i>?
+
+00:18:30.644 --> 00:18:33.041
+¿Cómo creo una <i>heap</i> vacía en Python?
+
+00:18:33.041 --> 00:18:35.172
+Pues, creo una lista vacía. Ya.
+
+00:18:35.172 --> 00:18:38.485
+¿Cómo añado un nuevo elemento a la <i>heap</i>?
+
+00:18:38.704 --> 00:18:42.069
+Pues, utilizo una función del módulo <i>heapq</i>
+que se llama <i>heappush()</i>
+
+00:18:42.069 --> 00:18:44.192
+y entonces lo que digo es
+"Muy bien, quiero insertar
+
+00:18:44.192 --> 00:18:47.354
+tres valores en mi <i>heap</i>".
+Inserto un 5, un 2 y un 3.
+
+00:18:47.354 --> 00:18:50.771
+Pues, si imprimimos la lista por pantalla,
+podemos ver que tiene tres valores.
+
+00:18:51.853 --> 00:18:53.716
+Lo único que nos importa
+es lo que hemos dicho:
+
+00:18:53.716 --> 00:18:57.596
+la invariante de la <i>heap</i>, ¿no?,
+Sabemos que
+
+00:18:57.601 --> 00:19:00.187
+el mínimo va a ser siempre
+el primer elemento de esa lista.
+
+00:19:00.475 --> 00:19:02.442
+Del mismo modo,
+si queremos encontrar el mínimo,
+
+00:19:02.442 --> 00:19:05.084
+lo que hacemos es que cogemos
+el primer elemento de la lista
+
+00:19:05.084 --> 00:19:06.725
+y esta ahí, tiempo constante.
+
+00:19:06.726 --> 00:19:10.415
+Y si queremos eliminar la raíz,
+del mismo modo,
+
+00:19:10.415 --> 00:19:12.182
+hay una función que se llama <i>heappop()</i>
+
+00:19:12.182 --> 00:19:15.733
+y lo que hace es eliminar la raíz
+sin romper la invariante.
+
+00:19:16.018 --> 00:19:18.912
+De hecho, hay una optimización
+que es que si quieres añadir
+
+00:19:18.917 --> 00:19:21.565
+un elemento y borrar otro,
+en el caso de, por ejemplo,
+
+00:19:21.569 --> 00:19:25.663
+lo que necesitábamos en nuestro problema,
+mantener solamente <i>n</i> en memoria,
+
+00:19:25.667 --> 00:19:27.712
+hay una función que lo hace
+en un único paso
+
+00:19:27.721 --> 00:19:30.104
+y ese único paso es más rápido.
+
+00:19:30.104 --> 00:19:32.243
+Hay otra función, <i>heapify()</i>,
+que lo que hace es que coge
+
+00:19:32.243 --> 00:19:35.481
+una serie de valores y te los convierte
+<i>in place</i>, donde están,
+
+00:19:35.481 --> 00:19:40.108
+sin hacer una copia extra,
+te los reordena para que sean una <i>heap</i>.
+
+00:19:42.405 --> 00:19:44.461
+Advertencia obligatoria
+es que tenemos siempre que utilizar
+
+00:19:44.461 --> 00:19:47.799
+para manipular una <i>heap</i>,
+las funciones del módulo <i>heapq</i>,
+
+00:19:47.799 --> 00:19:51.815
+porque si nosotros a mano
+hacemos un <i>append()</i> ahí en nuestra <i>heap</i>,
+
+00:19:51.823 --> 00:19:53.155
+lo que pasa es que la rompemos,
+
+00:19:53.163 --> 00:19:55.438
+porque entonces ahora ya el 1 no está...
+
+00:19:55.438 --> 00:19:58.050
+El 1, en una <i>heap</i>, 
+estaría en la primera posición,
+
+00:19:58.050 --> 00:20:00.450
+porque ahora es el nuevo mínimo
+de la serie de valores.
+
+00:20:00.450 --> 00:20:04.454
+Entonces, hay que utilizar siempre
+las funciones de <i>heapq</i>.
+
+00:20:05.940 --> 00:20:08.252
+Mi señor está un poco más contento.
+
+00:20:11.503 --> 00:20:12.469
+Dos trivias.
+
+00:20:12.469 --> 00:20:13.540
+¿Qué son las <i>max-heaps</i>?
+
+00:20:13.547 --> 00:20:16.140
+Bueno, hemos dicho que las <i>heaps</i>
+en Python son mínimas.
+
+00:20:16.144 --> 00:20:18.163
+¿Qué pasa si lo que quiero
+es una <i>max-heap</i>?
+
+00:20:18.163 --> 00:20:20.917
+¿Qué pasa si lo yo que quiero realmente
+es que en la raíz esté el máximo, no el mínimo?
+
+00:20:20.917 --> 00:20:24.019
+Pues, lo que hacemos para solucionarlo
+es que negamos los valores.
+
+00:20:24.230 --> 00:20:25.922
+Es un truco [que] se ve muchísimo
+
+00:20:25.922 --> 00:20:29.109
+y lo que hace es que si es el inverso
+lo que almaceno,
+
+00:20:29.110 --> 00:20:30.579
+el mínimo va a ser el máximo.
+
+00:20:30.579 --> 00:20:33.478
+Entonces, lo que haríamos sería negarlos
+tanto cuando los insertáramos
+
+00:20:33.483 --> 00:20:34.798
+como cuando los sacáramos.
+
+00:20:34.807 --> 00:20:36.641
+Y este truco llega a hacer falta.
+
+00:20:36.641 --> 00:20:40.518
+Y muy bien, finalmente, volvemos
+a nuestro problema. Y era...
+
+00:20:40.518 --> 00:20:42.390
+Muy bien, pues entonces voy a usar una <i>heap</i> .
+
+00:20:42.390 --> 00:20:45.020
+Lo que voy a hacer es que voy a usar una <i>heap</i>
+
+00:20:45.020 --> 00:20:47.548
+que tiene los <i>k</i> mayores valores
+
+00:20:47.548 --> 00:20:51.389
+del fichero y entonces, cada vez
+que veo un nuevo valor, voy a...
+
+00:20:51.391 --> 00:20:53.338
+De hecho, esta solución es
+intuitivamente muy fácil,
+
+00:20:53.340 --> 00:20:55.561
+porque si me dices que la <i>heap</i>
+tiene siempre
+
+00:20:55.561 --> 00:20:59.471
+los <i>n</i> mayores valores que yo quiero,
+cada vez que veo un nuevo valor
+
+00:20:59.475 --> 00:21:01.990
+solo tengo que meterlo
+en la <i>heap</i> y sacar uno
+
+00:21:01.990 --> 00:21:05.449
+o puedo simplemente comparar,
+¿es este valor menor que...?
+
+00:21:05.449 --> 00:21:07.079
+Un segundo...
+
+00:21:07.079 --> 00:21:10.139
+Sí, es lo que hacemos en nuestra solución,
+cada vez que veo un valor,
+
+00:21:10.151 --> 00:21:12.820
+cojo el nuevo valor, lo añado
+a la <i>heap</i> y saco uno,
+
+00:21:12.820 --> 00:21:15.007
+y como ese "sacar uno"
+va a ser siempre el mínimo,
+
+00:21:15.007 --> 00:21:18.730
+se deriva que siempre vamos a tener
+en memoria, los <i>k</i> que son mayores
+
+00:21:18.736 --> 00:21:21.421
+y si hacemos nuestro cálculo
+de complejidades,
+
+00:21:21.421 --> 00:21:25.032
+nos sale que esto es <i>mucho</i> mejor
+porque esto es <i>O(k log n)</i>,
+
+00:21:25.472 --> 00:21:28.590
+y si <i>k</i> fuera una función de <i>n</i>,
+es decir, si dijéramos eso de
+
+00:21:28.593 --> 00:21:31.520
+"Dame todos los valores por encima o
+por debajo de la mediana".
+
+00:21:31.524 --> 00:21:33.671
+Entonces, en ese caso es <i>O(n log n)</i>
+
+00:21:33.675 --> 00:21:36.608
+que es muchísimo mejor que cuadrático y...
+
+00:21:38.660 --> 00:21:39.410
+... muchísimo mejor que cuadrático.
+
+00:21:39.410 --> 00:21:41.590
+Y ¿cuál es la última transparencia?
+
+00:21:41.591 --> 00:21:43.508
+La última transparencia
+es que esto está muy bien
+
+00:21:43.508 --> 00:21:46.564
+pero realmente, tenemos una función
+en la librería estándar
+
+00:21:46.574 --> 00:21:50.010
+que hace exactamente esto
+y se llama <i>nlargest()</i>
+
+00:21:50.010 --> 00:21:54.188
+y <i>nsmallest()</i> y son dos funciones
+que hacen exactamente esto.
+
+00:21:54.188 --> 00:21:57.003
+Hemos manipulado la <i>heap</i> nosotros
+
+00:21:57.003 --> 00:22:00.033
+y esto es un problema tan habitual
+que en la librería estándar lo tenemos
+
+00:22:00.033 --> 00:22:02.788
+y lo que hace la librería estándar
+es que nos ofrece estas dos funciones.
+
+00:22:02.793 --> 00:22:08.398
+Internamente usa una <i>heap</i>
+para encontrar los <i>k</i> valores
+
+00:22:08.399 --> 00:22:10.248
+que son mayores o menores.
+
+00:22:10.516 --> 00:22:13.258
+De hecho, la documentación te dice
+que esto es equivalente
+
+00:22:13.258 --> 00:22:16.397
+a lo que decíamos de ordenar todo
+y luego hacer un <i>slice</i>
+
+00:22:16.397 --> 00:22:18.648
+para coger los <i>k</i> valores que quisiéramos.
+
+00:22:18.837 --> 00:22:21.149
+De hecho, también tiene
+un montón de optimizaciones internas.
+
+00:22:21.151 --> 00:22:23.017
+Si nos vamos al código fuente,
+y es instructivo,
+
+00:22:23.023 --> 00:22:25.731
+[por ejemplo] si el valor de <i>k</i> es 1, lo detecta
+
+00:22:25.731 --> 00:22:28.678
+y automáticamente llama a máximo o a mínimo,
+
+00:22:28.678 --> 00:22:31.008
+porque ¿para qué usar una <i>heap</i>
+si solo quieres uno?
+
+00:22:31.008 --> 00:22:33.401
+Tiene un montón de optimizaciones
+que se han ido añadiendo
+
+00:22:33.401 --> 00:22:34.832
+a lo largo del tiempo.
+
+00:22:34.832 --> 00:22:37.721
+Entonces, nuestra función,
+que era intratable cuando empezamos,
+
+00:22:37.721 --> 00:22:39.802
+se convierte en otra cosa,
+se convierte en...
+
+00:22:39.817 --> 00:22:41.771
+Abre el fichero, recórrete...
+
+00:22:41.950 --> 00:22:44.596
+Bueno, aquí utilizo un generador
+para en una única línea
+
+00:22:44.596 --> 00:22:48.632
+tener acceso a todos los números uno a uno,
+pero básicamente para todos los números.
+
+00:22:50.382 --> 00:22:52.727
+Es decir, este generador
+es un interable, ¿verdad?
+
+00:22:52.727 --> 00:22:54.982
+Entonces, yo le paso este generador
+que me va devolviendo los números
+
+00:22:54.984 --> 00:22:57.314
+uno a uno, se lo paso a <i>nlargest()</i>
+
+00:22:57.314 --> 00:23:01.440
+y entonces me va a devolver
+los <i>k</i> valores que son mayores.
+
+00:23:03.461 --> 00:23:04.461
+(risas)
+
+00:23:04.461 --> 00:23:05.725
+Está contento.
+
+00:23:06.826 --> 00:23:08.600
+¿Cuál es el resumen?
+
+00:23:08.600 --> 00:23:10.991
+El resumen es que con una <i>heap</i> podemos...
+
+00:23:11.236 --> 00:23:14.729
+Una <i>heap</i> nos importa
+porque nos permite encontrar,
+
+00:23:14.734 --> 00:23:18.235
+en este caso, en nuestro problema,
+los <i>k</i> valores menores o mayores
+
+00:23:18.235 --> 00:23:20.842
+en tiempo <i>O(k log n)</i>
+que eso no solamente
+
+00:23:20.842 --> 00:23:24.100
+es más rápido que las alternativas.
+
+00:23:24.275 --> 00:23:27.022
+De hecho, es la única solución posible
+si no cabe en memoria,
+
+00:23:27.024 --> 00:23:29.213
+porque si no cabe en memoria,
+no puedo ordenar.
+
+00:23:30.828 --> 00:23:34.260
+Otro ejemplo sería también
+que no tenemos toda la información.
+
+00:23:34.265 --> 00:23:39.464
+Hablando del pensar dinámico,
+no estático, una forma de ver el
+
+00:23:39.464 --> 00:23:42.007
+"No puedo cargar toda la información
+en memoria",
+
+00:23:42.007 --> 00:23:43.975
+a lo mejor no es porque no quepa,
+a lo mejor es porque no la tengo.
+
+00:23:43.980 --> 00:23:45.693
+¿Qué pasa si los valores
+me van llegando uno a uno?
+
+00:23:45.693 --> 00:23:48.625
+[Por ejemplo] son eventos asíncronos
+en algún servidor o algo raro.
+
+00:23:48.625 --> 00:23:50.430
+Entonces a mí me llegan los valores
+uno a uno,
+
+00:23:50.430 --> 00:23:51.964
+¿cómo voy a ordenar algo
+que no he visto todavía?
+
+00:23:51.964 --> 00:23:54.836
+Con lo cual, yo utilizaría una <i>heap</i>
+para mantener esos valores en memoria.
+
+00:23:54.836 --> 00:23:57.814
+Hemos hablado de las <i>heaps</i> binarias
+pero hay un montón más,
+
+00:23:57.814 --> 00:24:02.328
+como las <i>heaps</i> de Fibonacci,
+las de Brodal, las de 2-3.
+
+00:24:03.458 --> 00:24:05.686
+De hecho, tienen optimizaciones
+por encima de las <i>heaps</i>
+
+00:24:05.686 --> 00:24:07.335
+que ya hemos visto.
+
+00:24:07.335 --> 00:24:10.424
+Y la lección, lo único
+que hay que recordar de esto
+
+00:24:10.424 --> 00:24:14.452
+es que si en algún momento, algún día,
+en algún universo tenemos que encontrar
+
+00:24:14.452 --> 00:24:20.514
+los <i>k</i> valores mayores o menores
+de una serie de valores que tengamos,
+
+00:24:20.514 --> 00:24:23.254
+la solución es usar una <i>heap</i>
+y tenemos una función en Python
+
+00:24:23.260 --> 00:24:25.308
+que hace eso [por] nosotros.
+
+00:24:26.171 --> 00:24:27.448
+Y he terminado.
+
+00:24:28.118 --> 00:24:29.745
+¡Me ha sobrado un minuto!
