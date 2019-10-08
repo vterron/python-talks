@@ -1,4 +1,9 @@
-The Jupyter notebook of my talk at [PyDay Tenerife 2018](https://pythoncanarias.es/events/pydaytf18/) (Tenerife, Spain). You can [view it online with nbviewer][nbviewer].
+The Jupyter notebook of my talk on hashable objects. You can [view it online with nbviewer][nbviewer].
+
+Events at which I've given this talk:
+
+- [PyDay Tenerife 2018](https://pythoncanarias.es/events/pydaytf18/) (Tenerife, Spain). 
+- [PyConES 2019](https://2019.es.pycon.org/) (Alicante, Spain)
 
 [![Front slide](./images/Cover.jpg)][nbviewer]
 
