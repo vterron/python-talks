@@ -1,3 +1,5 @@
+**URL:** [vterron.xyz/hash](http://vterron.xyz/hash)
+
 The Jupyter notebook of my talk on hashable objects. You can [view it online with nbviewer][nbviewer].
 
 Events at which I've given this talk:
