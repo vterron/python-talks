@@ -1,8 +1,6 @@
 #SHELL := /bin/bash
 
 NOTEBOOK_FILE=python-hashable.ipynb
-NBCONVERT_OPTS=--SlidesExporter.reveal_transition=none \
-	       --reveal-prefix=https://cdn.jsdelivr.net/reveal.js/3.0
 
 # Find out the module we need for the HTTP server, depending on the Python
 # version. [Source: https://stackoverflow.com/a/4933395]
@@ -16,11 +14,14 @@ MODULE.PYTHON.3 := http.server
 all : slides
 
 slides: ${NOTEBOOK_FILE}
-	jupyter nbconvert ${NOTEBOOK_FILE} --to slides ${NBCONVERT_OPTS}
+	./slideshow.py ${NOTEBOOK_FILE}
 
 present: slides
 	# Binding to port 0 asks the kernel to allocate us a free port.
 	python -m ${MODULE.PYTHON.${PYTHON_VERSION_MAJOR}} 0
+
+extended: ${NOTEBOOK_FILE}
+	./slideshow.py ${NOTEBOOK_FILE} --extended
 
 clean:
 	rm -fv *html
