@@ -20,7 +20,7 @@ present: slides
 	# Binding to port 0 asks the kernel to allocate us a free port.
 	python -m ${MODULE.PYTHON.${PYTHON_VERSION_MAJOR}} 0
 
-alternative: ${NOTEBOOK_FILE}
+abridged: ${NOTEBOOK_FILE}
 	./slideshow.py ${NOTEBOOK_FILE} --alternative
 
 clean:
