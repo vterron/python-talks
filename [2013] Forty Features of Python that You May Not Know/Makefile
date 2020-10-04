@@ -6,7 +6,7 @@ SHELL := /bin/bash
 PDFLATEX=pdflatex
 PDFLATEX_OPTS=-interaction=nonstopmode -halt-on-error
 
-BASENAME=python-cuarenta
+BASENAME=forty-features
 TEX_FILE=${BASENAME}.tex
 PDF_FILE=${BASENAME}.pdf
 

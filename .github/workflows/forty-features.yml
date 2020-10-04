@@ -3,7 +3,7 @@ name: Compile vterron.xyz/forty Beamer slides to PDF
 on: [push]
 
 env:
-  BASENAME: python-cuarenta
+  BASENAME: forty-features
   WORKING_DIR: "[2013] Forty Features of Python that You May Not Know"
   GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
 
