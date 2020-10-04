@@ -6,11 +6,16 @@ SHELL := /bin/bash
 PDFLATEX=pdflatex
 PDFLATEX_OPTS=-interaction=nonstopmode -halt-on-error
 
-TEX_FILE=python-cuarenta.tex
+BASENAME=python-cuarenta
+TEX_FILE=${BASENAME}.tex
+PDF_FILE=${BASENAME}.pdf
 
 .PHONY: all pdf clean
 
-all : pdf
+all : pdf cover
+
+cover: pdf
+	pdf2svg $(PDF_FILE) pics/cover.svg
 
 pdf: $(TEX_FILE)
 	$(PDFLATEX) $(PDFLATEX_OPTS) $(TEX_FILE)
