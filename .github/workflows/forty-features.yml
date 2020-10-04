@@ -1,0 +1,52 @@
+name: Compile vterron.xyz/forty Beamer slides to PDF
+
+on: [push]
+
+env:
+  BASENAME: python-cuarenta
+  WORKING_DIR: "[2013] Forty Features of Python that You May Not Know"
+  GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
+
+jobs:
+  build_job:
+    name: Build PDF slides
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git repository checkout
+        uses: actions/checkout@v2
+
+      - name: LaTeX compilation
+        uses: dante-ev/latex-action@master
+        with:
+          root_file: ${{ env.BASENAME }}.tex
+          working_directory: ${{ env.WORKING_DIR }}
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: slides-pdf
+          # The path hierarchy is preserved after the first wildcard pattern.
+          path: "**/${{ env.BASENAME }}.pdf"
+
+  upload_job:
+    name: Upload PDF slides
+    needs: build_job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Cloud SDK
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.GCS_SA_KEY }}
+          project_id: ${{ secrets.GCS_PROJECT }}
+          export_default_credentials: true
+
+      - name: Download PDF artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: slides-pdf
+
+      - name: Upload PDF slides to Google Cloud Storage
+        working-directory: ${{ env.WORKING_DIR }}
+        run: |-
+          gsutil cp ${{ env.BASENAME }}.pdf gs://$GCS_BUCKET
+          gsutil acl ch -u AllUsers:R gs://$GCS_BUCKET/${{ env.BASENAME }}.pdf
