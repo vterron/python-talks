@@ -8,4 +8,4 @@ They are also [available as a PDF][pdf], always up-to-date via [a GitHub action]
 - Language: Spanish
 - License: [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
 
-[pdf]: http://static.vterron.xyz/forty-features.pdf
+[pdf]: https://static.vterron.xyz/forty-features.pdf
