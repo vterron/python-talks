@@ -5,12 +5,12 @@ on: [push]
 env:
   BASENAME: forty-features
   WORKING_DIR: "[2013] Forty Features of Python that You May Not Know"
-  GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
 
 jobs:
   build_job:
     name: Build PDF slides
     runs-on: ubuntu-latest
+
     steps:
       - name: Git repository checkout
         uses: actions/checkout@v2
@@ -32,21 +32,21 @@ jobs:
     name: Upload PDF slides
     needs: build_job
     runs-on: ubuntu-latest
+
     steps:
-      - name: Setup Cloud SDK
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          service_account_key: ${{ secrets.GCS_SA_KEY }}
-          project_id: ${{ secrets.GCS_PROJECT }}
-          export_default_credentials: true
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Download PDF artifact
         uses: actions/download-artifact@v2
         with:
           name: slides-pdf
 
-      - name: Upload PDF slides to Google Cloud Storage
+      - name: Upload PDF slides to Amazon S3
         working-directory: ${{ env.WORKING_DIR }}
-        run: |-
-          gsutil cp ${{ env.BASENAME }}.pdf gs://$GCS_BUCKET
-          gsutil acl ch -u AllUsers:R gs://$GCS_BUCKET/${{ env.BASENAME }}.pdf
+        run: |
+          aws s3 cp ${{ env.BASENAME }}.pdf ${{ secrets.AWS_S3_BUCKET }}
