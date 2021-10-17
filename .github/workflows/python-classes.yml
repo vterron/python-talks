@@ -1,0 +1,62 @@
+name: Compile vterron.xyz/classes Beamer slides to PDF
+
+on: [push]
+
+env:
+  BASENAME: python-classes
+  WORKING_DIR: "[2014] Classes in Python: You're Doing it Wrong"
+
+jobs:
+  build_job:
+    name: Build PDF slides
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git repository checkout
+        uses: actions/checkout@v2
+
+      - name: Install Python 2
+        uses: actions/setup-python@v2
+        with:
+          python-version: '2.7.18'
+
+      - name: Install pdfLaTeX
+        run: sudo apt-get install -y texlive-latex-extra
+
+      - name: LaTeX compilation
+        working-directory: ${{ env.WORKING_DIR }}
+        run: make pdf
+
+        # In upload-artifact action below we can't upload an artifact whose path includes a colon.
+      - name: Move PDF artifact to Git repository root directory.
+        working-directory: ${{ env.WORKING_DIR }}
+        run: mv ${{ env.BASENAME }}.pdf .. -v
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: slides-pdf
+          path: ${{ env.BASENAME }}.pdf
+          if-no-files-found: error
+
+  upload_job:
+    name: Upload PDF slides
+    needs: build_job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Download PDF artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: slides-pdf
+
+      - name: Upload PDF slides to Amazon S3
+        run: |
+          aws s3 cp ${{ env.BASENAME }}.pdf ${{ secrets.AWS_S3_BUCKET }}
