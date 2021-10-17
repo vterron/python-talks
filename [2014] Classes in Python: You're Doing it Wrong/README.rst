@@ -8,6 +8,6 @@ They are also `available as a PDF`__, always up-to-date (via git hooks).
 * Language: Spanish
 * License: `CC BY-SA 4.0 <http://creativecommons.org/licenses/by-sa/4.0/>`_
 
-.. |PDF| image:: ./pics/portada.png
+.. |PDF| image:: ./pics/cover.svg
 .. _PDF: http://www.iaa.es/~vterron/python-clases.pdf
 __ PDF_

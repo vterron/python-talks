@@ -11,11 +11,16 @@ CODE_OUTPUT=output
 PDFLATEX=pdflatex
 PDFLATEX_OPTS=-interaction=nonstopmode -halt-on-error -shell-escape
 
-TEX_FILE=python-clases.tex
+BASENAME=python-clases
+TEX_FILE=${BASENAME}.tex
+PDF_FILE=${BASENAME}.pdf
 
-.PHONY: all pdf clean
+.PHONY: all pdf clean cover
 
-all : pdf
+all : pdf cover
+
+cover: pdf
+	pdf2svg $(PDF_FILE) pics/cover.svg
 
 pdf: $(TEX_FILE)
 	$(OUTPUTS_SCRIPT) $(CODE_ROOT) $(CODE_OUTPUT)
