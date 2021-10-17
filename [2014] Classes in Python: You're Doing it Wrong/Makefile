@@ -11,7 +11,7 @@ CODE_OUTPUT=output
 PDFLATEX=pdflatex
 PDFLATEX_OPTS=-interaction=nonstopmode -halt-on-error -shell-escape
 
-BASENAME=python-clases
+BASENAME=python-classes
 TEX_FILE=${BASENAME}.tex
 PDF_FILE=${BASENAME}.pdf
 
