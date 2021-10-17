@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python2
 
 # Author: Victor Terron (c) 2014
 # Email: `echo vt2rron1iaa32s | tr 132 @.e`
